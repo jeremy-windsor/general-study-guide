@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2563eb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a2e" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GeneralStudy">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>General Class Ham Radio Study</title>
+<style>
+/* ===== CSS RESET & VARIABLES ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f0f4f8;
+  --bg2: #ffffff;
+  --bg3: #e2e8f0;
+  --surface: #ffffff;
+  --border: #cbd5e1;
+  --text: #1e293b;
+  --text2: #536379;
+  --accent: #2563eb;
+  --accent2: #1d4ed8;
+  --green: #22c55e;
+  --red: #ef4444;
+  --yellow: #f59e0b;
+  --blue: #3b82f6;
+  --purple: #8b5cf6;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --transition: 0.2s ease;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+[data-theme="dark"] {
+  --bg: #0f0f1a;
+  --bg2: #1a1a2e;
+  --bg3: #252540;
+  --surface: #16213e;
+  --border: #2d3561;
+  --text: #e2e8f0;
+  --text2: #a3b3c8;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.6);
+}
+
+html { height: 100%; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100%;
+  transition: background var(--transition), color var(--transition);
+  overscroll-behavior: none;
+}
+
+/* ===== LAYOUT ===== */
+#app {
+  max-width: 640px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(60px + var(--safe-top));
+  padding-bottom: calc(72px + var(--safe-bottom));
+}
+
+/* ===== TOP BAR ===== */
+#topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: calc(12px + var(--safe-top)) 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+#topbar-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#topbar-title span { color: var(--accent); }
+#theme-btn {
+  background: var(--bg3);
+  border: none;
+  border-radius: 50%;
+  width: 44px; height: 44px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text);
+  transition: background var(--transition);
+  flex-shrink: 0;
+}
+@media (hover: hover) { #theme-btn:hover { background: var(--border); } }
+
+/* ===== BOTTOM NAV ===== */
+#nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 100;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  padding: 8px 0 calc(8px + var(--safe-bottom));
+}
+.nav-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 2px;
+  color: var(--text2);
+  font-size: 10px;
+  font-weight: 500;
+  transition: color var(--transition);
+  min-height: 52px;
+}
+.nav-btn .nav-icon { font-size: 20px; line-height: 1; }
+.nav-btn.active { color: var(--accent); }
+.nav-btn:active { opacity: 0.7; }
+
+/* ===== PAGES ===== */
+.page { display: none; flex-direction: column; gap: 16px; padding: 16px; }
+.page.active { display: flex; }
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font);
+  transition: all var(--transition);
+  min-height: 50px;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--accent); color: white; }
+@media (hover: hover) { .btn-primary:hover { background: var(--accent2); } }
+.btn-secondary { background: var(--bg3); color: var(--text); }
+@media (hover: hover) { .btn-secondary:hover { background: var(--border); } }
+.btn-green { background: var(--green); color: white; }
+.btn-red { background: var(--red); color: white; }
+.btn-full { width: 100%; }
+
+/* ===== PROGRESS BAR ===== */
+.progress-bar {
+  height: 8px;
+  background: var(--bg3);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+  background: var(--accent);
+}
+.progress-fill.green { background: var(--green); }
+.progress-fill.blue { background: var(--blue); }
+
+/* ===== HOME PAGE ===== */
+.readiness-card {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+  color: white;
+  border: none;
+}
+.readiness-card .card-label { color: rgba(255,255,255,0.8); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.readiness-score { font-size: 64px; font-weight: 800; line-height: 1; margin: 8px 0 4px; }
+.readiness-desc { font-size: 14px; color: rgba(255,255,255,0.85); }
+.readiness-bar { background: rgba(255,255,255,0.25); margin-top: 16px; }
+.readiness-bar .progress-fill { background: white; }
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+}
+.stat-num { font-size: 28px; font-weight: 800; color: var(--accent); }
+.stat-label { font-size: 12px; color: var(--text2); margin-top: 2px; font-weight: 500; }
+
+.quick-btns { display: flex; flex-direction: column; gap: 12px; }
+.quick-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: all var(--transition);
+  -webkit-tap-highlight-color: transparent;
+}
+@media (hover: hover) { .quick-btn:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: var(--shadow); } }
+.quick-btn:active { transform: scale(0.98); }
+.quick-btn-icon { font-size: 32px; width: 52px; height: 52px; background: var(--bg3); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.quick-btn-text { flex: 1; }
+.quick-btn-title { font-size: 16px; font-weight: 700; color: var(--text); }
+.quick-btn-desc { font-size: 13px; color: var(--text2); margin-top: 2px; }
+.quick-btn-arrow { color: var(--text2); font-size: 20px; }
+
+/* ===== SECTION CARDS ===== */
+.section-list { display: flex; flex-direction: column; gap: 10px; }
+.section-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  cursor: pointer;
+  transition: all var(--transition);
+  -webkit-tap-highlight-color: transparent;
+}
+@media (hover: hover) { .section-card:hover { border-color: var(--accent); } }
+.section-card:active { transform: scale(0.98); }
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.section-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.section-count { font-size: 12px; color: var(--text2); font-weight: 500; }
+.section-stats { display: flex; gap: 12px; margin-top: 10px; font-size: 12px; color: var(--text2); }
+.section-stat { display: flex; align-items: center; gap: 4px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.dot-green { background: var(--green); }
+.dot-gray { background: var(--border); }
+.group-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all var(--transition);
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (hover: hover) { .group-card:hover { border-color: var(--accent); } }
+.group-card:active { transform: scale(0.98); }
+.group-card-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.group-card-count { font-size: 12px; color: var(--text2); font-weight: 500; }
+.group-card-stats { display: flex; gap: 8px; font-size: 11px; color: var(--text2); margin-top: 2px; }
+.group-card-left { display: flex; flex-direction: column; gap: 2px; }
+.group-card-all {
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all var(--transition);
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (hover: hover) { .group-card-all:hover { background: var(--accent); color: #fff; } }
+.group-card-all:active { transform: scale(0.98); }
+
+/* ===== FLASHCARD ===== */
+.fc-header { display: flex; align-items: center; gap: 12px; }
+.fc-header-info { flex: 1; }
+.fc-counter { font-size: 14px; color: var(--text2); font-weight: 500; }
+.fc-section-label { font-size: 12px; color: var(--accent); font-weight: 600; }
+.fc-progress { margin: 4px 0; }
+.fc-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  min-height: 220px;
+}
+.fc-qid { font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 8px; }
+.fc-question { font-size: 17px; font-weight: 600; line-height: 1.5; color: var(--text); margin-bottom: 16px; }
+
+.fc-options { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.fc-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-size: 14px;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, opacity 0.25s;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 44px;
+}
+.fc-option.fc-correct { background: rgba(34,197,94,0.15); border-color: var(--green); }
+.fc-option.fc-wrong { opacity: 0.45; }
+.fc-option.fc-selected-wrong { background: rgba(239,68,68,0.15); border-color: var(--red); opacity: 1; }
+.fc-option-letter { font-weight: 700; color: var(--text2); min-width: 20px; flex-shrink: 0; }
+.fc-option.fc-correct .fc-option-letter { color: var(--green); }
+.fc-option.fc-selected-wrong .fc-option-letter { color: var(--red); }
+.fc-tap-hint { font-size: 13px; color: var(--text2); text-align: center; margin-top: 16px; }
+.fc-header-back { flex-shrink: 0; min-height: 44px; padding: 8px 14px; font-size: 13px; }
+.fc-controls { display: flex; gap: 8px; align-items: center; }
+.fc-tts-btn { background: var(--bg3); border: none; border-radius: 50%; width: 44px; height: 44px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; color: var(--text); transition: background var(--transition); flex-shrink: 0; }
+@media (hover: hover) { .fc-tts-btn:hover { background: var(--border); } }
+.fc-tts-btn.speaking { color: var(--accent); }
+.fc-nav-row { display: flex; margin-top: 12px; }
+@media (max-width: 600px) {
+  #fc-wrong-next {
+    position: fixed;
+    bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+    left: 0; right: 0;
+    margin-top: 0;
+    padding: 10px 16px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    z-index: 110;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+  }
+}
+@media (max-width: 600px) {
+  #page-flashcard.next-btn-visible {
+    padding-bottom: calc(72px + 52px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ===== SECTION SELECT ===== */
+.fc-mode-select { display: flex; flex-direction: column; gap: 12px; }
+.mode-option {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  cursor: pointer;
+  transition: all var(--transition);
+  -webkit-tap-highlight-color: transparent;
+}
+@media (hover: hover) { .mode-option:hover { border-color: var(--accent); background: rgba(37,99,235,0.05); } }
+.mode-option.selected { border-color: var(--accent); background: rgba(37,99,235,0.05); }
+.mode-option-title { font-size: 15px; font-weight: 700; }
+.mode-option-desc { font-size: 13px; color: var(--text2); margin-top: 3px; }
+
+/* ===== PRACTICE TEST ===== */
+.test-status { display: flex; align-items: center; justify-content: space-between; }
+.test-qnum { font-size: 14px; color: var(--text2); font-weight: 500; }
+.test-timer {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 16px; font-weight: 700; color: var(--text);
+  background: var(--bg3); padding: 6px 14px; border-radius: 99px;
+}
+.test-timer.warning { color: var(--red); background: rgba(239,68,68,0.1); }
+
+.test-question-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+.test-qid { font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; }
+.test-question { font-size: 17px; font-weight: 600; line-height: 1.5; margin-top: 10px; color: var(--text); }
+
+.answer-options { display: flex; flex-direction: column; gap: 10px; }
+.answer-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+  width: 100%;
+  font-family: var(--font);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.4;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (hover: hover) { .answer-option:hover:not(:disabled) { border-color: var(--accent); background: rgba(37,99,235,0.05); } }
+.answer-option:active:not(:disabled) { transform: scale(0.99); }
+.answer-option.selected { border-color: var(--blue); background: rgba(59,130,246,0.08); }
+.answer-option.correct { border-color: var(--green); background: rgba(34,197,94,0.1); }
+.answer-option.wrong { border-color: var(--red); background: rgba(239,68,68,0.08); }
+.answer-option:disabled { cursor: default; }
+.answer-letter {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--bg3); color: var(--text2);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; flex-shrink: 0;
+  transition: all var(--transition);
+}
+.answer-option.selected .answer-letter { background: var(--blue); color: white; }
+.answer-option.correct .answer-letter { background: var(--green); color: white; }
+.answer-option.wrong .answer-letter { background: var(--red); color: white; }
+
+.test-nav { display: flex; gap: 12px; }
+.test-nav .btn { flex: 1; }
+
+.test-aux-actions { display: flex; gap: 8px; margin-top: 10px; }
+.btn-show-answer { background: transparent; color: var(--text2); border: 1px dashed var(--border); font-size: 13px; padding: 10px 14px; min-height: 44px; border-radius: var(--radius-sm); }
+@media (hover: hover) { .btn-show-answer:hover { border-color: var(--yellow); color: var(--yellow); } }
+.btn-end-exam { background: transparent; color: var(--red); border: 1px solid var(--red); font-size: 13px; padding: 10px 14px; min-height: 44px; border-radius: var(--radius-sm); opacity: 0.7; }
+@media (hover: hover) { .btn-end-exam:hover { opacity: 1; background: rgba(239,68,68,0.06); } }
+.btn-show-answer:disabled, .btn-end-exam:disabled { opacity: 0.3; cursor: default; }
+
+/* ===== SCORE / RESULTS ===== */
+.score-header { text-align: center; padding: 8px 0; }
+.score-emoji { font-size: 56px; line-height: 1; margin-bottom: 12px; }
+.score-num { font-size: 52px; font-weight: 800; }
+.score-num.pass { color: var(--green); }
+.score-num.fail { color: var(--red); }
+.score-label { font-size: 18px; font-weight: 600; color: var(--text2); margin-top: 4px; }
+.score-sub { font-size: 14px; color: var(--text2); margin-top: 8px; }
+
+.review-list { display: flex; flex-direction: column; gap: 12px; }
+.review-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+}
+.review-item.wrong-item { border-left: 4px solid var(--red); }
+.review-qid { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 6px; }
+.review-qid.wrong-item { color: var(--red); }
+.review-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+.review-answer { font-size: 13px; color: var(--text2); }
+.review-answer .right { color: var(--green); font-weight: 600; }
+.review-answer .wrong-ans { color: var(--red); text-decoration: line-through; }
+
+/* ===== PROGRESS PAGE ===== */
+.section-progress-list { display: flex; flex-direction: column; gap: 10px; }
+.sp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+.sp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.sp-title { font-size: 14px; font-weight: 700; }
+.sp-pct { font-size: 14px; font-weight: 700; color: var(--accent); }
+.sp-detail { display: flex; gap: 16px; margin-top: 8px; font-size: 12px; color: var(--text2); }
+
+.history-list { display: flex; flex-direction: column; gap: 8px; }
+.history-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+}
+.history-score { font-weight: 700; font-size: 16px; min-width: 48px; }
+.history-score.pass { color: var(--green); }
+.history-score.fail { color: var(--red); }
+.history-info { flex: 1; }
+.history-date { font-size: 12px; color: var(--text2); }
+
+/* ===== BADGES ===== */
+.badges-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.badge-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 10px;
+  text-align: center;
+  transition: all var(--transition);
+}
+.badge-card.earned { border-color: var(--yellow); background: rgba(245,158,11,0.05); }
+.badge-card.earned .badge-icon { filter: none; }
+.badge-icon { font-size: 32px; filter: grayscale(1) opacity(0.4); }
+.badge-name { font-size: 11px; font-weight: 600; margin-top: 6px; color: var(--text2); }
+.badge-card.earned .badge-name { color: var(--text); }
+
+/* ===== EMPTY STATES ===== */
+.empty-state { text-align: center; padding: 40px 20px; color: var(--text2); }
+.empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state p { font-size: 15px; }
+
+/* ===== PAGE TITLE ===== */
+.page-title { font-size: 22px; font-weight: 800; color: var(--text); }
+.page-sub { font-size: 14px; color: var(--text2); margin-top: 4px; }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition);
+  padding-bottom: var(--safe-bottom);
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--bg2);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 24px;
+  width: 100%; max-width: 640px;
+  transform: translateY(40px);
+  transition: transform var(--transition);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+.modal-sub { font-size: 14px; color: var(--text2); margin-bottom: 20px; }
+.modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+
+/* ===== MISC ===== */
+.label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text2); }
+.bold { font-weight: 700; }
+.text-accent { color: var(--accent); }
+.text-green { color: var(--green); }
+.text-red { color: var(--red); }
+.text-muted { color: var(--text2); }
+.mt-4 { margin-top: 16px; }
+.mt-2 { margin-top: 8px; }
+.flex-row { display: flex; align-items: center; gap: 10px; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.small { font-size: 13px; }
+
+/* ===== FORMULA FAB ===== */
+#formula-fab {
+  position: fixed;
+  bottom: calc(72px + var(--safe-bottom) + 12px);
+  right: 16px;
+  z-index: 90;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: white;
+  border: none;
+  font-size: 22px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  transition: opacity var(--transition), transform var(--transition);
+  min-height: 48px;
+}
+#formula-fab:active { transform: scale(0.92); }
+#formula-fab.hidden { display: none; }
+
+/* ===== FORMULA MODAL ===== */
+.formula-content { text-align: left; }
+.formula-section { margin-bottom: 18px; }
+.formula-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--accent); }
+.formula-code {
+  background: var(--bg3); border-radius: 8px; padding: 10px 14px;
+  font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 14px; line-height: 1.6; white-space: pre; overflow-x: auto;
+  margin-bottom: 6px; color: var(--text);
+}
+.formula-legend { font-size: 12px; color: var(--text2); line-height: 1.5; }
+
+/* ===== EXAM MODE COMPACT ===== */
+#test-active .progress-bar { height: 14px; }
+@media (max-width: 600px) {
+  #test-active { display: flex; flex-direction: column; gap: 8px; }
+  #test-active .test-question-card { padding: 14px 16px; }
+  #test-active .test-question { font-size: 15px; margin-top: 6px; }
+  #test-active .answer-options { gap: 6px; }
+  #test-active .answer-option { padding: 10px 12px; gap: 10px; font-size: 14px; }
+  #test-active .answer-letter { width: 26px; height: 26px; font-size: 12px; }
+  #test-active .test-nav .btn { padding: 10px 16px; min-height: 44px; }
+  #test-active .test-aux-actions { margin-top: 0; padding-bottom: 16px; }
+}
+
+/* ===== SECTION STUDY MODE ===== */
+.study-header { display: flex; align-items: center; gap: 12px; }
+#study-active { display: flex; flex-direction: column; gap: 16px; }
+.study-progress { display: flex; flex-direction: column; gap: 6px; }
+.study-progress-text { font-size: 14px; font-weight: 600; color: var(--text2); }
+.study-nav { display: flex; gap: 12px; margin-top: 4px; }
+.study-nav .btn { flex: 1; }
+.fc-option.study-reviewed.fc-correct { background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.5); opacity: 0.75; }
+.fc-option.study-reviewed.fc-wrong { opacity: 0.35; }
+.fc-option.study-reviewed.fc-selected-wrong { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.5); opacity: 0.75; }
+
+/* ===== ACCESSIBILITY ===== */
+.skip-link {
+  position: absolute; top: -100px; left: 16px; z-index: 999;
+  background: var(--accent); color: #fff; padding: 12px 20px;
+  border-radius: var(--radius-sm); font-weight: 700; font-size: 14px;
+  text-decoration: none; transition: top 0.2s;
+}
+.skip-link:focus { top: calc(8px + var(--safe-top)); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+button:focus-visible, .nav-btn:focus-visible, .quick-btn:focus-visible,
+.section-card:focus-visible, .group-card:focus-visible, .group-card-all:focus-visible, .mode-option:focus-visible,
+.answer-option:focus-visible, .fc-option:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(37,99,235,0.15);
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<a href="#app" class="skip-link">Skip to content</a>
+
+<!-- Top Bar -->
+<header id="topbar" role="banner">
+  <div id="topbar-title">📻 <span>General</span>Study</div>
+  <button id="theme-btn" data-action="toggle-theme" aria-label="Toggle dark/light mode">🌙</button>
+</header>
+
+<!-- Main App -->
+<main id="app" role="main">
+
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page active">
+    <div class="card readiness-card">
+      <div class="card-label">Exam Readiness</div>
+      <div class="readiness-score" id="readiness-score">0%</div>
+      <div class="readiness-desc" id="readiness-desc">Start studying to track your progress</div>
+      <div class="progress-bar readiness-bar mt-4" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Exam readiness progress" id="readiness-bar-container">
+        <div class="progress-fill" id="readiness-bar" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-seen">0</div>
+        <div class="stat-label">Questions Seen</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-mastered">0</div>
+        <div class="stat-label">Mastered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-tests">0</div>
+        <div class="stat-label">Tests Taken</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-streak">0</div>
+        <div class="stat-label">🔥 Day Streak</div>
+      </div>
+    </div>
+
+    <div class="quick-btns">
+      <button class="quick-btn" data-action="start-quick-flashcards">
+        <div class="quick-btn-icon">🃏</div>
+        <div class="quick-btn-text">
+          <div class="quick-btn-title">Quick Study</div>
+          <div class="quick-btn-desc">Flashcards · focus on weak spots</div>
+        </div>
+        <div class="quick-btn-arrow">›</div>
+      </button>
+      <button class="quick-btn" data-action="start-practice-test">
+        <div class="quick-btn-icon">📝</div>
+        <div class="quick-btn-text">
+          <div class="quick-btn-title">Practice Exam</div>
+          <div class="quick-btn-desc">35 questions · 26 to pass (74%)</div>
+        </div>
+        <div class="quick-btn-arrow">›</div>
+      </button>
+      <button class="quick-btn" data-action="show-page" data-page="sections">
+        <div class="quick-btn-icon">📚</div>
+        <div class="quick-btn-text">
+          <div class="quick-btn-title">Study by Section</div>
+          <div class="quick-btn-desc">G1–G0 · target weak areas</div>
+        </div>
+        <div class="quick-btn-arrow">›</div>
+      </button>
+      <button class="quick-btn" data-action="start-weak-areas">
+        <div class="quick-btn-icon">🎯</div>
+        <div class="quick-btn-text">
+          <div class="quick-btn-title">Weak Areas</div>
+          <div class="quick-btn-desc">Practice questions you've missed</div>
+        </div>
+        <div class="quick-btn-arrow">›</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- SECTIONS PAGE -->
+  <div id="page-sections" class="page">
+    <div>
+      <div class="page-title">Study by Section</div>
+      <div class="page-sub" id="sections-subtitle">429 questions across 10 subelements</div>
+    </div>
+    <div class="section-list" id="section-list"></div>
+  </div>
+
+  <!-- GROUP PICKER PAGE -->
+  <div id="page-group-picker" class="page">
+    <div>
+      <button class="btn btn-secondary" style="padding:8px 14px;font-size:13px;min-height:44px;margin-bottom:12px;" data-action="group-back" aria-label="Back to sections">← Back</button>
+      <div class="page-title" id="group-picker-title">Select a Group</div>
+      <div class="page-sub" id="group-picker-subtitle"></div>
+    </div>
+    <div class="section-list" id="group-list"></div>
+  </div>
+
+  <!-- SECTION STUDY PAGE -->
+  <div id="page-section-study" class="page">
+    <div class="study-header">
+      <button class="btn btn-secondary" style="padding:8px 14px;font-size:13px;min-height:44px;" data-action="study-back" aria-label="Back to groups">← Back</button>
+      <div style="flex:1;min-width:0;">
+        <div class="page-title" id="study-section-title" style="font-size:18px;">Section</div>
+        <div class="page-sub" id="study-section-count">0 questions</div>
+      </div>
+    </div>
+
+    <div id="study-active">
+      <div class="study-progress">
+        <div class="study-progress-text">
+          <span id="study-progress-label">Question 1 of 12</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Study progress" id="study-bar-container">
+          <div class="progress-fill" id="study-progress-bar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="fc-card" id="study-card">
+        <div class="fc-qid" id="study-qid">G1A01</div>
+        <div class="fc-question" id="study-question">Loading…</div>
+        <div class="fc-options" id="study-options"></div>
+      </div>
+
+      <div class="study-nav" id="study-nav-bar">
+        <button class="btn btn-secondary" id="study-prev-btn" data-action="study-prev" disabled>← Prev</button>
+        <button class="btn btn-primary" id="study-next-btn" data-action="study-next">Next →</button>
+      </div>
+    </div>
+
+    <div id="study-complete" style="display:none">
+      <div class="card" style="text-align:center">
+        <div style="font-size:48px;margin-bottom:12px">🎉</div>
+        <div class="page-title">Section Complete!</div>
+        <div class="page-sub mt-2" id="study-complete-stats"></div>
+      </div>
+      <div class="study-nav">
+        <button class="btn btn-secondary" style="flex:1" data-action="study-back">Back to Groups</button>
+        <button class="btn btn-primary" style="flex:1" data-action="study-restart">Study Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLASHCARD PAGE -->
+  <div id="page-flashcard" class="page">
+    <div id="fc-mode-select">
+      <div class="page-title">Flashcards</div>
+      <div class="page-sub">Select study mode</div>
+      <div class="fc-mode-select mt-4" id="section-chooser" role="listbox" aria-label="Study mode selection"></div>
+      <div class="mt-4">
+        <button class="btn btn-primary btn-full" data-action="start-flashcards">Start Studying</button>
+      </div>
+    </div>
+
+    <div id="fc-session" style="display:none">
+      <div class="fc-header">
+        <button class="btn btn-secondary fc-header-back" id="fc-back-btn" data-action="prev-card" disabled>← Back</button>
+        <div class="fc-header-info">
+          <div class="fc-counter"><span id="fc-current">1</span> / <span id="fc-total">0</span></div>
+          <div class="fc-section-label" id="fc-section-label">All Questions</div>
+        </div>
+        <div class="fc-controls">
+          <button class="fc-tts-btn" id="fc-tts-btn" data-action="speak-question" title="Read question aloud" aria-label="Read question aloud">🔊</button>
+          <button class="btn btn-secondary" style="padding:8px 14px;font-size:13px;min-height:44px;" data-action="end-flashcards" aria-label="Exit flashcard session">✕ Exit</button>
+        </div>
+      </div>
+
+      <div class="progress-bar fc-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Flashcard progress" id="fc-bar-container">
+        <div class="progress-fill" id="fc-bar" style="width:0%"></div>
+      </div>
+
+      <div class="fc-card" id="fc-card">
+        <div class="fc-qid" id="fc-qid">G1A01</div>
+        <div class="fc-question" id="fc-question">Loading…</div>
+        <div class="fc-options" id="fc-options"></div>
+      </div>
+
+      <div class="fc-tap-hint">Tap an answer to see the correct choice</div>
+      <div class="fc-nav-row" id="fc-wrong-next" style="display:none">
+        <button class="btn btn-primary btn-full" data-action="flashcard-next">Next →</button>
+      </div>
+    </div>
+
+    <div id="fc-done" style="display:none">
+      <div class="card" style="text-align:center">
+        <div style="font-size:48px;margin-bottom:12px">🎉</div>
+        <div class="page-title">Deck Complete!</div>
+        <div class="page-sub mt-2" id="fc-done-stats"></div>
+      </div>
+      <button class="btn btn-primary btn-full" data-action="restart-flashcards">Study Again</button>
+      <button class="btn btn-secondary btn-full" data-action="show-flashcard-menu">Choose Different Section</button>
+    </div>
+  </div>
+
+  <!-- PRACTICE TEST PAGE -->
+  <div id="page-test" class="page">
+    <div id="test-start">
+      <div class="page-title">Practice Exam</div>
+      <div class="page-sub">35 questions · you need 26 correct (74%) to pass</div>
+      <div class="card mt-4">
+        <div class="label">Real Exam Format</div>
+        <p style="margin-top:8px;font-size:14px;color:var(--text2);line-height:1.6">
+          Questions are randomly drawn from the official FCC General class pool,
+          weighted the same as the real exam. A 26-minute timer keeps you on pace.
+        </p>
+      </div>
+      <button class="btn btn-primary btn-full mt-4" data-action="start-test">Start Exam</button>
+    </div>
+
+    <div id="test-active" style="display:none">
+      <div class="test-status">
+        <div class="test-qnum">Question <span id="test-qnum">1</span> of 35</div>
+        <div class="test-timer" id="test-timer">⏱ 26:00</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="progress-bar" style="flex:1;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Test progress" id="test-bar-container">
+          <div class="progress-fill blue" id="test-bar" style="width:0%"></div>
+        </div>
+        <span id="test-bar-pct" style="font-size:12px;font-weight:700;color:var(--text2);min-width:32px;text-align:right;">0%</span>
+      </div>
+      <div class="test-question-card">
+        <div class="test-qid" id="test-qid">G1A01</div>
+        <div class="test-question" id="test-question">Question text</div>
+      </div>
+      <div class="answer-options" id="answer-options"></div>
+      <div class="test-nav">
+        <button class="btn btn-secondary" id="test-prev-btn" data-action="test-prev" disabled>← Prev</button>
+        <button class="btn btn-primary" id="test-next-btn" data-action="test-next">Next →</button>
+      </div>
+      <div class="test-aux-actions">
+        <button class="btn btn-show-answer" id="test-show-answer-btn" data-action="show-test-answer">👁 Show Answer</button>
+        <button class="btn btn-end-exam" data-action="end-exam-early">⏹ End Exam Early</button>
+      </div>
+    </div>
+
+    <div id="test-results" style="display:none">
+      <div class="card score-header">
+        <div class="score-emoji" id="score-emoji">🎉</div>
+        <div class="score-num" id="score-num">0/35</div>
+        <div class="score-label" id="score-label">PASS</div>
+        <div class="score-sub" id="score-sub"></div>
+      </div>
+      <div class="flex-row mt-4">
+        <button class="btn btn-primary" style="flex:1" data-action="start-test">Retake</button>
+        <button class="btn btn-secondary" style="flex:1" data-action="show-page" data-page="test">Back</button>
+      </div>
+      <div id="review-section">
+        <div class="flex-between mt-4">
+          <div class="label">Review Wrong Answers</div>
+          <div id="wrong-count" class="text-red bold small"></div>
+        </div>
+        <div class="review-list mt-2" id="review-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESS PAGE -->
+  <div id="page-progress" class="page">
+    <div class="flex-between">
+      <div>
+        <div class="page-title">My Progress</div>
+        <div class="page-sub">Track your exam readiness</div>
+      </div>
+      <button class="btn btn-secondary" style="padding:8px 14px;font-size:13px;min-height:44px;" data-action="confirm-reset" aria-label="Reset all progress">Reset</button>
+    </div>
+
+    <div class="card">
+      <div class="flex-between">
+        <div class="label">Overall Readiness</div>
+        <div class="bold text-accent" id="prog-readiness">0%</div>
+      </div>
+      <div class="progress-bar mt-2">
+        <div class="progress-fill" id="prog-readiness-bar" style="width:0%"></div>
+      </div>
+      <div class="mt-2 small text-muted">Based on flashcard accuracy and test scores</div>
+    </div>
+
+    <div>
+      <div class="label">Test History</div>
+      <div class="history-list mt-2" id="history-list">
+        <div class="empty-state"><div class="empty-icon">📝</div><p>No tests taken yet</p></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">Progress by Section</div>
+      <div class="section-progress-list mt-2" id="section-progress-list"></div>
+    </div>
+
+    <div>
+      <div class="label">Achievements</div>
+      <div class="badges-grid mt-2" id="badges-grid"></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Live region for screen reader announcements -->
+<div id="sr-announce" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+<!-- Bottom Nav -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <button class="nav-btn active" id="nav-home" data-action="show-page" data-page="home" aria-current="page">
+    <span class="nav-icon" aria-hidden="true">🏠</span>Home
+  </button>
+  <button class="nav-btn" id="nav-flashcard" data-action="show-page" data-page="flashcard">
+    <span class="nav-icon" aria-hidden="true">🃏</span>Flashcards
+  </button>
+  <button class="nav-btn" id="nav-test" data-action="show-page" data-page="test">
+    <span class="nav-icon" aria-hidden="true">📝</span>Exam
+  </button>
+  <button class="nav-btn" id="nav-sections" data-action="show-page" data-page="sections">
+    <span class="nav-icon" aria-hidden="true">📚</span>Sections
+  </button>
+  <button class="nav-btn" id="nav-progress" data-action="show-page" data-page="progress">
+    <span class="nav-icon" aria-hidden="true">📊</span>Progress
+  </button>
+</nav>
+
+<!-- Formula FAB -->
+<button id="formula-fab" data-action="open-formula-modal" title="Formula Quick Reference" aria-label="Open formula quick reference">📐</button>
+
+<!-- Formula Modal -->
+<div class="modal-overlay" id="formula-modal" role="dialog" aria-modal="true" aria-labelledby="formula-modal-title">
+  <div class="modal">
+    <h2 class="modal-title" id="formula-modal-title">📐 Formula Quick Reference</h2>
+    <div class="modal-sub">Essential formulas for the General exam</div>
+    <div class="formula-content">
+      <div class="formula-section">
+        <h3>Ohm's Law</h3>
+        <div class="formula-code">E = I × R
+I = E / R
+R = E / I</div>
+        <div class="formula-legend">E = Voltage (Volts) | I = Current (Amps) | R = Resistance (Ohms)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Power Law</h3>
+        <div class="formula-code">P = E × I
+P = I² × R
+P = E² / R</div>
+        <div class="formula-legend">P = Power (Watts)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Wavelength</h3>
+        <div class="formula-code">λ (meters) = 300 / f (MHz)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Antenna Length</h3>
+        <div class="formula-code">Half-wave dipole (feet) = 468 / f (MHz)
+Quarter-wave vertical (feet) = 234 / f (MHz)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Decibels</h3>
+        <div class="formula-code">+3 dB  = double power
+-3 dB  = half power
++10 dB = 10× power
+-10 dB = 1/10 power
+dB = 10 × log₁₀(P₂/P₁)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Reactance</h3>
+        <div class="formula-code">X_L = 2πfL  (inductive)
+X_C = 1/(2πfC)  (capacitive)</div>
+        <div class="formula-legend">f = frequency | L = inductance (H) | C = capacitance (F)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Impedance</h3>
+        <div class="formula-code">Z = √(R² + X²)
+SWR = Z_load / Z_line  (or inverse)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Resonant Frequency</h3>
+        <div class="formula-code">f = 1 / (2π√(LC))</div>
+      </div>
+      <div class="formula-section">
+        <h3>Transformer Ratio</h3>
+        <div class="formula-code">V_s/V_p = N_s/N_p
+Z ratio = (N_s/N_p)²</div>
+        <div class="formula-legend">V = voltage | N = turns | Z = impedance</div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary btn-full" data-action="close-modal" data-modal-id="formula-modal">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reset Confirm Modal -->
+<div class="modal-overlay" id="reset-modal" role="dialog" aria-modal="true" aria-labelledby="reset-modal-title">
+  <div class="modal">
+    <h2 class="modal-title" id="reset-modal-title">Reset All Progress?</h2>
+    <div class="modal-sub">This will clear all your flashcard history, test scores, and streak data. This cannot be undone.</div>
+    <div class="modal-actions">
+      <button class="btn btn-red btn-full" data-action="do-reset">Yes, Reset Everything</button>
+      <button class="btn btn-secondary btn-full" id="reset-cancel-btn" data-action="close-modal" data-modal-id="reset-modal">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>

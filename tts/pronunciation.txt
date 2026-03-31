@@ -1,0 +1,110 @@
+# Technician Study Guide — TTS Pronunciation Dictionary
+# Format: raw_term|spoken_replacement
+# Lines starting with # are comments
+
+# === Expand acronyms (say the full words) ===
+SSB|single sideband
+PEP|peak envelope power
+PTT|push to talk
+RTTY|ritty
+FET|fet
+MOSFET|moss-fet
+ARES|air ease
+RACES|ray sees
+FEMA|fee mah
+NASA|nasa
+AMSAT|am sat
+VOX|vox
+
+# === Spell out letter by letter ===
+RF|R F
+FM|F M
+AM|A M
+CW|C W
+HF|H F
+VHF|V H F
+UHF|U H F
+SHF|S H F
+EHF|E H F
+FCC|F C C
+SWR|S W R
+AGC|A G C
+RIT|R I T
+LED|L E D
+AC|A.C.
+DC|D.C.
+IC|I C
+NPN|N P N
+PNP|P N P
+DMR|D M R
+DCS|D C S
+CQ|C Q
+DX|D X
+GPS|G P S
+ISS|I S S
+ITU|I T U
+FT8|F T eight
+PSK|P S K
+APRS|A P R S
+ARRL|A R R L
+IRLP|I R L P
+CTCSS|C T C S S
+DTMF|D T M F
+AFSK|A F S K
+WSJT|W S J T
+SPDT|S P D T
+BNC|B N C
+SMA|S M A
+VFO|V F O
+ULS|U L S
+
+# === Units ===
+kHz|kilohertz
+MHz|megahertz
+GHz|gigahertz
+mW|milliwatts
+mV|millivolts
+mA|milliamps
+dBi|D B I
+dBm|D B M
+dB|decibels
+
+# === Q Signals ===
+QSY|Q S Y
+QRM|Q R M
+QRN|Q R N
+QTH|Q T H
+QSB|Q S B
+QRU|Q R U
+QSL|Q S L
+QRZ|Q R Z
+
+# === Cable and connector types ===
+RG-58|R G fifty eight
+RG-8|R G eight
+RG-213|R G two thirteen
+PL-259|P L two fifty nine
+SO-239|S O two thirty nine
+
+# === Band sizes ===
+2m|two meter
+70cm|seventy centimeter
+6m|six meter
+10m|ten meter
+15m|fifteen meter
+40m|forty meter
+80m|eighty meter
+1.25m|one and a quarter meter
+23cm|twenty three centimeter
+
+# === Regulatory references ===
+Part 97|part ninety seven
+47 CFR|forty seven C F R
+
+# === Call sign example patterns handled inline ===
+CAT IV|cat 4
+CAT III|cat 3
+CAT II|cat 2
+IEEE|I. triple E.
+coax|co-ax
+Coax|Co-ax
