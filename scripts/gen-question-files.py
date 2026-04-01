@@ -1001,6 +1001,513 @@ def _load_explanations() -> None:
         "for narrow-band signals."
     )
 
+    # ── G8A — Modulation Types, Signals, and Overmodulation ──────
+
+    E["G8A01"] = (
+        "Direct binary FSK (Frequency Shift Keying) works by changing an oscillator's frequency "
+        "directly with a digital control signal. When the digital input is a '1' (mark), the "
+        "oscillator sits at one frequency; when it's a '0' (space), the oscillator shifts to a "
+        "different frequency. The key word is 'direct' — the digital signal controls the oscillator "
+        "without going through an audio tone stage first. This is simpler and more precise than "
+        "generating an audio tone and feeding it into an FM modulator. It's not about sub-audible "
+        "tones (that's CTCSS), not about computer interface protocols, and not about repurposing "
+        "CW keying inputs."
+    )
+
+    E["G8A02"] = (
+        "Phase modulation (PM) changes the phase angle of the RF carrier to convey information. "
+        "While FM varies the frequency and AM varies the amplitude, PM shifts the carrier's phase "
+        "— advancing or retarding it relative to its unmodulated position. Phase modulation and "
+        "frequency modulation are closely related: varying the phase also affects the instantaneous "
+        "frequency and vice versa. A reactance modulator connected to an RF amplifier stage "
+        "actually produces phase modulation (see G8A04). The other answer choices — 'phase "
+        "convolution,' 'phase transformation,' and 'phase inversion' — are not standard "
+        "modulation terms."
+    )
+
+    E["G8A03"] = (
+        "Frequency modulation (FM) changes the instantaneous frequency of the RF wave to convey "
+        "information. When the modulating audio signal goes positive, the carrier frequency increases; "
+        "when it goes negative, the carrier frequency decreases. The amount of frequency shift "
+        "(deviation) is proportional to the audio amplitude, and the rate of shift follows the audio "
+        "frequency. FM is widely used on VHF/UHF for voice because it's resistant to amplitude noise "
+        "— since the information is in the frequency, not the amplitude, the receiver can clip off "
+        "amplitude noise with a limiter stage. Don't confuse FM with frequency conversion (changing "
+        "one frequency to another in a mixer) or frequency transformation (not a standard term)."
+    )
+
+    E["G8A04"] = (
+        "A reactance modulator connected to a transmitter RF amplifier stage produces phase "
+        "modulation. Here's why: a reactance modulator is a circuit that varies its apparent "
+        "reactance (capacitive or inductive) in response to an audio signal. When you connect it "
+        "to an RF amplifier stage (not the oscillator), it shifts the phase of the signal passing "
+        "through that stage — the audio modulates the phase, not the frequency directly. If you "
+        "connected the same reactance modulator to the oscillator instead, it would produce FM by "
+        "pulling the oscillator frequency. The distinction matters: same circuit, different results "
+        "depending on WHERE in the transmitter chain it's connected. From G7, recall that "
+        "oscillator frequency is set by the LC tank — modulating the tank produces FM, modulating "
+        "a downstream amplifier produces PM."
+    )
+
+    E["G8A05"] = (
+        "Amplitude modulation (AM) varies the instantaneous power level of the RF signal. The "
+        "carrier's amplitude — and therefore its power — changes in proportion to the modulating "
+        "audio signal. When the audio goes positive, the carrier amplitude increases (more power); "
+        "when the audio goes negative, the amplitude decreases (less power). This is fundamentally "
+        "different from FM (which varies frequency at constant power) and PM (which varies phase "
+        "at constant power). 'Power modulation' is not a real modulation type — it's a distractor."
+    )
+
+    E["G8A06"] = (
+        "QPSK31 (Quadrature Phase Shift Keying at 31.25 baud) has all three listed characteristics: "
+        "it IS sideband-sensitive (you must use the correct sideband — USB or LSB — for proper "
+        "decoding), its encoding provides error correction (unlike BPSK31 which has no error "
+        "correction), and its bandwidth is approximately the same as BPSK31 (about 31 Hz). QPSK31 "
+        "achieves error correction by using the extra phase states — BPSK uses 2 phase states to "
+        "send 1 bit per symbol, while QPSK uses 4 phase states to send 2 bits per symbol. One "
+        "bit carries data, the other carries error correction information. The tradeoff: QPSK31 "
+        "requires more precise phase tracking and is more sensitive to propagation distortion than "
+        "BPSK31."
+    )
+
+    E["G8A07"] = (
+        "Single sideband (SSB) uses the narrowest bandwidth of the listed phone emissions — "
+        "typically about 2.4 kHz. SSB achieves this by transmitting only ONE sideband and "
+        "suppressing both the carrier and the other sideband. Compare: conventional AM transmits "
+        "carrier plus both sidebands (~6 kHz), vestigial sideband transmits one full sideband plus "
+        "a portion of the other, and FM typically uses 10-16 kHz depending on deviation. SSB's "
+        "narrow bandwidth is a huge advantage on crowded HF bands — more stations fit in the same "
+        "spectrum space. It also concentrates all transmitter power into the information-carrying "
+        "sideband rather than wasting most of it on a carrier."
+    )
+
+    E["G8A08"] = (
+        "Overmodulation causes excessive bandwidth — the signal splashes beyond its normal "
+        "frequency allocation and interferes with stations on adjacent frequencies. When you "
+        "overdrive any modulator, the signal distorts, and distortion creates harmonics and "
+        "spurious energy that spread the signal wider than it should be. In AM, overmodulation "
+        "happens when the modulating signal tries to drive the carrier below zero (causing "
+        "flat-topping or carrier pinch-off). In FM, excessive deviation spreads the signal "
+        "beyond its allowed bandwidth. Either way, the result is the same: your signal gets "
+        "wider and starts causing interference. This is why ALC (Automatic Level Control) and "
+        "proper mic gain settings matter."
+    )
+
+    E["G8A09"] = (
+        "FT8 uses 8-tone frequency shift keying (8-FSK). The '8' in FT8 stands for 8 tones — "
+        "the mode uses 8 different audio frequencies to encode data, with each tone representing "
+        "3 bits (2³ = 8 combinations). The tones are spaced 6.25 Hz apart, fitting the entire "
+        "signal into about 50 Hz of bandwidth. FT8 was designed by Joe Taylor (K1JT) and Steve "
+        "Franke (K9AN) for weak-signal communication — it can decode signals buried 20+ dB below "
+        "the noise floor. It's NOT vestigial sideband (that's an analog TV technique), NOT "
+        "compressed AM, and NOT spread spectrum. FT8 has revolutionized amateur radio by enabling "
+        "contacts that would be impossible with voice modes."
+    )
+
+    E["G8A10"] = (
+        "Flat-topping is signal distortion caused by excessive drive or speech levels in an AM or "
+        "SSB transmitter. On an oscilloscope, the modulation envelope looks like it has flat tops "
+        "instead of rounded peaks — the amplifier has run out of headroom and is clipping the "
+        "waveform. This is a form of overmodulation that generates splatter (excessive bandwidth) "
+        "and interference to nearby stations. Flat-topping is typically caused by too much mic gain, "
+        "too much speech processor compression, or insufficient ALC action. It does NOT mean the "
+        "ALC is properly adjusted (that would PREVENT flat-topping), and it's not about insufficient "
+        "collector current or carrier suppression. Watch for flat-topping on your ALC meter and "
+        "waterfall display."
+    )
+
+    E["G8A11"] = (
+        "The modulation envelope of an AM signal is the waveform created by connecting the peak "
+        "values of the modulated signal. Picture an AM signal on an oscilloscope: you see the RF "
+        "carrier oscillating rapidly, but its amplitude rises and falls with the audio. If you "
+        "draw a line connecting all the positive peaks and another connecting all the negative "
+        "peaks, those lines trace out the modulation envelope — and that envelope IS the audio "
+        "waveform. An AM demodulator (detector) works by extracting this envelope. The envelope "
+        "is NOT the carrier frequency itself, NOT spurious signals, and NOT the bandwidth. It's "
+        "the outline of the amplitude variations — the 'shape' of the modulated signal."
+    )
+
+    E["G8A12"] = (
+        "QPSK (Quadrature Phase Shift Keying) transmits digital data using four phase states: "
+        "0°, 90°, 180°, and 270°. Each phase state represents a pair of bits (00, 01, 10, 11), "
+        "so QPSK sends 2 bits per symbol — twice the data rate of BPSK at the same symbol rate "
+        "and bandwidth. The four phases are evenly spaced around a circle (360°/4 = 90° apart). "
+        "From G8A06, remember that QPSK31 uses these extra bits for error correction rather than "
+        "doubling throughput. The wrong answers are made-up terms — there's no 'quasi-parallel to "
+        "serial conversion,' no 'quadra-pole sideband keying,' and no 'Fast Fourier Transform "
+        "harmonic generation' scheme. QPSK is a real, well-defined digital modulation technique "
+        "used across telecommunications."
+    )
+
+    E["G8A13"] = (
+        "A link budget is the sum of transmit power and antenna gains minus system losses as seen "
+        "at the receiver. It's an accounting exercise: start with your transmitter power (in dBm), "
+        "add your transmitting antenna gain (in dBi), subtract all losses (feed line, free-space "
+        "path loss, atmospheric absorption, polarization mismatch), and add the receiving antenna "
+        "gain. The result tells you the signal power arriving at the receiver. If this number "
+        "exceeds the receiver's minimum sensitivity, communication is possible. It's NOT about "
+        "financial costs (despite the word 'budget'), and it includes more than just antenna gains "
+        "minus losses — the transmit power is a critical starting term. Link budgets are essential "
+        "for satellite work, EME (moonbounce), and microwave links."
+    )
+
+    E["G8A14"] = (
+        "Link margin is the difference between the received power level and the minimum required "
+        "signal level at the receiver's input. Think of it as your safety cushion: if your link "
+        "budget shows -100 dBm arriving at the receiver and the receiver needs -120 dBm to decode, "
+        "you have 20 dB of link margin. That margin accounts for fading, atmospheric variations, "
+        "and other unpredictable losses. More margin = more reliable link. It's NOT the opposite "
+        "of fade margin (they're related concepts, not opposites), NOT simply transmit power minus "
+        "sensitivity (that ignores path loss and antenna gains), and NOT receiver sensitivity "
+        "plus 3 dB. Link margin and link budget work together: the budget calculates received "
+        "power, and the margin tells you how far above minimum you are."
+    )
+
+    # ── G8B — Mixing, Multiplication, Bandwidth, Intermodulation ────
+
+    E["G8B01"] = (
+        "The local oscillator (LO) is the mixer input that is varied or tuned to convert different "
+        "incoming frequencies to the intermediate frequency (IF). From G7, recall that a "
+        "superheterodyne receiver uses a mixer to combine the incoming RF signal with the LO to "
+        "produce sum and difference frequencies. By tuning the LO, you select which incoming "
+        "frequency gets converted to the fixed IF. The RF input carries the signal you want to "
+        "receive, the image frequency is an unwanted signal (covered in G8B02), and the BFO "
+        "(beat frequency oscillator) is used later in the receive chain for SSB/CW demodulation "
+        "— not for frequency conversion in the mixer."
+    )
+
+    E["G8B02"] = (
+        "Image response is interference from a signal at twice the IF frequency away from the "
+        "desired signal. Here's the mechanism: a mixer produces both sum and difference frequencies. "
+        "If your IF is 10 MHz and you're tuned to 14.2 MHz (LO at 24.2 MHz), both 14.2 MHz AND "
+        "34.2 MHz will produce a 10 MHz difference with the LO. That 34.2 MHz signal is the "
+        "'image' — it's exactly 2×IF (20 MHz) away from your desired frequency. The front-end "
+        "bandpass filter is supposed to reject the image frequency, but if it leaks through, "
+        "you hear the image signal mixed on top of your desired signal. Higher IF frequencies "
+        "push the image further away, making it easier to filter — one reason modern receivers "
+        "use high first-IF frequencies."
+    )
+
+    E["G8B03"] = (
+        "Heterodyning is another term for mixing two RF signals. The word comes from Greek: "
+        "'hetero' (different) + 'dyne' (force/power). When you combine two different frequencies "
+        "in a non-linear device (mixer), you get sum and difference frequencies — that's "
+        "heterodyning. The superheterodyne receiver is named for this process: 'super' (above "
+        "audible) + 'heterodyne.' Heterodyning is the foundational principle of virtually every "
+        "receiver design since the 1920s. Synthesizing means building up, frequency inversion "
+        "means flipping a spectrum, and phase inversion means a 180° shift — none of these "
+        "describe the mixing of two signals."
+    )
+
+    E["G8B04"] = (
+        "A frequency multiplier generates a harmonic of a lower frequency signal to reach the "
+        "desired operating frequency. In a VHF FM transmitter, it's often easier to generate "
+        "a stable, well-modulated signal at a lower frequency and then multiply it up. A "
+        "multiplier stage uses a non-linear amplifier (like Class C from G7) to deliberately "
+        "generate harmonics, then a tuned output circuit selects the desired harmonic. For "
+        "example, a 12 MHz oscillator multiplied by 12 produces 144 MHz for the 2-meter band. "
+        "Frequency multiplication also multiplies the FM deviation by the same factor — this is "
+        "how the small deviation at the oscillator becomes the full 5 kHz deviation at the output "
+        "frequency (see G8B07). A mixer combines two different frequencies; a multiplier generates "
+        "harmonics of one frequency."
+    )
+
+    E["G8B05"] = (
+        "Odd-order intermodulation products are closest to the original signal frequencies — and "
+        "that's what makes them so problematic. When two signals (F1 and F2) mix in a non-linear "
+        "device, they produce intermodulation products at various combinations: 2F1-F2, 2F2-F1 "
+        "(3rd order), 3F1-2F2, 3F2-2F1 (5th order), etc. These odd-order products fall NEAR the "
+        "original frequencies, making them very difficult to filter out. Even-order products "
+        "(F1+F2, F1-F2, 2F1, 2F2) land far from the originals and are easily filtered. This is "
+        "why receiver specs emphasize odd-order intercept points (IP3, IP5) — those products are "
+        "the ones that actually cause interference on adjacent channels. Second harmonics are a "
+        "specific even-order product, and intercept point is a measurement parameter, not a "
+        "type of product."
+    )
+
+    E["G8B06"] = (
+        "Use Carson's Rule: bandwidth = 2 × (deviation + maximum modulating frequency) = "
+        "2 × (5 kHz + 3 kHz) = 2 × 8 kHz = 16 kHz. Carson's Rule gives you the approximate "
+        "bandwidth that contains about 98% of the FM signal's power. Note that it's NOT just "
+        "twice the deviation (10 kHz) and NOT just twice the modulating frequency (6 kHz) — you "
+        "need both terms added together, then doubled. The deviation determines how far the "
+        "carrier swings, and the modulating frequency determines how fast it swings. Both "
+        "contribute to the total bandwidth occupied."
+    )
+
+    E["G8B07"] = (
+        "The oscillator deviation is 416.7 Hz. Here's the math: the transmitter uses frequency "
+        "multiplication to get from 12.21 MHz to 146.52 MHz. The multiplication factor is "
+        "146.52 / 12.21 = 12. Since frequency multiplication multiplies deviation by the same "
+        "factor, the oscillator deviation must be the final deviation divided by the multiplication "
+        "factor: 5000 Hz / 12 = 416.7 Hz. This is why FM transmitters using multiplier chains "
+        "start with very small deviations at the oscillator — the multiplication process amplifies "
+        "the deviation along with the frequency. If the oscillator had the full 5 kHz deviation, "
+        "the output would have 60 kHz deviation (5 kHz × 12) — way too wide."
+    )
+
+    E["G8B08"] = (
+        "Knowing the duty cycle of your operating mode matters because some modes have high duty "
+        "cycles that could exceed the transmitter's average power rating. Duty cycle is the "
+        "percentage of time your transmitter is actually producing RF output. CW has a low duty "
+        "cycle — key down some, key up some. SSB voice varies. But digital modes like FT8, RTTY, "
+        "and PSK31 can be 100% duty cycle — the transmitter is producing full output continuously "
+        "during a transmission. A transmitter rated at 100W PEP for SSB might overheat at 100W "
+        "continuous digital modes because its cooling system was designed for a lower average power. "
+        "Many transceivers require you to reduce power for high-duty-cycle digital modes. This is "
+        "a practical safety consideration, not about tuning, break-in, or overmodulation."
+    )
+
+    E["G8B09"] = (
+        "Matching receiver bandwidth to the operating mode's bandwidth gives the best "
+        "signal-to-noise ratio (SNR). From G7C08, recall that wider bandwidth admits more noise. "
+        "If you're receiving a 200 Hz CW signal through a 2.4 kHz SSB filter, you're letting in "
+        "12× more noise than necessary — every hertz of bandwidth beyond what the signal needs "
+        "is just admitting more noise without adding more signal. But making the filter TOO narrow "
+        "clips the signal edges. The sweet spot is matching: a 500 Hz filter for CW, 2.4 kHz for "
+        "SSB, 200 Hz or less for PSK31. This isn't an FCC requirement, doesn't affect power "
+        "consumption or antenna impedance — it's purely about optimizing the signal-to-noise ratio."
+    )
+
+    E["G8B10"] = (
+        "Higher symbol rates require wider bandwidth. This is a fundamental principle of "
+        "digital communications — you can't send symbols faster without using more spectrum. "
+        "Each symbol transition occupies bandwidth; more transitions per second means more "
+        "bandwidth. The Nyquist theorem sets the lower bound: the minimum bandwidth in Hz equals "
+        "half the symbol rate in symbols/second. In practice, real filters and pulse shaping "
+        "require somewhat more. This is the tradeoff in digital mode design: PSK31 uses a slow "
+        "31.25 baud rate and fits in ~31 Hz, while high-speed modes like PACTOR IV need thousands "
+        "of hertz. FT8 achieves its narrow bandwidth by using a very slow symbol rate (6.25 baud) "
+        "with multiple tones."
+    )
+
+    E["G8B11"] = (
+        "A mixer's output contains the sum and difference of the LO and RF input frequencies. "
+        "This is the fundamental mixer equation: if you feed in F_RF and F_LO, you get F_RF + F_LO "
+        "and F_RF − F_LO (or F_LO − F_RF) at the output. The desired frequency (usually the "
+        "difference) becomes the IF, and the unwanted product (usually the sum) is filtered out. "
+        "For example, 14.2 MHz RF + 24.2 MHz LO produces 38.4 MHz (sum) and 10.0 MHz (difference). "
+        "The 10.0 MHz difference becomes your IF. The output is NOT the ratio, NOT the average, "
+        "and NOT the arithmetic product (multiplication) — it's the sum AND difference, created by "
+        "the non-linear mixing process."
+    )
+
+    E["G8B12"] = (
+        "Intermodulation is the process where two signals combine in a non-linear circuit to "
+        "produce unwanted spurious outputs. The key word is 'unwanted' — this distinguishes "
+        "intermodulation from heterodyning (G8B03), which is intentional mixing. Intermodulation "
+        "happens when strong signals overload an amplifier, mixer, or any non-linear element. "
+        "The resulting spurious signals (intermodulation products or IMD) appear at various "
+        "combinations of the input frequencies and can fall on top of weak desired signals, "
+        "causing interference. From G8B05, recall that odd-order products are the most troublesome "
+        "because they fall close to the original frequencies. Detection is extracting information "
+        "from a modulated signal, and rolloff describes filter attenuation — neither produces "
+        "spurious outputs."
+    )
+
+    E["G8B13"] = (
+        "2F1 − F2 is a third-order intermodulation product — and the order is 3 because the "
+        "coefficients add up to 3 (2 + 1 = 3). To determine the order: add the absolute values "
+        "of all the frequency multipliers. For 2F1 − F2: |2| + |−1| = 3 (third order, odd). "
+        "For 3F1 − F2: |3| + |−1| = 4 (fourth order, even — NOT odd). For 5F1 − 3F2: |5| + |−3| = 8 "
+        "(eighth order, even — NOT odd). So among the choices, only 2F1 − F2 is actually odd-order. "
+        "This is a tricky question because 'All these choices' sounds tempting, but you have to "
+        "check the math for each one. Third-order products (2F1−F2 and 2F2−F1) are the strongest "
+        "and closest to the original signals, making them the most important for receiver design."
+    )
+
+    # ── G8C — Digital Modes, Error Correction, Protocols ────────────
+
+    E["G8C01"] = (
+        "Amateurs share the 2.4 GHz band with unlicensed Wi-Fi services. The 2.4 GHz band "
+        "(2400-2450 MHz) is allocated to both amateur radio (secondary) and industrial/scientific/medical "
+        "(ISM) uses — which includes Wi-Fi (802.11b/g/n). This shared allocation means amateur "
+        "microwave operations and mesh networking projects on 2.4 GHz must coexist with the "
+        "massive amount of Wi-Fi traffic from every home router, smartphone, and IoT device. "
+        "The 432 MHz, 902 MHz, and 10.7 GHz bands don't have Wi-Fi sharing. Amateur operators "
+        "on 2.4 GHz sometimes repurpose commercial Wi-Fi hardware (like Ubiquiti or Mikrotik "
+        "radios) for amateur mesh networking — which is legal since amateurs have privileges on "
+        "the band."
+    )
+
+    E["G8C02"] = (
+        "WSPR (Weak Signal Propagation Reporter, pronounced 'whisper') is the digital mode used "
+        "as a low-power beacon for assessing HF propagation. WSPR stations transmit their callsign, "
+        "grid locator, and power level (typically 1-5 watts) using a very narrow bandwidth signal "
+        "(about 6 Hz). Receiving stations upload reception reports to a central database (wsprnet.org), "
+        "creating a real-time map of propagation paths. WSPR can decode signals as weak as -28 dB "
+        "SNR. It's specifically designed for propagation assessment — you set it and forget it. "
+        "MFSK16 and PSK31 are keyboard-to-keyboard chat modes, not beacons. SSB-SC is a voice "
+        "mode. WSPR is the go-to tool for understanding what bands are open and to where."
+    )
+
+    E["G8C03"] = (
+        "The header of a packet radio frame contains the routing and handling information — "
+        "source callsign, destination callsign, digipeater path, and protocol control fields. "
+        "Think of it like the envelope of a letter: the header tells the network where the packet "
+        "came from, where it's going, and how to handle it. The preamble is a synchronization "
+        "sequence that lets the receiver lock onto the signal timing. The trailer marks the end "
+        "of the frame and typically contains an error-checking checksum. 'Directory' is not a "
+        "standard packet radio frame component. The header/preamble/data/trailer structure is "
+        "common across most digital communication protocols."
+    )
+
+    E["G8C04"] = (
+        "Baudot code is a 5-bit code with additional start and stop bits. Developed in 1870 by "
+        "Émile Baudot, it's one of the oldest digital character encoding systems and is still used "
+        "in amateur RTTY (Radio Teletype). With 5 bits, Baudot can represent 2⁵ = 32 characters "
+        "per shift — but that's not enough for letters, numbers, and punctuation. So Baudot uses "
+        "two shift states (LETTERS and FIGURES) to double the available characters to 64. The "
+        "start and stop bits frame each character for asynchronous transmission. Baudot is NOT "
+        "7-bit (that's ASCII), does NOT include error detection/correction (errors just produce "
+        "garbled text), and has nothing to do with SELCAL or LISTEN. It's simple, old, and still "
+        "works."
+    )
+
+    E["G8C05"] = (
+        "In an ARQ (Automatic Repeat reQuest) mode, a NAK (Negative Acknowledgment) response "
+        "means 'I received the packet but it contained errors — please retransmit.' ARQ is an "
+        "error-correction protocol where the receiver checks each incoming packet (typically using "
+        "a CRC checksum) and responds with either ACK (Acknowledgment — packet OK) or NAK "
+        "(errors detected — send again). This back-and-forth continues until the packet gets "
+        "through cleanly or too many attempts fail (see G8C06). NAK does NOT mean the packet was "
+        "received without error (that's ACK), doesn't indicate a connection is established, and "
+        "doesn't mean the entire file was received. ARQ modes include PACTOR, WINMOR, and ARDOP "
+        "— all used in Winlink email systems."
+    )
+
+    E["G8C06"] = (
+        "When an ARQ mode fails to exchange information after excessive transmission attempts, "
+        "the connection is dropped. Every ARQ protocol has a retry limit — if a packet can't get "
+        "through after a certain number of retransmission attempts (because the channel is too "
+        "noisy, interference is too strong, or the other station has disappeared), the protocol "
+        "gives up and disconnects. This prevents stations from endlessly retransmitting into the "
+        "void and tying up the frequency. The checksum doesn't 'overflow' (it's a fixed-size "
+        "value), packets aren't routed incorrectly (they just fail), and the encoding doesn't "
+        "revert to a default set. The connection simply terminates, and you'd need to reinitiate "
+        "it when conditions improve."
+    )
+
+    E["G8C07"] = (
+        "FT8 can receive signals with very low signal-to-noise ratios — down to about -20 dB SNR "
+        "in a 2.5 kHz bandwidth. This extraordinary weak-signal capability comes from its narrow "
+        "bandwidth (~50 Hz), long integration time (12.64 seconds per transmission), and powerful "
+        "forward error correction (LDPC coding). FT8 achieves this by trading speed for "
+        "sensitivity — each transmission carries very little information (13 characters maximum), "
+        "but it gets through when nothing else can. MSK144 is designed for meteor scatter (short "
+        "bursts, not weak signals). AMTOR is an older ARQ mode without exceptional weak-signal "
+        "capability. MFSK32 has decent performance but doesn't match FT8's ability to pull "
+        "signals from the noise."
+    )
+
+    E["G8C08"] = (
+        "In PSK31, upper case letters use longer Varicode bit sequences and thus slow down "
+        "transmission. PSK31 uses Varicode encoding (see G8C12) where common characters get "
+        "short bit sequences and rare characters get longer ones. Lower case 'e' is encoded "
+        "as just 11 (2 bits), while upper case 'E' is 1110111 (7 bits) — more than 3× longer. "
+        "This means typing in ALL CAPS literally slows your throughput. Upper case letters are "
+        "NOT sent with more power (power is constant in PSK31). PSK31 does NOT use error "
+        "correction — that's QPSK31 (see G8A06). And PSK31 is actually more power-efficient "
+        "than RTTY, not less. The practical lesson: use lower case in PSK31 for faster throughput."
+    )
+
+    E["G8C09"] = (
+        "The key characteristic of mesh network microwave nodes is redundancy: if one node fails, "
+        "a packet may still reach its target station via an alternate node. That's the entire "
+        "point of a mesh topology — multiple interconnected paths mean no single point of failure. "
+        "Each node can route traffic through any available neighbor, and routing protocols "
+        "automatically find alternate paths when one goes down. More nodes don't increase signal "
+        "strength (each link has its own path loss). Links between nodes in a mesh DO typically "
+        "use the same frequency and bandwidth (that's how they mesh). And more nodes don't reduce "
+        "out-of-band interference. The resilience and self-healing nature of mesh is what makes "
+        "it valuable for amateur emergency communications networks."
+    )
+
+    E["G8C10"] = (
+        "Forward error correction (FEC) works by transmitting redundant information with the data. "
+        "The transmitter adds extra bits (calculated from the original data using mathematical "
+        "algorithms) that the receiver uses to detect AND correct errors — without needing "
+        "retransmission. This is fundamentally different from ARQ (G8C05-06), which detects "
+        "errors and requests retransmission. FEC trades bandwidth for reliability: you're sending "
+        "more bits than the actual message requires, but the receiver can fix errors on its own. "
+        "FEC does NOT control transmitter power, does NOT use Varicode (that's a character "
+        "encoding), and is more sophisticated than simple parity bits. Modern FEC codes like LDPC "
+        "(used in FT8) and turbo codes approach the theoretical limits of error correction. FEC "
+        "is essential for one-way broadcasts and situations where retransmission isn't practical."
+    )
+
+    E["G8C11"] = (
+        "The two frequencies of an FSK signal are called mark and space. These terms come from "
+        "telegraphy: 'mark' was when the pen made a mark on the paper tape (current flowing), "
+        "and 'space' was when it didn't (no current). In FSK, mark typically represents a binary "
+        "1 and space represents binary 0, each at its own distinct frequency. For amateur RTTY, "
+        "the standard shift between mark and space is 170 Hz. 'Dot and dash' refers to Morse "
+        "code (CW), 'on and off' describes on-off keying (OOK), and 'high and low' is too "
+        "generic. Mark and space are the specific, correct terms for FSK frequency identification. "
+        "You'll see these terms in every RTTY and FSK-related discussion."
+    )
+
+    E["G8C12"] = (
+        "PSK31 uses Varicode to encode characters. Varicode is a variable-length code where "
+        "common characters (like 'e' and 't') get short bit sequences and uncommon characters "
+        "(like 'Z' and uppercase letters) get longer ones — similar in concept to Morse code, "
+        "where 'E' is a single dit. This makes PSK31 efficient for typical English text. "
+        "Characters are separated by two or more consecutive zeros (00). Viterbi is a decoding "
+        "algorithm for convolutional codes (error correction), not a character encoding. "
+        "'Volumetric' is not a real coding term. And while all digital codes are ultimately "
+        "binary, 'binary' doesn't describe the specific variable-length encoding scheme that "
+        "makes PSK31 work. Varicode is the defining character set of PSK31."
+    )
+
+    E["G8C13"] = (
+        "Vertical lines on either side of a data mode or RTTY signal on a waterfall display "
+        "indicate overmodulation. These lines are spurious emissions — harmonics and "
+        "intermodulation products created when the signal is driven too hard. A clean digital "
+        "signal should appear as a narrow, well-defined trace on the waterfall. When overmodulated, "
+        "the signal distorts and splatters energy into adjacent frequencies, showing up as "
+        "additional vertical lines flanking the main signal. This is the digital equivalent of "
+        "flat-topping in SSB (G8A10) — too much drive creates excessive bandwidth (G8A08). The "
+        "fix is to reduce your audio drive level or transmitter power. These lines do NOT indicate "
+        "propagation effects (long path or backscatter) or insufficient modulation — they "
+        "specifically indicate excessive modulation."
+    )
+
+    E["G8C14"] = (
+        "A waterfall display shows frequency on the horizontal axis, signal strength as intensity "
+        "(brightness or color), and time on the vertical axis (scrolling downward). Imagine "
+        "stacking spectrum snapshots on top of each other over time — each horizontal line is "
+        "one moment's spectrum, and time flows downward like a waterfall. Stronger signals appear "
+        "brighter or in different colors. This format lets you see signals, their bandwidth, and "
+        "how they change over time simultaneously. It's invaluable for digital modes — you can "
+        "visually identify mode types, spot interference, detect overmodulation (G8C13), and "
+        "click on signals to tune to them. The three axes (frequency, intensity, time) and their "
+        "orientations are the key to this question."
+    )
+
+    E["G8C15"] = (
+        "An FT8 signal report of +3 means the signal-to-noise ratio is equivalent to +3 dB in "
+        "a 2.5 kHz bandwidth. FT8 reports SNR rather than traditional S-meter readings because "
+        "FT8 routinely works with signals far below the noise floor. The reference bandwidth of "
+        "2.5 kHz was chosen because it's the approximate bandwidth of an SSB receiver — so "
+        "the report tells you how the signal compares to the noise you'd hear in a normal SSB "
+        "passband. A report of +3 means the signal is 3 dB above the noise floor in that "
+        "bandwidth — audible but not strong. FT8 reports typically range from about -24 dB (barely "
+        "decodable) to +20 dB or higher (very strong). The report is NOT in S-units, NOT relative "
+        "to S9, and NOT a comparison to an SSB signal's strength."
+    )
+
+    E["G8C16"] = (
+        "DMR (Digital Mobile Radio), D-STAR (Digital Smart Technologies for Amateur Radio), and "
+        "System Fusion provide digital voice modes. These are the three major digital voice "
+        "systems used in amateur radio, each using different vocoder technology to compress voice "
+        "into a digital stream. DMR uses AMBE+2 codec, D-STAR uses AMBE codec, and System "
+        "Fusion (Yaesu's system) uses either C4FM digital voice or conventional analog FM. "
+        "WSPR, MFSK16, and EasyPAL are data/image modes, not voice. FT8, FT4, and FST4 are "
+        "weak-signal data modes. Winlink, PACTOR II, and PACTOR III are email/data transfer "
+        "protocols. Only DMR, D-STAR, and System Fusion are designed specifically to carry "
+        "digitized voice over radio."
+    )
+
     # fmt: on
 
 
