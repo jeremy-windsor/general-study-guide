@@ -607,6 +607,400 @@ def _load_explanations() -> None:
         "If you see an RCA jack on a radio, it's for audio or control signals, not antenna connections."
     )
 
+    # ── G7A — Power Supplies and Schematic Symbols ──────────────
+
+    E["G7A01"] = (
+        "A bleeder resistor is connected across the filter capacitors in a power supply so that "
+        "when you turn the supply off, the capacitors have a discharge path. Without it, those "
+        "capacitors can hold a lethal charge for minutes or even hours — especially in high-voltage "
+        "supplies used with vacuum tube amplifiers. The bleeder resistor slowly drains the stored "
+        "energy to a safe level. It's a safety component, not a performance one. It doesn't act as "
+        "a fuse, doesn't affect induction coils, and has nothing to do with ground loops."
+    )
+
+    E["G7A02"] = (
+        "The filter network in a power supply smooths the pulsating DC that comes out of the "
+        "rectifier into something closer to pure DC. It uses capacitors and inductors — the "
+        "capacitors charge up during voltage peaks and release energy during dips, while inductors "
+        "resist sudden current changes, further smoothing the output. This is a direct application "
+        "of G5 reactance concepts: capacitors pass AC ripple to ground (low reactance at ripple "
+        "frequency) while inductors block it (high reactance at ripple frequency). Diodes are "
+        "rectifiers, not filters. Transformers change voltage levels but don't filter."
+    )
+
+    E["G7A03"] = (
+        "A full-wave rectifier using a center-tapped transformer needs only two diodes. Here's "
+        "how it works: the center tap provides a midpoint reference (ground). During one half of "
+        "the AC cycle, current flows through the top half of the secondary and diode #1. During "
+        "the other half, current flows through the bottom half and diode #2. Each diode handles "
+        "one half-cycle, but the output sees BOTH halves — hence 'full-wave.' A full-wave bridge "
+        "rectifier also produces full-wave output but uses four diodes and no center tap. A "
+        "half-wave rectifier uses just one diode. Don't confuse the two full-wave types."
+    )
+
+    E["G7A04"] = (
+        "A half-wave rectifier uses only one diode — that's its defining characteristic. The diode "
+        "passes current during one half of the AC cycle and blocks it during the other half. This "
+        "makes it the simplest possible rectifier circuit, but also the least efficient: half the "
+        "input power is wasted. The ripple frequency equals the AC input frequency (not twice it — "
+        "that's full-wave). Less current is available compared to full-wave designs, and the output "
+        "voltage is NOT doubled. Half-wave rectifiers are used where simplicity matters more than "
+        "performance — like low-current bias supplies."
+    )
+
+    E["G7A05"] = (
+        "A half-wave rectifier converts 180 degrees of the AC cycle — exactly one half. The diode "
+        "conducts during the positive half-cycle (0° to 180°) and blocks during the negative "
+        "half-cycle (180° to 360°). That's where the name comes from: half the wave gets through, "
+        "half is discarded. Think of a full AC cycle as 360°: half-wave uses 180°, full-wave uses "
+        "all 360°."
+    )
+
+    E["G7A06"] = (
+        "A full-wave rectifier converts 360 degrees — the entire AC cycle. Both the positive AND "
+        "negative half-cycles contribute to the DC output. During the negative half, the rectifier "
+        "circuit flips the polarity so it adds to the output rather than subtracting. Whether you "
+        "use a center-tapped transformer with two diodes or a bridge with four diodes, the result "
+        "is the same: every part of the input waveform contributes useful output. This doubles the "
+        "ripple frequency compared to half-wave and produces smoother DC."
+    )
+
+    E["G7A07"] = (
+        "An unfiltered full-wave rectifier produces DC pulses at TWICE the AC input frequency. "
+        "Here's why: each half-cycle of the AC input produces one DC pulse. Since there are two "
+        "half-cycles per full cycle, you get two pulses per AC cycle — double the frequency. If "
+        "your AC input is 60 Hz, the unfiltered output has a 120 Hz ripple. This is actually an "
+        "advantage of full-wave over half-wave: the higher ripple frequency is easier to filter "
+        "out (capacitors and inductors are more effective at higher frequencies — remember X_C = "
+        "1/(2πfC) from G5). The output is NOT steady DC (that requires filtering) and NOT a sine "
+        "wave (the negative halves have been flipped positive)."
+    )
+
+    E["G7A08"] = (
+        "Switchmode power supplies operate at high frequency (typically 50 kHz to several MHz), "
+        "and this high-frequency operation allows the use of much smaller transformers and filter "
+        "components. From G5, we know that a transformer's ability to transfer power depends on "
+        "the rate of change of current (higher frequency = faster changes). At 60 Hz, you need a "
+        "big, heavy iron-core transformer. At 100 kHz, a tiny ferrite-core transformer does the "
+        "same job. Same principle applies to filter capacitors and inductors — at higher "
+        "frequencies, smaller values provide the same filtering effect. That's why your laptop "
+        "charger is small and light while old-school linear supplies were heavy bricks."
+    )
+
+    E["G7A09"] = (
+        "Symbol 1 in Figure G7-1 represents a field-effect transistor (FET). The FET schematic "
+        "symbol shows a channel with a gate electrode that doesn't directly touch it — reflecting "
+        "the physical structure where the gate controls current flow through an electric field "
+        "rather than direct contact. In a MOSFET, the gate is insulated by an oxide layer (as "
+        "covered in G6). In a JFET, the gate is a reverse-biased junction. Either way, the "
+        "symbol shows the gate offset from the channel. Look for the arrow on the gate or source "
+        "to distinguish N-channel from P-channel."
+    )
+
+    E["G7A10"] = (
+        "Symbol 5 in Figure G7-1 represents a Zener diode. The Zener symbol looks like a regular "
+        "diode but with bent or 'kinked' ends on the bar (cathode). This distinguishes it from "
+        "a standard rectifier diode, which has a straight bar. Zener diodes are designed to "
+        "operate in reverse breakdown at a specific voltage — that's what makes them useful as "
+        "voltage references and regulators. When reverse voltage reaches the Zener voltage, the "
+        "diode conducts and clamps the voltage at that level. The bent cathode bar is the visual "
+        "cue on schematics."
+    )
+
+    E["G7A11"] = (
+        "Symbol 2 in Figure G7-1 represents an NPN junction transistor. The BJT schematic symbol "
+        "shows three leads: base, collector, and emitter. The key to identifying NPN vs PNP is "
+        "the arrow on the emitter: in an NPN transistor, the arrow points AWAY from the base "
+        "(outward — 'Not Pointing iN'). In a PNP, the arrow points inward toward the base. "
+        "From G6, remember that BJTs in switching mode operate in saturation (ON) and cutoff "
+        "(OFF). The NPN is the most common transistor type in amateur radio circuits."
+    )
+
+    E["G7A12"] = (
+        "Symbol 6 in Figure G7-1 represents a solid-core (iron-core) transformer. A transformer "
+        "symbol shows two coils (inductors) side by side — the primary and secondary windings. "
+        "What distinguishes a solid-core transformer from an air-core transformer is the lines "
+        "drawn between the coils: solid lines indicate a solid (iron or ferrite) core. An "
+        "air-core transformer has no lines between the coils, or dashed lines. From G5, recall "
+        "that transformers work through mutual inductance and are used for impedance matching "
+        "and voltage transformation."
+    )
+
+    E["G7A13"] = (
+        "Symbol 7 in Figure G7-1 represents a tapped inductor. A tapped inductor looks like a "
+        "regular inductor symbol (a coil) but with an additional connection point partway along "
+        "the winding. This tap lets you access a fraction of the total inductance, which is "
+        "useful for impedance matching and tuning. It's like a center-tapped transformer "
+        "secondary but with just one winding. Don't confuse it with a transformer (two separate "
+        "coils) or a full inductor (no tap point)."
+    )
+
+    # ── G7B — Digital Circuits, Amplifiers, Oscillators ─────────────
+
+    E["G7B01"] = (
+        "Neutralizing an amplifier eliminates self-oscillations. Self-oscillation happens when "
+        "some of the amplifier's output feeds back to its input in phase — creating unintended "
+        "positive feedback that makes the amplifier act like an oscillator instead of an amplifier. "
+        "This is the same grid-to-plate capacitance problem that the screen grid addresses in "
+        "vacuum tubes (from G6). Neutralization adds a deliberate canceling signal that's equal "
+        "in amplitude but opposite in phase to the unwanted feedback. The result: the amplifier "
+        "amplifies without oscillating. It has nothing to do with modulation index, standby "
+        "control, or frequency stability."
+    )
+
+    E["G7B02"] = (
+        "Class C has the highest efficiency of the standard amplifier classes — typically 60-80%. "
+        "Here's the efficiency hierarchy: Class A (~25-50%) conducts 100% of the time but wastes "
+        "a lot of power as heat. Class B (~50-65%) conducts 50% of the time. Class AB (between A "
+        "and B) is a compromise. Class C conducts less than 50% of the time — the device is OFF "
+        "for most of the cycle, only turning on for brief pulses. Less conduction time = less "
+        "wasted power = higher efficiency. The tradeoff: Class C severely distorts the waveform, "
+        "making it unsuitable for linear signals like SSB or AM. It's fine for FM and CW where "
+        "amplitude doesn't carry information."
+    )
+
+    E["G7B03"] = (
+        "A two-input AND gate outputs HIGH only when BOTH inputs are HIGH. Think of it as a "
+        "series circuit with two switches — current only flows when switch A AND switch B are "
+        "both closed. The truth table is simple: 0+0=0, 0+1=0, 1+0=0, 1+1=1. Compare with OR "
+        "(output high when EITHER input is high) and NAND (output high UNLESS both inputs are "
+        "high — the inverse of AND). Digital logic gates are the building blocks of the counters, "
+        "shift registers, and PLDs that appear in amateur radio equipment."
+    )
+
+    E["G7B04"] = (
+        "A Class A amplifier conducts 100% of the time — the amplifying device never turns off. "
+        "It's biased at the center of its operating range, so the entire input waveform is "
+        "reproduced faithfully at the output. This makes Class A the most linear amplifier class "
+        "— it preserves the input waveform with minimal distortion. The tradeoff is efficiency: "
+        "the device is always drawing current even with no signal, so at least half the DC input "
+        "power is wasted as heat. Class A is used where signal quality matters more than "
+        "efficiency — like low-level driver stages and audio preamplifiers."
+    )
+
+    E["G7B05"] = (
+        "A 3-bit binary counter has 2³ = 8 states (0 through 7). Each bit can be 0 or 1, giving "
+        "two possible values per bit. With 3 bits, you get 2 × 2 × 2 = 8 combinations: 000, 001, "
+        "010, 011, 100, 101, 110, 111. The pattern is always 2^N states for N bits. A 4-bit "
+        "counter would have 16 states, an 8-bit counter 256 states. Binary counters are essential "
+        "in frequency dividers, digital displays, and timing circuits found in amateur radio "
+        "equipment."
+    )
+
+    E["G7B06"] = (
+        "A shift register is a clocked array of circuits that passes data in steps along the "
+        "array. Each clock pulse shifts the data one position — like a bucket brigade where each "
+        "person passes their bucket to the next. Shift registers are built from flip-flops "
+        "connected in series. They're used for serial-to-parallel conversion (receiving serial "
+        "data and outputting it in parallel), parallel-to-serial conversion, data buffering, and "
+        "delay lines. They're fundamental components in digital communications equipment. They're "
+        "NOT operational amplifiers, mixers, or arithmetic circuits."
+    )
+
+    E["G7B07"] = (
+        "A sine wave oscillator has two essential components: a filter and an amplifier operating "
+        "in a feedback loop. The amplifier provides gain, and the filter determines the frequency "
+        "by selecting which frequency gets positive feedback. When the loop gain at the filter's "
+        "frequency equals exactly 1 and the phase shift is 0° (or 360°), the circuit sustains "
+        "oscillation at that frequency. This is the Barkhausen criterion. LC oscillators use an "
+        "LC tank circuit as the filter. Crystal oscillators use a quartz crystal (which behaves "
+        "like an extremely selective LC circuit). Without the feedback loop, you just have an "
+        "amplifier. Without the filter, you'd get noise, not a sine wave."
+    )
+
+    E["G7B08"] = (
+        "RF power amplifier efficiency is calculated by dividing the RF output power by the DC "
+        "input power. Efficiency = P_RF_out / P_DC_in × 100%. If your amplifier draws 500W from "
+        "the power supply and delivers 300W of RF, its efficiency is 300/500 = 60%. The remaining "
+        "200W becomes heat — which is why amplifiers need heatsinks or fans. Higher efficiency "
+        "means less wasted heat and a smaller power supply requirement. This is why Class C "
+        "(60-80% efficient) is preferred over Class A (25-50%) when linearity isn't needed."
+    )
+
+    E["G7B09"] = (
+        "The frequency of an LC oscillator is determined by the inductance and capacitance in "
+        "the tank circuit — using the resonant frequency formula from G5: f = 1/(2π√(LC)). The "
+        "tank circuit resonates at a specific frequency where inductive and capacitive reactance "
+        "are equal (X_L = X_C), and that's the frequency the oscillator produces. Change L or C "
+        "and you change the frequency. This is how variable-frequency oscillators (VFOs) work: a "
+        "variable capacitor tunes the frequency by changing C in the tank circuit. Crystal "
+        "oscillators use the crystal's equivalent LC values for extreme stability."
+    )
+
+    E["G7B10"] = (
+        "A linear amplifier is one where the output preserves the input waveform — the output is "
+        "an amplified but faithful copy of the input. 'Linear' means the output is directly "
+        "proportional to the input at all amplitude levels. This is essential for SSB and AM "
+        "signals where the amplitude carries information — any distortion of the waveform creates "
+        "splatter (unwanted sideband energy that interferes with adjacent channels). Class A and "
+        "Class AB amplifiers are linear. Class C is NOT linear — it clips the waveform severely. "
+        "A frequency multiplier is the opposite of linear — it deliberately distorts the signal "
+        "to generate harmonics."
+    )
+
+    E["G7B11"] = (
+        "Class C is appropriate for amplifying FM signals because FM carries information in "
+        "frequency changes, not amplitude changes. Since the amplitude of an FM signal is "
+        "constant (it doesn't matter if the peaks get clipped), Class C's severe waveform "
+        "distortion doesn't lose any information. The tuned output circuit of the Class C "
+        "amplifier reconstructs the sine wave at the fundamental frequency. For SSB and AM, "
+        "amplitude carries the information, so Class C's clipping would destroy the signal. "
+        "That's why SSB transmitters use Class AB amplifiers — they're less efficient but "
+        "preserve the amplitude envelope."
+    )
+
+    # ── G7C — Receivers, Transmitters, DSP, SDR, Filters ────────────
+
+    E["G7C01"] = (
+        "A filter selects one sideband from the output of a balanced modulator. The balanced "
+        "modulator produces a double-sideband suppressed-carrier (DSB-SC) signal — both sidebands "
+        "but no carrier. To get a single-sideband (SSB) signal, you need to remove one of the "
+        "sidebands. A crystal or mechanical filter does this by having a very narrow passband that "
+        "includes only the desired sideband while rejecting the other. The carrier oscillator "
+        "generates the carrier frequency, the IF amplifier boosts the signal, and the RF amplifier "
+        "handles the final output — but it's the filter that performs the sideband selection."
+    )
+
+    E["G7C02"] = (
+        "A balanced modulator produces double-sideband (DSB) modulated RF with the carrier "
+        "suppressed. It combines the audio signal with the carrier such that the carrier itself "
+        "cancels out, leaving only the upper and lower sidebands. This is the first step in "
+        "generating an SSB signal. The 'balanced' part refers to the circuit's symmetry, which "
+        "causes the carrier to cancel. The output is NOT FM (that requires a different modulation "
+        "method), NOT extracted audio (that's demodulation), and NOT equalized audio (that's "
+        "an audio processing function). After the balanced modulator, a filter selects one "
+        "sideband to complete the SSB generation process."
+    )
+
+    E["G7C03"] = (
+        "An impedance matching transformer at a transmitter output presents the desired impedance "
+        "to both the transmitter and the feed line. From G5, you know that maximum power transfer "
+        "occurs when impedances are matched, and mismatched impedances cause reflections (high "
+        "SWR). If your antenna feed line is 50 ohms but the transmitter output stage wants to see "
+        "a different impedance, a matching transformer bridges the gap using the turns ratio "
+        "relationship: Z_ratio = (N₁/N₂)². The goal is NOT to minimize power output, reduce "
+        "ripple, or minimize radiation resistance — it's to ensure efficient power transfer by "
+        "presenting the right impedance to each side of the connection."
+    )
+
+    E["G7C04"] = (
+        "A product detector is used in an SSB receiver to extract the modulated signal. SSB "
+        "signals have no carrier — the carrier was suppressed during transmission. To demodulate "
+        "SSB, the receiver must reinsert a replacement carrier (called the beat frequency oscillator "
+        "or BFO) and mix it with the received signal. The product detector does this mixing. "
+        "Without a product detector (or equivalent), an SSB signal sounds like unintelligible "
+        "quacking. The term 'product' comes from the mathematical operation — multiplying (taking "
+        "the product of) two signals. It's not test equipment, not a frequency multiplier, and "
+        "not an FM filter."
+    )
+
+    E["G7C05"] = (
+        "A direct digital synthesizer (DDS) produces a variable output frequency with the stability "
+        "of a crystal oscillator. A DDS works by using a digital counter and lookup table to "
+        "generate a sine wave sample-by-sample, clocked by a crystal oscillator reference. Since "
+        "every output frequency is derived from the same crystal reference, they all share its "
+        "stability. The frequency can be changed almost instantaneously by changing a digital "
+        "value — no mechanical tuning or PLL lock time needed. DDS does NOT have a narrow tuning "
+        "range (it can cover a wide range), doesn't produce high power (it's a signal source, not "
+        "an amplifier), and the output isn't a perfectly pure sine wave (it has quantization "
+        "artifacts that need filtering)."
+    )
+
+    E["G7C06"] = (
+        "The key advantage of DSP (Digital Signal Processing) filters over analog filters is that "
+        "a wide range of filter bandwidths and shapes can be created — all in software. An analog "
+        "filter is fixed by its physical components: changing bandwidth means swapping crystals or "
+        "adjusting LC networks. A DSP filter is just math — change the algorithm's parameters and "
+        "you instantly have a different bandwidth, different shape factor, or even a completely "
+        "different filter type (low-pass, band-pass, notch). Modern SDR transceivers exploit this "
+        "to give operators continuously variable bandwidth — something that's impractical with "
+        "analog filters. DSP doesn't reduce mixing products, isn't more effective at VHF, and "
+        "doesn't use fewer components."
+    )
+
+    E["G7C07"] = (
+        "Insertion loss specifies a filter's attenuation inside its passband — the amount of "
+        "desired signal that's lost just by passing through the filter. An ideal filter would "
+        "have zero insertion loss (no signal lost in the passband) and infinite rejection outside "
+        "it. Real filters always lose something. Insertion loss of 1-2 dB is typical for a good "
+        "crystal filter. Return loss measures reflected power (related to impedance matching). "
+        "Q describes a component's or circuit's selectivity. Ultimate rejection is the maximum "
+        "attenuation outside the passband. Know all four terms, but insertion loss is specifically "
+        "about loss INSIDE the passband."
+    )
+
+    E["G7C08"] = (
+        "All three factors — input amplifier gain, demodulator bandwidth, and input amplifier "
+        "noise figure — affect receiver sensitivity. Sensitivity is about detecting weak signals, "
+        "and weak signals must compete with noise. The noise figure tells you how much noise the "
+        "amplifier adds (lower is better). The gain determines how much the signal gets boosted. "
+        "The bandwidth determines how much noise enters the system (wider bandwidth = more noise). "
+        "Together, these determine the minimum detectable signal (MDS). This is why narrowing "
+        "your IF filter bandwidth improves sensitivity — you're reducing the noise that competes "
+        "with the signal."
+    )
+
+    E["G7C09"] = (
+        "The I and Q signals in SDR (Software-Defined Radio) are 90 degrees apart in phase. "
+        "I stands for In-phase and Q stands for Quadrature (which literally means 'quarter turn' "
+        "= 90°). By sampling the incoming RF at two points exactly 90° apart, the SDR captures "
+        "complete information about both the amplitude and phase of the signal. This is critical "
+        "because a single sample stream can't distinguish between positive and negative frequencies "
+        "(images). The 90° I/Q pair eliminates this ambiguity. Without the quadrature relationship, "
+        "SDR demodulation wouldn't work correctly."
+    )
+
+    E["G7C10"] = (
+        "The advantage of I/Q modulation in SDRs is that all types of modulation can be created "
+        "with appropriate processing. Because I/Q represents the signal completely — both amplitude "
+        "and phase at every instant — you can mathematically construct any modulation scheme: AM, "
+        "FM, SSB, PSK, QAM, or anything else. It's a universal modulation/demodulation framework. "
+        "Change the software algorithm and you change the modulation type — no hardware changes "
+        "needed. This is the fundamental power of SDR: the radio's capabilities are defined by "
+        "software rather than fixed hardware. I/Q doesn't eliminate the need for ADCs (it requires "
+        "them), doesn't reduce minimum signal level, and doesn't automatically convert digital to analog."
+    )
+
+    E["G7C11"] = (
+        "In a software-defined radio, ALL of the listed functions — filtering, detection, and "
+        "modulation — are performed by software. That's the entire point of SDR: replace dedicated "
+        "hardware circuits with software algorithms running on a processor. Traditional radios use "
+        "physical crystal filters, diode detectors, and balanced modulators. An SDR does the same "
+        "jobs mathematically. The hardware is reduced to an antenna, an analog-to-digital converter "
+        "(ADC), and a processor. Everything between the ADC and the speaker/display is software. "
+        "This makes SDRs incredibly flexible — update the software and you've upgraded your radio."
+    )
+
+    E["G7C12"] = (
+        "The cutoff frequency is the frequency above which a low-pass filter's output power drops "
+        "below half the input power. This is also called the -3 dB point (from G5: a 3 dB loss = "
+        "half power). Below the cutoff frequency, signals pass through with minimal loss. Above "
+        "it, signals are increasingly attenuated. The cutoff frequency defines the boundary of the "
+        "filter's passband. It's not the notch frequency (that's for a band-stop filter), not the "
+        "neper frequency (a rarely-used attenuation unit), and rolloff describes the steepness of "
+        "attenuation beyond cutoff, not the cutoff point itself."
+    )
+
+    E["G7C13"] = (
+        "Ultimate rejection specifies a filter's maximum ability to reject signals outside its "
+        "passband. It's the deepest attenuation the filter can achieve — the floor of the "
+        "stopband. For example, a crystal filter might have 80 dB of ultimate rejection, meaning "
+        "signals far from the passband are reduced by a factor of 100 million. Insertion loss is "
+        "about loss INSIDE the passband (the opposite concept). Rolloff describes how quickly "
+        "attenuation increases at the passband edges. Notch depth applies to notch (band-reject) "
+        "filters specifically, not to the general stopband performance of any filter."
+    )
+
+    E["G7C14"] = (
+        "A band-pass filter's bandwidth is measured between the upper and lower half-power points "
+        "(-3 dB points). These are the frequencies where the output power drops to half the peak "
+        "passband power. The bandwidth is simply the difference: BW = f_upper - f_lower. For "
+        "example, if a filter passes signals from 9.000 MHz to 9.003 MHz at the half-power points, "
+        "its bandwidth is 3 kHz — typical for an SSB crystal filter. This connects to the receiver "
+        "sensitivity concept in G7C08: narrower bandwidth means less noise and better sensitivity "
+        "for narrow-band signals."
+    )
+
     # fmt: on
 
 
