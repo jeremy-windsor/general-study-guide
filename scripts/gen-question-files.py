@@ -1684,6 +1684,708 @@ def _load_explanations() -> None:
         "long-distance propagation — connecting directly to G3C05."
     )
 
+    # ── G4A — Station Operation and Setup ────────────────────────────
+
+    E["G4A01"] = (
+        "A notch filter removes a single interfering carrier from the receiver passband. Imagine "
+        "you're listening on 14.250 MHz and someone has an unmodulated carrier sitting right on top "
+        "of the signal you want to hear — a steady tone in your headphones. The notch filter is a "
+        "very narrow, very deep rejection filter you can tune to that exact frequency and surgically "
+        "remove it without affecting the rest of the passband. It does NOT affect your transmitter "
+        "bandwidth (that's the mic EQ or filter settings), it doesn't handle impulse noise (that's "
+        "the noise blanker — G4A03), and it doesn't remove splatter (that's the IF passband filter). "
+        "Think of it as a sniper rifle, not a shotgun — it takes out one specific interference source."
+    )
+
+    E["G4A02"] = (
+        "When receiving CW, the receiver converts the incoming carrier to an audible tone using the "
+        "BFO (beat frequency oscillator). Normally you listen in the 'normal' sideband, but if "
+        "there's an interfering signal close to the one you want, switching to the opposite sideband "
+        "moves the BFO to the other side of the IF passband. This changes which signals fall inside "
+        "your passband and which fall outside, potentially moving the interferer out while keeping "
+        "the desired signal in. It's like looking through a window from a different angle — the same "
+        "signals are out there, but your 'view' shifts. It won't eliminate impulse noise (that's "
+        "hardware-level), doesn't affect station capacity, and has nothing to do with band edges."
+    )
+
+    E["G4A03"] = (
+        "A noise blanker works by detecting short-duration noise pulses (like ignition noise from a "
+        "car engine or electric fence controllers) and briefly reducing the receiver gain during "
+        "each pulse. The key insight: impulse noise is very short in time but very broad in "
+        "frequency — it hits all at once and disappears. The noise blanker has a fast-acting gate "
+        "that senses these spikes and essentially 'mutes' the receiver for that microsecond. Your "
+        "brain fills in the tiny gap, and the noise disappears. It does NOT increase bandwidth "
+        "(that would make things worse), doesn't use a filter capacitor (that's an audio filter "
+        "approach), and doesn't clip peaks (that's a limiter, which causes distortion). The noise "
+        "blanker is the surgical approach — G4A07 covers what happens when noise reduction is "
+        "set too aggressively."
+    )
+
+    E["G4A04"] = (
+        "When tuning a vacuum-tube RF power amplifier, you adjust the TUNE (or PLATE) control to "
+        "find a pronounced dip in plate current. Here's why: the TUNE control adjusts the plate "
+        "tank circuit to resonance. At resonance, the tank circuit's impedance is maximum, which "
+        "means minimum current flows through the tube for a given amount of RF output. A dip in "
+        "plate current tells you the tank is resonant and the tube is working efficiently. A peak "
+        "would mean you're way off resonance and the tube is drawing maximum current while producing "
+        "minimum output — wasting power as heat. This is basic tube amplifier operation, and even "
+        "if you never touch a tube amp, the concept of resonance = maximum impedance = minimum "
+        "current is the same principle behind matching networks everywhere (G5A01)."
+    )
+
+    E["G4A05"] = (
+        "ALC (Automatic Level Control) prevents excessive drive to an RF power amplifier. When you "
+        "feed too much drive signal into an amplifier, it goes into saturation and produces "
+        "distortion, splatter, and harmonics — making your signal wide and ugly. ALC is a feedback "
+        "loop: the amplifier samples its output, and if drive is too high, it sends a control "
+        "voltage back to the exciter telling it to reduce output. Think of it as a governor on an "
+        "engine. It doesn't balance audio response, doesn't directly reduce harmonics (though "
+        "preventing overdrive indirectly helps), and doesn't increase efficiency. Its job is purely "
+        "to keep the amplifier operating within its linear range. See G4A11 for why ALC and digital "
+        "modes don't mix well."
+    )
+
+    E["G4A06"] = (
+        "An antenna tuner (more accurately called a transmatch) increases power transfer from the "
+        "transmitter to the feed line by presenting the correct impedance to the transmitter's "
+        "output. This is a common misconception question: the antenna tuner does NOT reduce the "
+        "SWR on the feed line between the tuner and the antenna — that SWR stays the same. What "
+        "it does is transform the impedance at the shack end of the feed line to match the "
+        "transmitter's 50-ohm output. The transmitter 'sees' a 50-ohm load and happily delivers "
+        "full power. The SWR between tuner and antenna hasn't changed, but the power reaching "
+        "the tuner is maximized. This ties directly to impedance matching concepts from G5A "
+        "and the SWR concepts from G9B — the tuner is the matching device between two mismatched "
+        "impedances."
+    )
+
+    E["G4A07"] = (
+        "As you increase the noise reduction level, received signals can become distorted. Noise "
+        "reduction algorithms (DSP-based in modern rigs) try to separate signal from noise by "
+        "analyzing patterns. But push it too far and the algorithm starts chewing on the desired "
+        "signal too, creating artifacts and distortion. It's a tradeoff: more noise reduction = "
+        "cleaner background but potentially mangled audio. The receiver frequency stays stable "
+        "(noise reduction doesn't affect the local oscillator), CW signals aren't specifically "
+        "attenuated (that would be a notch filter — G4A01), and frequency shift isn't a thing. "
+        "The practical lesson: use only as much noise reduction as you need, and back off when "
+        "signals start sounding weird."
+    )
+
+    E["G4A08"] = (
+        "The LOAD or COUPLING control on a tube amplifier should be adjusted for desired power "
+        "output without exceeding maximum allowable plate current. This control adjusts how tightly "
+        "the output tank circuit is coupled to the antenna — more coupling = more power transferred "
+        "but also more current through the tube. You increase LOAD until you get the output you "
+        "want, watching the plate current meter to make sure you don't exceed the tube's rating. "
+        "The correct procedure: first dip the plate current with TUNE (G4A04), then increase LOAD "
+        "for desired output, then re-dip TUNE, and iterate. You're NOT tuning for minimum SWR "
+        "directly, and NOT trying to maximize plate voltage. You're balancing output power against "
+        "tube ratings — a practical application of the impedance matching principles from G5."
+    )
+
+    E["G4A09"] = (
+        "The delay between keying the amplifier and sending RF output gives the amplifier's T/R "
+        "(transmit/receive) relay time to switch the antenna from the transceiver's receiver to the "
+        "amplifier's output. Without this delay, RF power would be applied while the relay is still "
+        "moving — potentially sending high power back into the transceiver's receiver front end "
+        "(very bad) or arcing across the relay contacts. The sequencing goes: key line activates → "
+        "amplifier relay switches antenna to amplifier output → delay completes → RF drive begins. "
+        "This is NOT about key clicks (that's waveform shaping), NOT about overmodulation, and NOT "
+        "about power supply startup time (tube amps do have warmup, but that's handled differently)."
+    )
+
+    E["G4A10"] = (
+        "An electronic keyer automatically generates properly-timed dots and dashes for CW "
+        "operation. You squeeze a paddle left for dashes, right for dots (or vice versa), and the "
+        "keyer handles the timing — dot length, dash length (3× dot), inter-element spacing, and "
+        "inter-character spacing. A good keyer lets you send clean, consistent CW at any speed "
+        "without having to manually time each element. It's NOT a T/R switch (that's separate), "
+        "NOT a computer interface for digital modes (that's a sound card or TNC), and NOT an "
+        "antenna switching delay (G4A09). Keyers range from simple analog circuits to "
+        "microprocessor-based units with memories and contest features."
+    )
+
+    E["G4A11"] = (
+        "ALC should be inactive during AFSK data transmission because ALC action distorts the "
+        "signal. Here's why: AFSK (Audio Frequency Shift Keying) uses constant-amplitude audio "
+        "tones to represent data. The transmitter should produce a constant-envelope RF output. "
+        "But ALC is designed for voice — it compresses dynamic peaks. When ALC reacts to the "
+        "constant AFSK tones, it creates gain variations that distort the waveform, generating "
+        "intermodulation products and splatter. The fix: set your drive level so the transmitter "
+        "never needs ALC action (typically 50% or less of max power), and verify zero ALC deflection "
+        "on the meter. This connects to the broader topic of transmitter linearity tested in G4B08."
+    )
+
+    E["G4A12"] = (
+        "The dual-VFO feature lets you transmit on one frequency and listen on another — commonly "
+        "called 'split' operation. This is essential for working DX stations who are listening "
+        "'up' (e.g., the DX station transmits on 14.195 but listens on 14.200-14.210). You set "
+        "VFO-A to their transmit frequency to hear them, and VFO-B to the frequency where they're "
+        "listening to call them. You cannot transmit on two frequencies simultaneously (that would "
+        "require two transmitters), it doesn't enable full duplex (amateur HF is simplex or split, "
+        "not duplex), and it has nothing to do with frequency accuracy. Split operation is a "
+        "fundamental operating technique tested in G2 as well."
+    )
+
+    E["G4A13"] = (
+        "A receive attenuator reduces the signal strength arriving at the receiver's front end "
+        "to prevent overload from strong signals. If you're near a high-power station or have a "
+        "very large antenna, the incoming signals can be strong enough to overdrive the receiver's "
+        "first mixer or RF amplifier stage, causing distortion, intermod, and phantom signals that "
+        "aren't really there. The attenuator (typically -10, -20, or -30 dB) pads everything down "
+        "to a level the receiver can handle cleanly. It's NOT for reducing transmitter drive (that's "
+        "a different control), NOT for saving battery power, and NOT for controlling audio volume "
+        "(use the AF gain for that). Think of it as sunglasses for your receiver on a bright day."
+    )
+
+    # ── G4B — Test and Monitoring Equipment; Two-Tone Test ───────────
+
+    E["G4B01"] = (
+        "An oscilloscope contains horizontal and vertical channel amplifiers. The vertical amplifier "
+        "boosts the signal you're measuring and deflects the electron beam (or drives the display) "
+        "up and down. The horizontal amplifier drives the time base — sweeping the beam left to "
+        "right. Together, they create the voltage-vs-time display that makes the oscilloscope "
+        "uniquely useful for visualizing waveforms. An ohmmeter just measures resistance, a signal "
+        "generator creates signals (no display amplifiers), and an ammeter measures current. Only "
+        "the scope has both H and V channel amplifiers — that's what makes it a scope."
+    )
+
+    E["G4B02"] = (
+        "An oscilloscope can display complex waveforms that a digital voltmeter (DVM) cannot. A DVM "
+        "gives you a single number — the voltage at one instant (or its RMS/average). An "
+        "oscilloscope shows you the complete shape of the waveform over time: you can see "
+        "overshoot, ringing, distortion, noise riding on signals, rise times, and modulation "
+        "envelopes. The scope doesn't use less power, can't directly measure complex impedance, "
+        "and actually has LESS voltage precision than a good DVM. Its superpower is visualization "
+        "— seeing the waveform's shape, not just its magnitude. That's why it's essential for the "
+        "tests described in G4B03 and G4B04."
+    )
+
+    E["G4B03"] = (
+        "An oscilloscope is the best instrument for checking CW keying waveform. When you key a CW "
+        "transmitter, the RF output should ramp up and down smoothly — not snap on and off like a "
+        "light switch. Too-fast transitions create key clicks (broadband interference that sounds "
+        "like clicking to nearby stations). Only an oscilloscope lets you see the actual rise and "
+        "fall times of the keying envelope. A field strength meter just shows signal presence, a "
+        "sidetone monitor only lets you hear the audio, and a wavemeter only checks frequency. "
+        "None of them show you the shape of the keying transitions — that requires the time-domain "
+        "display only a scope provides."
+    )
+
+    E["G4B04"] = (
+        "When checking the RF envelope pattern of a transmitted signal on an oscilloscope, you "
+        "connect the attenuated RF output of the transmitter to the vertical input. You need an "
+        "actual sample of the RF signal coming out of the transmitter, but at a level the scope "
+        "can handle safely (hence 'attenuated' — you can't connect 100 watts directly to a scope "
+        "input!). A directional coupler or a resistive tap provides this attenuated sample. You "
+        "don't connect the local oscillator (that's an internal signal), an external oscillator "
+        "(that's not your transmitted signal), or the balanced mixer output (that's an intermediate "
+        "stage). You want to see what's actually leaving the transmitter."
+    )
+
+    E["G4B05"] = (
+        "Voltmeters have high input impedance to decrease loading on the circuit being measured. "
+        "This is fundamental test equipment design: when you connect a voltmeter across a circuit, "
+        "you're adding a parallel resistance. If that resistance is low, it draws significant "
+        "current, changing the voltage you're trying to measure — the act of measuring changes "
+        "the result. A high-impedance voltmeter (10 MΩ is typical for a DMM) draws negligible "
+        "current, so the circuit behaves the same with or without the meter connected. This is "
+        "the same principle behind why we want high impedance at the input of a receiver — minimize "
+        "the impact on the source. It's NOT about frequency response, safety, or display resolution."
+    )
+
+    E["G4B06"] = (
+        "A digital multimeter (DMM) provides higher precision than an analog multimeter. A DMM "
+        "displays exact numerical values — 4.372 volts, not 'somewhere between 4 and 4.5.' This "
+        "precision comes from the analog-to-digital converter inside the DMM. Analog meters have "
+        "their advantages too (see G4B09 — they're better for peaking/nulling adjustments), but "
+        "precision isn't one of them. A DMM isn't necessarily better for computer circuits, isn't "
+        "less prone to overload (both types can be damaged), and actually has SLOWER response than "
+        "an analog needle for seeing trends. The DMM's strength is precision readings."
+    )
+
+    E["G4B07"] = (
+        "A two-tone test uses two non-harmonically related audio signals. Typically these are "
+        "around 700 Hz and 1900 Hz — chosen specifically so that neither is a harmonic of the "
+        "other. Why non-harmonically related? Because if they were harmonically related (say 700 "
+        "Hz and 1400 Hz), the intermodulation products would fall on the same frequencies as the "
+        "test tones, making them impossible to distinguish. With non-harmonically related tones, "
+        "the intermod products fall at predictable but DIFFERENT frequencies, so you can clearly "
+        "see them on a scope or spectrum analyzer. They're not phase-shifted copies, not swept "
+        "tones, and definitely not square waves (which are full of harmonics by definition)."
+    )
+
+    E["G4B08"] = (
+        "A two-tone test analyzes transmitter linearity. SSB transmitters must be linear — the "
+        "output power should be proportional to the input signal level. When you feed in two equal "
+        "tones, a perfectly linear transmitter produces an output with only those two tones. Any "
+        "nonlinearity creates intermodulation products — extra signals at frequencies like "
+        "2f₁ - f₂ and 2f₂ - f₁ that appear as 'shoulders' on an oscilloscope display. On a scope, "
+        "a good linear signal shows a clean envelope pattern; a nonlinear one shows flat tops or "
+        "crossover distortion. This test is critical because nonlinearity causes splatter — the "
+        "wide, distorted signals that interfere with adjacent channels. It doesn't measure carrier "
+        "suppression, FM deviation, or phase shift. Linearity is the target — see G4A11 for why "
+        "ALC must be off during this test."
+    )
+
+    E["G4B09"] = (
+        "An analog multimeter is preferred when adjusting circuits for maximum or minimum values "
+        "(peaking and nulling). The moving needle gives you instant visual feedback about the "
+        "direction and rate of change — you can see it swinging toward the peak as you turn a "
+        "knob, and you can tell immediately when you've passed it. A digital display is just "
+        "numbers flickering — you can't easily tell if you're getting closer to or farther from "
+        "the target. For logic circuits, high precision work, or frequency measurement, the digital "
+        "meter wins (G4B06). But for the tactile, real-time feedback of tuning adjustments, nothing "
+        "beats a needle. This is why many experienced hams keep both types on the bench."
+    )
+
+    E["G4B10"] = (
+        "A directional wattmeter can determine standing wave ratio (SWR). It measures both forward "
+        "power (going toward the antenna) and reflected power (coming back). From these two "
+        "measurements, you can calculate SWR using the formula SWR = (1 + √(Pr/Pf)) / (1 - √(Pr/Pf)). "
+        "This ties directly to the SWR concepts in G9B — the directional wattmeter is the practical "
+        "instrument that measures what G9B teaches. It cannot measure front-to-back ratio (you'd "
+        "need a field strength meter and the ability to walk around the antenna), can't identify "
+        "RF interference sources, and doesn't measure propagation. It measures power in each "
+        "direction on a feed line, from which SWR is derived."
+    )
+
+    E["G4B11"] = (
+        "An antenna analyzer must be connected to the antenna and feed line when making SWR "
+        "measurements — because that's what you're measuring! The analyzer generates a low-level "
+        "test signal internally, sends it through the feed line to the antenna, and measures what "
+        "comes back. It doesn't need a separate receiver or transmitter connected — it IS the "
+        "signal source. If you connect a transmitter, you'll destroy the analyzer (it has sensitive "
+        "receiver circuitry). If you connect only the analyzer with no antenna/feed line, you're "
+        "just measuring the impedance of an open connector. The whole point is to characterize the "
+        "antenna system — analyzer on one end, antenna on the other."
+    )
+
+    E["G4B12"] = (
+        "Strong nearby transmitters can inject received power that interferes with SWR readings on "
+        "an antenna analyzer. The analyzer works by sending out a small test signal and measuring "
+        "the reflection. But if there's a nearby transmitter blasting RF into your antenna, that "
+        "external power mixes with the analyzer's test signal and corrupts the measurement. The "
+        "analyzer can't tell the difference between its own reflected signal and the external RF. "
+        "This is why you should make antenna measurements when nearby stations aren't transmitting. "
+        "It's not intermodulation in the traditional sense, not harmonic generation, and not all "
+        "of the above — it's specifically received power corrupting the SWR measurement."
+    )
+
+    E["G4B13"] = (
+        "An antenna analyzer can measure the impedance of coaxial cable. The analyzer measures "
+        "complex impedance (resistance + reactance) at its port, so you can characterize a piece "
+        "of coax by connecting it and measuring. You can determine the cable's characteristic "
+        "impedance, electrical length, loss, and whether it has faults. What an antenna analyzer "
+        "CANNOT measure: front-to-back ratio (requires field measurements around the antenna), "
+        "transmitter power output (the analyzer IS the source, not a power meter), or antenna gain "
+        "(requires calibrated field strength measurements). The analyzer lives in the impedance "
+        "domain — it tells you about impedance, SWR, and related parameters."
+    )
+
+    # ── G4C — Interference, Grounding, and Shielding ─────────────────
+
+    E["G4C01"] = (
+        "A bypass capacitor reduces RF interference to audio circuits. When RF energy gets into "
+        "audio wiring, it can be rectified by semiconductor junctions (diodes, transistor junctions) "
+        "and appear as interference in the audio output. A bypass capacitor provides a low-impedance "
+        "path to ground for RF frequencies while having negligible effect on audio frequencies — "
+        "because capacitive reactance decreases with frequency (X_C = 1/2πfC from G5A). At RF "
+        "frequencies (MHz), a small capacitor is essentially a short circuit to ground. At audio "
+        "frequencies (kHz), it's nearly invisible. A 'bypass inductor' isn't a real thing in this "
+        "context. Diodes (forward or reverse biased) wouldn't help — they'd make the problem "
+        "worse since rectification is part of the interference mechanism."
+    )
+
+    E["G4C02"] = (
+        "Arcing at a poor electrical connection causes interference covering a wide range of "
+        "frequencies. An electrical arc is essentially a spark — and sparks generate broadband "
+        "RF noise from very low frequencies up through VHF and beyond. Think of it as an "
+        "unintentional spark-gap transmitter. Common culprits: loose connections on power lines, "
+        "corroded antenna connections, poor contacts in switches. The interference sounds like a "
+        "raspy buzz or harsh crackling across the entire HF spectrum. Not using a balun causes "
+        "common-mode current issues (narrower interference), lack of rectification doesn't cause "
+        "interference (it prevents it), and using a balun on an unbalanced antenna is a matching "
+        "issue, not a broadband noise source."
+    )
+
+    E["G4C03"] = (
+        "An audio device experiencing RF interference from an SSB phone transmitter produces "
+        "distorted speech. Here's the mechanism: RF energy from your SSB signal gets into the "
+        "audio device's wiring or circuits. Semiconductor junctions in the audio device "
+        "(particularly op-amp inputs or transistor stages) act as crude detectors, rectifying "
+        "the RF and recovering the modulation — your voice. But it's terrible 'reception' with "
+        "no proper filtering, so the result is distorted, garbled speech. It won't be a steady "
+        "hum (that's AC line interference), it won't be clicking (that's CW — see G4C04), and "
+        "it won't be clearly audible speech (the detection is too crude for that). Distorted but "
+        "recognizable speech is the telltale sign of SSB RFI."
+    )
+
+    E["G4C04"] = (
+        "An audio device experiencing RF interference from a CW transmitter produces on-and-off "
+        "humming or clicking. The same detection mechanism as G4C03 applies — semiconductor "
+        "junctions rectify the incoming RF — but since CW is just a carrier being switched on "
+        "and off (no voice modulation), the detected signal is just a series of pulses matching "
+        "the keying pattern. These sound like clicking or buzzing that follows the rhythm of the "
+        "CW transmission. You won't hear a pure CW tone (the detection process is too crude), "
+        "it won't sound chirpy (chirp is a transmitter defect), and it won't be severely distorted "
+        "audio (there's no audio to distort — CW has no modulation). The on-off clicking pattern "
+        "matching the CW rhythm is the dead giveaway."
+    )
+
+    E["G4C05"] = (
+        "High impedance in the ground wire on a particular frequency can cause high voltages that "
+        "produce RF burns. Here's the physics: if your ground wire happens to be a significant "
+        "fraction of a wavelength (like a quarter wavelength), it can present very high impedance "
+        "at the operating frequency instead of the low impedance you expect from a ground connection. "
+        "With high impedance and RF current flowing, V = I × Z produces high voltages — on the "
+        "metal chassis you're touching. This connects to resonance concepts from G5A — a wire "
+        "at a resonant length behaves as a high-impedance element. Flat vs. round wire, insulated "
+        "vs. bare wire, and ground rod resonance are all distractors. The real issue is that any "
+        "wire has impedance that depends on frequency, and at the wrong length, your 'ground' "
+        "isn't grounded at all at RF."
+    )
+
+    E["G4C06"] = (
+        "A resonant ground connection can cause high RF voltages on the enclosures of station "
+        "equipment. This is the direct consequence of G4C05 — when the ground wire's impedance "
+        "is high at your operating frequency, the equipment chassis 'floats' at RF even though "
+        "it's connected to ground at DC. RF current flowing through the high-impedance ground "
+        "creates voltage drops that appear on every metal surface connected to that ground "
+        "system. Touch the chassis and you get an RF burn. The fix: keep ground leads short "
+        "(much less than a quarter wavelength) and bond all equipment together (G4C09, G4C11). "
+        "Resonant grounds don't cause overheating of ground straps, corrosion, or ground loops — "
+        "they cause high RF voltages on things you don't want to be hot."
+    )
+
+    E["G4C07"] = (
+        "Soldered joints should not be used in lightning protection ground connections because the "
+        "heat of a lightning strike will destroy the solder joint. Lightning carries enormous "
+        "current (tens of thousands of amps) for a very short time. Solder melts at a relatively "
+        "low temperature (around 180-190°C for lead solder, 217°C for lead-free), and lightning "
+        "generates enough heat to instantly melt solder joints, breaking the ground connection "
+        "at the worst possible moment. Instead, use crimped, clamped, or brazed connections — "
+        "copper-to-copper mechanical bonds that can survive the thermal shock. Solder flux, "
+        "dielectric constant, and the 'all of the above' option are all nonsense in this context. "
+        "The issue is purely thermal — solder melts, lightning is hot."
+    )
+
+    E["G4C08"] = (
+        "A ferrite choke on the audio cable reduces RF interference caused by common-mode current. "
+        "Common-mode current is RF flowing on the OUTSIDE of the cable shield (or equally on both "
+        "conductors) — it rides along the cable like an antenna rather than being contained inside. "
+        "A ferrite choke (snap-on ferrite bead or toroidal core with the cable wound through it) "
+        "presents high impedance to common-mode RF without affecting the desired differential "
+        "signal inside the cable. It's the same principle behind baluns and common-mode chokes on "
+        "antenna feed lines (G9B). Shorting center to shield would kill your audio signal, "
+        "grounding the center conductor makes no sense, and extra insulation doesn't help "
+        "because the RF is traveling on the conductor, not through the insulation."
+    )
+
+    E["G4C09"] = (
+        "Ground loops are minimized by bonding equipment enclosures together. A ground loop occurs "
+        "when multiple paths to ground exist, creating a loop that acts as an antenna for induced "
+        "currents (especially 60 Hz hum from nearby power wiring). The fix is to create a single-point "
+        "ground system: bond all equipment chassis together with short, heavy conductors to one "
+        "common ground bus, then run a single conductor from that bus to the station ground rod. "
+        "This eliminates the loops. Connecting grounds in series creates different ground potentials "
+        "(bad). Connecting neutral to ground is a code violation and dangerous. Avoiding lock washers "
+        "is backwards — you WANT secure connections. Bonding everything together ensures all "
+        "equipment is at the same ground potential."
+    )
+
+    E["G4C10"] = (
+        "A ground loop in audio connections causes 'hum' on your transmitted signal. The loop acts "
+        "as an antenna, picking up 60 Hz (or 120 Hz) from nearby AC power wiring. This hum gets "
+        "into the audio path and is transmitted along with your voice — other stations hear a "
+        "constant buzzing underneath your speech. This is NOT related to SWR (that's an antenna "
+        "system issue), NOT excessive current draw (that's a power supply problem), and NOT "
+        "harmonic interference (that's a transmitter filtering issue). If someone says 'you've "
+        "got a hum on your signal,' check your audio ground connections and look for loops — "
+        "the fix is bonding (G4C09)."
+    )
+
+    E["G4C11"] = (
+        "Bonding all equipment enclosures together minimizes RF 'hot spots' in an amateur station. "
+        "This is the same principle as G4C06 and G4C09 — when equipment chassis are at different "
+        "RF potentials, you get voltage differences between them. Touch two pieces of equipment "
+        "simultaneously and you complete the circuit through your body (RF burn). Bonding everything "
+        "together with short, wide conductors ensures all chassis are at the same RF potential. "
+        "Metal enclosures alone don't help if they're not bonded. Surge suppressors protect against "
+        "power line spikes, not RF. Low-pass filters on feed lines address harmonic radiation, "
+        "not station grounding. The keyword is 'bonding' — connecting all metal together."
+    )
+
+    E["G4C12"] = (
+        "All metal enclosures must be grounded to ensure that hazardous voltages cannot appear on "
+        "the chassis. This is fundamental electrical safety, not just RF practice. If an internal "
+        "component fails and the hot wire contacts the chassis, a properly grounded enclosure will "
+        "immediately provide a low-resistance path to ground, tripping the breaker or fuse and "
+        "removing the danger. Without grounding, the chassis sits at line voltage (120V or more) "
+        "waiting for someone to touch it and provide the path to ground through their body. This "
+        "doesn't prevent blown fuses (fuses still blow), doesn't prevent signal overload (that's "
+        "a receiver issue), and doesn't ground the neutral wire (that's done at the service panel). "
+        "It's about preventing electrocution — period."
+    )
+
+    # ── G4D — Speech Processors, S Meters, Sideband Operation ────────
+
+    E["G4D01"] = (
+        "A speech processor increases the apparent loudness of transmitted voice signals. It does "
+        "this by compressing the dynamic range of your voice — bringing up the quiet parts and "
+        "limiting the loud parts. Your peak power stays the same, but the average power increases "
+        "dramatically. To the receiving station, your signal sounds louder and 'punchier' even "
+        "though your PEP hasn't changed. This is particularly useful when trying to punch through "
+        "noise or pile-ups on HF. It doesn't increase bass response, doesn't prevent distortion "
+        "(in fact, overprocessing causes distortion — G4D03), and doesn't specifically reduce "
+        "high-frequency output. Its entire purpose is making you louder."
+    )
+
+    E["G4D02"] = (
+        "A speech processor increases the average power of an SSB signal while keeping peak power "
+        "the same. This is the technical version of G4D01. In SSB, your peak power occurs during "
+        "the loudest syllables, but average power during normal speech is much lower — typically "
+        "only 20-40% of peak. The speech processor compresses the dynamic range so that average "
+        "power comes up closer to the peak. Since S meters respond to average power more than "
+        "peaks, the receiving station sees a stronger signal. The processor does NOT increase peak "
+        "power (that's set by your transmitter), and does NOT reduce distortion — in fact, "
+        "overprocessing increases distortion and intermod (G4D03). Used correctly, a speech "
+        "processor can make a 100-watt station sound like 400 watts."
+    )
+
+    E["G4D03"] = (
+        "An incorrectly adjusted speech processor causes distorted speech, excess intermodulation "
+        "products, AND excessive background noise — all of the above. When the compression is "
+        "set too aggressively: (1) speech becomes clipped and distorted, (2) the nonlinear "
+        "processing creates intermod products that splatter into adjacent frequencies, and (3) "
+        "background noise between words gets amplified up to nearly the same level as speech "
+        "(since the compressor can't distinguish between voice and noise). This is why you should "
+        "set the processor carefully and get on-air reports from another station. More processing "
+        "is NOT always better — there's a sweet spot, and going past it makes your signal worse, "
+        "not better."
+    )
+
+    E["G4D04"] = (
+        "An S meter measures received signal strength. It's a relative indicator built into "
+        "most receivers and transceivers that gives you a visual reading of how strong the "
+        "incoming signal is. The scale typically goes from S1 to S9, then continues in dB above "
+        "S9 (e.g., 'S9 plus 20 dB'). It does NOT measure carrier suppression (that requires "
+        "a spectrum analyzer), NOT impedance (that requires an impedance meter or antenna "
+        "analyzer — G4B13), and NOT transmitter power output (that requires a wattmeter). "
+        "The S meter responds to the AGC (automatic gain control) voltage in the receiver, "
+        "which varies with signal strength. See G4D05-G4D07 for the math behind S-unit readings."
+    )
+
+    E["G4D05"] = (
+        "A signal reading 20 dB over S9 is 100 times more powerful than one reading S9. This "
+        "uses the fundamental decibel-to-power relationship from G5B: every 10 dB = 10× power. "
+        "So 20 dB = 10 × 10 = 100× power. If S9 corresponds to 50 microvolts (the nominal "
+        "calibration point on HF), then S9+20 corresponds to a signal that delivers 100 times "
+        "more power to the receiver. Note that above S9, the meter reads in dB directly — "
+        "not in S-units. Below S9, each S-unit represents 6 dB (G4D06). The dB math here is "
+        "the same you learned in G5B — it just applies to received signal strength."
+    )
+
+    E["G4D06"] = (
+        "One S-unit represents approximately 6 dB of change in signal strength. Since 6 dB "
+        "corresponds to a 4× change in power (and a 2× change in voltage), moving from S5 to "
+        "S6 means the signal power has quadrupled. The full S-meter scale from S1 to S9 spans "
+        "48 dB (8 steps × 6 dB each). Above S9, the meter switches to direct dB readings. The "
+        "6 dB per S-unit standard comes from the IARU recommendation, though in practice many "
+        "S-meters aren't accurately calibrated. Remember: 6 dB per S-unit below S9, straight "
+        "dB above S9. This ties directly to the power calculations in G4D07."
+    )
+
+    E["G4D07"] = (
+        "To move the S meter from S8 to S9 — one S-unit — you need approximately 4 times the "
+        "power. Here's the math: one S-unit = 6 dB (G4D06). A 6 dB increase in power means "
+        "multiplying by 4 (since 10^(6/10) ≈ 3.98 ≈ 4). So if the distant station reads you at "
+        "S8, you need to quadruple your power output to reach S9. If you're running 25 watts, "
+        "you'd need 100 watts. This is why power alone is a poor way to improve your signal — "
+        "quadrupling power (and the associated expense) gains you just one S-unit. A better "
+        "antenna (G9) or better propagation (G3) often delivers more improvement per dollar "
+        "than raw power."
+    )
+
+    E["G4D08"] = (
+        "A 3 kHz LSB signal with the carrier displayed at 7.178 MHz occupies 7.175 MHz to "
+        "7.178 MHz. In Lower Sideband (LSB), the audio information appears BELOW the carrier "
+        "frequency. A 3 kHz wide audio signal extends from the carrier down by 3 kHz: "
+        "7.178 - 0.003 = 7.175 MHz. So the signal occupies 7.175 to 7.178 MHz. This is critical "
+        "for staying within band limits — on 40 meters, General class phone starts at 7.175 MHz, "
+        "so setting your carrier to 7.178 with 3 kHz LSB puts your lower edge right at the band "
+        "edge. Go any lower with your carrier and you'll be transmitting below your authorized "
+        "frequencies. See G4D10 for the general rule about LSB and lower band edges."
+    )
+
+    E["G4D09"] = (
+        "A 3 kHz USB signal with the carrier displayed at 14.347 MHz occupies 14.347 MHz to "
+        "14.350 MHz. In Upper Sideband (USB), the audio information appears ABOVE the carrier "
+        "frequency. A 3 kHz wide signal extends from the carrier up by 3 kHz: "
+        "14.347 + 0.003 = 14.350 MHz. So the signal occupies 14.347 to 14.350 MHz. On 20 meters, "
+        "the phone segment ends at 14.350 MHz, so this puts your upper edge right at the limit. "
+        "Set the carrier any higher and you'll splatter above the band edge. See G4D11 for the "
+        "general rule about USB and upper band edges. Notice the pattern: LSB extends downward "
+        "from the carrier (G4D08), USB extends upward."
+    )
+
+    E["G4D10"] = (
+        "When using 3 kHz LSB, your displayed carrier frequency should be at least 3 kHz ABOVE "
+        "the lower edge of the phone segment. Since LSB extends downward from the displayed "
+        "carrier by 3 kHz, you need at least 3 kHz of room below your carrier to keep the signal "
+        "within the authorized segment. If the phone segment starts at 7.175 MHz and you're "
+        "using 3 kHz LSB, your carrier must be at 7.178 MHz or higher — exactly the scenario "
+        "in G4D08. Setting it below the edge, or only 1 kHz above, would put part of your "
+        "transmitted signal outside your authorized frequency range. Remember: LSB goes DOWN, "
+        "so you need room ABOVE the lower edge."
+    )
+
+    E["G4D11"] = (
+        "When using 3 kHz USB, your displayed carrier frequency should be at least 3 kHz BELOW "
+        "the upper edge of the phone segment. Since USB extends upward from the displayed carrier "
+        "by 3 kHz, you need 3 kHz of room above your carrier. If the phone segment ends at "
+        "14.350 MHz and you're using 3 kHz USB, your carrier must be at 14.347 MHz or lower — "
+        "exactly the scenario in G4D09. The rule is the mirror image of G4D10: USB goes UP, "
+        "so you need room BELOW the upper edge. These four questions (G4D08-G4D11) all test the "
+        "same concept from different angles: know which direction each sideband extends, and "
+        "keep your signal within the authorized bandwidth. This connects directly to the USB/LSB "
+        "conventions covered in G2A."
+    )
+
+    # ── G4E — HF Mobile, Solar Panels, Alternative Energy ────────────
+
+    E["G4E01"] = (
+        "A capacitance hat electrically lengthens a physically short antenna. On HF, a full-size "
+        "mobile antenna would be impractically tall (a quarter-wave on 40 meters is about 33 feet). "
+        "Mobile antennas are physically shortened and use loading coils to add the missing "
+        "electrical length. A capacitance hat — a set of radial wires or a disk at the top of "
+        "the antenna — adds electrical 'end capacitance' that further lengthens the antenna "
+        "electrically without adding physical height. This is closely related to the antenna "
+        "efficiency concepts in G9A — a physically short antenna with loading and a cap hat can "
+        "approach the performance of a full-size antenna. It does NOT increase power handling, "
+        "reduce radiation resistance (it actually increases it), or lower the radiation angle."
+    )
+
+    E["G4E02"] = (
+        "A corona ball reduces RF voltage discharge (corona) from the tip of the antenna while "
+        "transmitting. At high RF voltages, sharp points concentrate the electric field enough "
+        "to ionize the surrounding air, creating visible corona discharge and wasting power. "
+        "On an HF mobile antenna running 100 watts with a high-Q loading coil, the voltage at "
+        "the tip can reach several thousand volts. The corona ball spreads this voltage over a "
+        "larger surface area, reducing the field concentration below the ionization threshold. "
+        "It's the same physics behind why lightning rods have pointed tips (to encourage discharge) "
+        "while antenna tips need balls (to prevent it). It doesn't narrow bandwidth, increase Q, "
+        "or provide physical protection from striking objects."
+    )
+
+    E["G4E03"] = (
+        "A 100-watt HF mobile installation should be powered directly from the battery using "
+        "heavy-gauge wire with fusing. At 13.8V, a 100-watt transceiver draws about 20-22 amps "
+        "on transmit. That requires a direct, short, heavy-gauge connection to handle the current "
+        "without excessive voltage drop. Going directly to the battery (not the alternator) "
+        "provides the most stable voltage and the battery acts as a massive filter capacitor, "
+        "smoothing out alternator noise. The alternator's voltage fluctuates with RPM and load. "
+        "Balanced transmission line is for antenna feed, not DC power. And fusing is essential — "
+        "a short in 20 amps of unfused wire can start a fire. This is the practical application "
+        "of the power distribution principles every mobile operator needs."
+    )
+
+    E["G4E04"] = (
+        "The vehicle's auxiliary power socket (cigarette lighter) should not supply a 100-watt "
+        "transceiver because the socket's wiring is inadequate for the current drawn. Most "
+        "auxiliary sockets are wired with relatively thin gauge wire and fused at 10-15 amps — "
+        "but a 100-watt transceiver draws 20+ amps on transmit. Even if you could plug in a "
+        "high-current connector, the wiring between the socket and the fuse box would overheat "
+        "and potentially melt. The socket isn't reverse-polarity, RF shielding isn't relevant "
+        "for DC power, and engines don't overheat from electrical loads. The issue is simply "
+        "that the wire gauge and fuse rating of the accessory circuit can't handle the current. "
+        "See G4E03 for the correct approach."
+    )
+
+    E["G4E05"] = (
+        "The biggest limitation of an HF mobile installation is the efficiency of the electrically "
+        "short antenna. A full-size 40-meter quarter-wave vertical is about 33 feet — clearly "
+        "impractical on a vehicle. Mobile antennas are physically short and use loading coils to "
+        "compensate, but this comes at a cost: reduced efficiency, narrow bandwidth, and lower "
+        "radiation resistance (G9A). A shortened antenna might radiate only 10-50% of the power "
+        "fed to it, with the rest lost as heat in the loading coil and ground system. 'Picket "
+        "fencing' is a VHF/UHF multipath effect (not HF), wire gauge matters but isn't the "
+        "primary limitation, and there's no FCC rule specifically limiting mobile power on 75m. "
+        "The antenna is always the weakest link in mobile HF."
+    )
+
+    E["G4E06"] = (
+        "A shortened mobile antenna has very limited operating bandwidth compared to a full-size "
+        "antenna. This is because shortened antennas are high-Q (G9A) — the loading coil needed "
+        "to compensate for the missing length creates a narrow resonance peak. You might get only "
+        "20-50 kHz of usable bandwidth on 40 meters before needing to re-tune. A full-size "
+        "quarter-wave vertical might cover most of the band without retuning. The antenna doesn't "
+        "distort signals, doesn't have low Q (it has HIGH Q, which is why bandwidth is narrow), "
+        "and doesn't increase harmonic radiation. The tradeoff is simple: shorter antenna = "
+        "narrower bandwidth = more retuning as you move around the band."
+    )
+
+    E["G4E07"] = (
+        "All of the listed vehicle systems — the battery charging system, the fuel delivery system, "
+        "AND the control computers — can cause receive interference to an HF transceiver. The "
+        "alternator and voltage regulator generate switching noise, fuel injectors create impulse "
+        "noise as they fire, and the various electronic control modules (ECM, BCM, etc.) have "
+        "clock oscillators that radiate RF interference. Modern vehicles are essentially rolling "
+        "RF noise generators. Bonding, filtering, and careful routing of antenna cables away from "
+        "noise sources are all part of a good mobile installation. This connects to the interference "
+        "principles in G4C — the same ferrite chokes (G4C08) and bypass capacitors (G4C01) that "
+        "fix station RFI apply to mobile installations."
+    )
+
+    E["G4E08"] = (
+        "Individual cells in a solar panel are connected in a series-parallel configuration. Each "
+        "silicon photovoltaic cell produces about 0.5V (G4E09), so you need many cells in series "
+        "to build up to a useful voltage (e.g., 36 cells in series for an 18V nominal panel). "
+        "Multiple strings of series-connected cells are then connected in parallel to increase "
+        "current capacity. This series-parallel arrangement is the same concept used in battery "
+        "packs — series for voltage, parallel for current. 'Shunt,' 'bypass,' and 'full-wave "
+        "bridge' are all circuit configurations but none describe how solar cells are interconnected "
+        "within a panel."
+    )
+
+    E["G4E09"] = (
+        "A single fully illuminated silicon photovoltaic cell produces approximately 0.5 VDC "
+        "open-circuit. This is determined by the silicon bandgap energy — approximately 1.1 eV — "
+        "which sets the maximum voltage a single junction can produce. In practice, you get about "
+        "0.5-0.6V per cell. This is why solar panels need many cells in series (G4E08) to reach "
+        "useful voltages: a 12V nominal panel uses about 36 cells (36 × 0.5V = 18V open-circuit, "
+        "which drops to about 14-15V under load, enough to charge a 12V battery). The other "
+        "voltages offered (0.02V, 0.2V, 1.38V) are either too low or too high for a silicon cell. "
+        "1.38V is close to the theoretical maximum for a single-junction cell but not achievable "
+        "in practice with silicon."
+    )
+
+    E["G4E10"] = (
+        "A series diode between the solar panel and battery prevents the battery from discharging "
+        "back through the panel when illumination is low or absent. At night or in heavy shade, "
+        "the solar panel's voltage drops below the battery voltage. Without a blocking diode, "
+        "current would flow backward from the battery through the panel's cells — essentially "
+        "using the panel as a load and draining the battery. The diode allows current to flow "
+        "only from panel to battery (forward direction) and blocks reverse flow. It's NOT a "
+        "voltage regulator (that would be a charge controller — G4E11), NOT a current limiter, "
+        "and NOT overvoltage protection. It's a one-way valve for current. There's a small "
+        "voltage drop across the diode (about 0.3V for Schottky, 0.7V for silicon), which is "
+        "why some modern systems use charge controllers with MOSFETs instead."
+    )
+
+    E["G4E11"] = (
+        "When connecting a solar panel to a lithium iron phosphate (LiFePO4) battery, you must "
+        "use a charge controller. LiFePO4 batteries require precise voltage regulation during "
+        "charging — they have a narrow charging voltage window (typically 14.0-14.6V for a 12V "
+        "battery) and can be damaged or become dangerous if overcharged. A solar panel's output "
+        "voltage varies with illumination and can exceed safe charging levels. A charge controller "
+        "regulates the voltage and current, implementing the proper charging profile (constant "
+        "current → constant voltage → float). A simple series diode (G4E10) prevents backflow "
+        "but provides NO voltage regulation. Grounding the frame is good practice but isn't the "
+        "critical precaution here. Terminal orientation and series resistors don't address the "
+        "core issue. With lithium batteries, a charge controller isn't optional — it's essential "
+        "for safety."
+    )
+
     # ── G5A — Reactance, Impedance, and Impedance Matching ──────────
 
     E["G5A01"] = (
