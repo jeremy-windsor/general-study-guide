@@ -50,7 +50,7 @@ The exam tests specific frequencies. Here are the ones you should recognize:
 
 - **7.125–7.175 MHz** — Extra-only on 40m (Generals are prohibited here)
 - **21.300 MHz** — Within the General portion of 15 meters ✓
-- **14.250 MHz** — In the Extra-only portion of 20m (below 14.225)
+- **14.250 MHz** — In the General class portion of 20m (above 14.225) ✓
 - **29.5+ MHz** — The only portion of 10m available for repeater use
 
 ---

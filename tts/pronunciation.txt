@@ -108,3 +108,35 @@ CAT II|cat 2
 IEEE|I. triple E.
 coax|co-ax
 Coax|Co-ax
+
+# === General-specific additions ===
+NCDXF|N C D X F
+IARU|eye a r u
+DSTAR|D star
+WSPR|whisper
+FT8|F T 8
+FT4|F T 4
+FST4|F S T 4
+PACTOR|pack tor
+APRS|A P R S
+NVIS|N V I S
+MUF|M U F
+LUF|L U F
+BPSK|B P S K
+QPSK|Q P S K
+PSK31|P S K 31
+MFSK|M F S K
+AFSK|A F S K
+TNC|T N C
+ALC|A L C
+SDR|S D R
+ADC|A D C
+DAC|D A C
+SWR|S W R
+ERP|E R P
+PEP|peak envelope power
+CSCE|C S C E
+ARRL|A R R L
+VEC|V E C
+NCVEC|N C V E C
+VE|volunteer examiner

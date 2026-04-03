@@ -164,8 +164,8 @@ def _load_explanations() -> None:
         "The four HF bands with segments exclusively allocated to Amateur Extra licensees are "
         "80 meters, 40 meters, 20 meters, and 15 meters — the same 'big four' bands from G1A01. "
         "On each of these bands, the bottom portion of the voice segment is reserved for Extras only. "
-        "For example, on 20 meters, Extras get 14.150-14.175 MHz exclusively, while Generals start "
-        "at 14.175 MHz. Notice the pattern: every band that has General restrictions (G1A01) is the "
+        "For example, on 20 meters, Extras get 14.150-14.225 MHz exclusively, while Generals start "
+        "at 14.225 MHz. Notice the pattern: every band that has General restrictions (G1A01) is the "
         "same band that has Extra-only segments. The other bands (160m, 60m, 30m, 17m, 12m, 10m) "
         "have no Extra-only segments."
     )
@@ -174,8 +174,9 @@ def _load_explanations() -> None:
         "21,300 kHz (21.300 MHz) is within the General class portion of the 15-meter band. The "
         "General class phone privileges on 15 meters run from 21.275 to 21.450 MHz. The key is "
         "knowing your band edges: 21.300 MHz is clearly within that range. The other choices are "
-        "traps: 14,250 kHz (14.250 MHz) is 20 meters but falls in the Extra-only segment below "
-        "14.275 MHz. 18,155 kHz is 17 meters (where Generals do have full privileges, but it's not "
+        "traps: 14,250 kHz (14.250 MHz) is 20 meters and actually falls in the General class portion "
+        "(above 14.225 MHz) — but this question asks specifically about the 15-meter band, so 14.250 is wrong "
+        "for a different reason entirely. 18,155 kHz is 17 meters (where Generals do have full privileges, but it's not "
         "15 meters). 24,900 kHz is 12 meters (again, full General privileges, but not 15m). The "
         "question specifically asks about the 15-meter band."
     )
