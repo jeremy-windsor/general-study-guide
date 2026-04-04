@@ -1,4 +1,4 @@
-# Technician Study Guide — TTS Pronunciation Dictionary
+# General Class Study Guide — TTS Pronunciation Dictionary
 # Format: raw_term|spoken_replacement
 # Lines starting with # are comments
 
