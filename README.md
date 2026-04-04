@@ -55,6 +55,16 @@ The fastest way to study — a browser-based app that works on your phone, table
 | G0 | Electrical and RF Safety | 2 | 25 |
 | | **Total** | **35** | **429** |
 
+## 📖 Quick References
+
+- **[Cram Sheet](CRAM-SHEET.md)** — Formulas, frequencies, and key numbers on one page
+- **[Glossary](GLOSSARY.md)** — 100+ key terms (A–Z) with definitions and subelement references
+- **[Study Plan](STUDY-PLAN.md)** — 7-day structured study schedule
+
+## Coming from Technician?
+
+New to HF? Check [What You Should Already Know](TECHNICIAN-BRIDGE.md) — a quick refresher on Technician concepts (Ohm's Law, frequency/wavelength, VHF/UHF propagation) that the General exam builds on.
+
 ## How to Study
 
 ### Using the PWA (Recommended)

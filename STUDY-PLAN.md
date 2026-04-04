@@ -16,6 +16,8 @@ A structured plan to prepare for the FCC General class exam in one week. This as
 
 ## Day 1: Rules & Privileges (~2 hours)
 
+> 📋 **Rusty on Technician material?** Start with [What You Should Already Know](TECHNICIAN-BRIDGE.md) — a quick 10-minute refresher on Ohm's Law, frequency/wavelength, and VHF/UHF basics that the General exam builds on.
+
 **Goal:** Know exactly what a General license lets you do.
 
 | Activity | Time | Resource |
