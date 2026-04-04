@@ -771,6 +771,10 @@ button:focus-visible, .nav-btn:focus-visible, .quick-btn:focus-visible,
       <div class="page-title" id="group-picker-title">Select a Group</div>
       <div class="page-sub" id="group-picker-subtitle"></div>
     </div>
+    <div class="card-sm study-audio-wrap" id="study-audio-wrap" hidden>
+      <div class="study-audio-label" id="study-audio-label">Section narrative audio</div>
+      <audio id="study-audio-player" class="study-audio-player" controls preload="metadata"></audio>
+    </div>
     <div class="section-list" id="group-list"></div>
   </div>
 
@@ -782,12 +786,6 @@ button:focus-visible, .nav-btn:focus-visible, .quick-btn:focus-visible,
         <div class="page-title" id="study-section-title" style="font-size:18px;">Section</div>
         <div class="page-sub" id="study-section-count">0 questions</div>
       </div>
-      <button class="fc-tts-btn" id="study-audio-btn" data-action="toggle-study-audio" title="Play section narrative audio" aria-label="Play section narrative audio" aria-controls="study-audio-player" hidden>🔊</button>
-    </div>
-
-    <div class="card-sm study-audio-wrap" id="study-audio-wrap" hidden>
-      <div class="study-audio-label" id="study-audio-label">Section narrative audio</div>
-      <audio id="study-audio-player" class="study-audio-player" controls preload="metadata"></audio>
     </div>
 
     <div id="study-active">

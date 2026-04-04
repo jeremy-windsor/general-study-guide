@@ -234,8 +234,8 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () 
 let currentPage = 'home';
 
 function showPage(page, skipMenu) {
-  if (currentPage === 'section-study' && page !== 'section-study') {
-    resetStudyNarrativeAudio();
+  if (currentPage === 'group-picker' && page !== 'group-picker' && page !== 'section-study') {
+    resetStudyNarrativeAudio({ clearSource: true });
   }
 
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -666,21 +666,12 @@ function getStudyNarrativeAudioPath(section) {
 }
 
 function updateStudyAudioButtonState() {
-  const btn = document.getElementById('study-audio-btn');
-  const audio = document.getElementById('study-audio-player');
-  if (!btn || !audio) return;
-
-  const isPlaying = !audio.paused && !audio.ended;
-  btn.classList.toggle('speaking', isPlaying);
-  const label = isPlaying ? 'Pause section narrative audio' : 'Play section narrative audio';
-  btn.setAttribute('aria-label', label);
-  btn.title = label;
+  // No-op: the speaker button has been removed; playback is controlled
+  // directly via the native <audio> controls on the group-picker page.
 }
 
 function setStudyNarrativeAudioVisibility(visible) {
-  const btn = document.getElementById('study-audio-btn');
   const wrap = document.getElementById('study-audio-wrap');
-  if (btn) btn.hidden = !visible;
   if (wrap) wrap.hidden = !visible;
 }
 
@@ -1320,6 +1311,7 @@ function startWeakAreas() {
 let groupPickerSection = '';
 
 function showGroupPicker(se) {
+  const prevSection = groupPickerSection;
   groupPickerSection = se;
   const seName = SUBELEMENT_NAMES[se] || se;
   const shortDesc = seName.split('·')[1]?.trim();
@@ -1367,6 +1359,11 @@ function showGroupPicker(se) {
   }).join('');
 
   list.innerHTML = html;
+  // Only reconfigure audio when switching to a different section;
+  // returning from section-study keeps the current playback intact.
+  if (prevSection !== se || !document.getElementById('study-audio-player')?.src) {
+    configureStudyNarrativeAudio(se);
+  }
   showPage('group-picker', true);
 }
 
@@ -1399,7 +1396,6 @@ function startSectionStudy(se, group) {
   const title = group ? group : (shortDesc ? se + ' — ' + shortDesc : seName);
   document.getElementById('study-section-title').textContent = title;
   document.getElementById('study-section-count').textContent = studyQuestions.length + ' questions';
-  configureStudyNarrativeAudio(se);
 
   document.getElementById('study-active').style.display = 'flex';
   document.getElementById('study-complete').style.display = 'none';
