@@ -58,6 +58,27 @@ Here's a subtle but important point: **higher transmission line loss reduces the
 
 ---
 
+## Radiation Pattern Diagrams
+
+Before diving into specific antennas, see how different antenna types shape their radiation:
+
+### Half-Wave Dipole Pattern
+![Half-Wave Dipole Radiation Pattern](../figures/G9-dipole-radiation-pattern.svg)
+
+*Classic figure-8: maximum radiation broadside to the wire, nulls off the ends.*
+
+### Vertical / Ground-Plane Pattern
+![Vertical Radiation Pattern](../figures/G9-vertical-radiation-pattern.svg)
+
+*Omnidirectional donut: equal signal in all horizontal directions, low-angle radiation good for DX.*
+
+### Yagi-Uda Directional Pattern
+![Yagi-Uda Radiation Pattern](../figures/G9-yagi-radiation-pattern.svg)
+
+*Directional beam: main lobe forward (toward directors), small back lobe behind (toward reflector).*
+
+---
+
 ## Dipoles and Verticals: The Foundation Antennas
 
 ### The Half-Wave Dipole

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" font-family="Arial, Helvetica, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" font-family="Arial, Helvetica, sans-serif">
   <style>
     .symbol-line { stroke: #222; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
     .symbol-fill { fill: #222; stroke: none; }
@@ -265,6 +265,47 @@
   <text x="800" y="636" class="label">Battery</text>
   <text x="800" y="650" class="sublabel">(Long=+, Short=−)</text>
 
+  <!-- Row 4: Additional symbols -->
+
+  <!-- Symbol 15: Switch (SPST) -->
+  <rect x="20" y="675" width="160" height="170" class="box"/>
+  <text x="100" y="696" class="num">15</text>
+  <!-- Fixed contact -->
+  <line x1="50" y1="755" x2="75" y2="755" class="symbol-line"/>
+  <circle cx="78" cy="755" r="3" class="symbol-fill"/>
+  <!-- Blade (open position) -->
+  <line x1="78" y1="755" x2="118" y2="730" class="symbol-line"/>
+  <!-- Other contact -->
+  <circle cx="122" cy="755" r="3" class="symbol-fill"/>
+  <line x1="125" y1="755" x2="150" y2="755" class="symbol-line"/>
+  <text x="100" y="836" class="label">Switch (SPST)</text>
+  <text x="100" y="850" class="sublabel">(Open blade = break)</text>
+
+  <!-- Symbol 16: Fuse -->
+  <rect x="200" y="675" width="160" height="170" class="box"/>
+  <text x="280" y="696" class="num">16</text>
+  <!-- Fuse body (rectangle with S-curve) -->
+  <line x1="230" y1="755" x2="255" y2="755" class="symbol-line"/>
+  <rect x="255" y="745" width="50" height="20" rx="2" fill="none" stroke="#222" stroke-width="2"/>
+  <!-- Fuse element (thin line inside) -->
+  <path d="M 255,755 C 265,745 275,765 280,755 C 285,745 295,765 305,755" fill="none" stroke="#222" stroke-width="1.5"/>
+  <line x1="305" y1="755" x2="330" y2="755" class="symbol-line"/>
+  <text x="280" y="836" class="label">Fuse</text>
+  <text x="280" y="850" class="sublabel">(S-curve in rectangle)</text>
+
+  <!-- Symbol 17: Variable Resistor (Potentiometer) -->
+  <rect x="380" y="675" width="200" height="170" class="box"/>
+  <text x="480" y="696" class="num">17</text>
+  <!-- Zigzag resistor -->
+  <line x1="410" y1="755" x2="425" y2="755" class="symbol-line"/>
+  <polyline points="425,755 430,740 440,770 450,740 460,770 470,740 480,770 485,755" class="symbol-line"/>
+  <line x1="485" y1="755" x2="510" y2="755" class="symbol-line"/>
+  <!-- Arrow through it (variable) -->
+  <line x1="435" y1="780" x2="475" y2="725" class="symbol-line" stroke-width="1.5"/>
+  <polygon points="475,725 465,730 470,735" class="symbol-fill"/>
+  <text x="480" y="836" class="label">Variable Resistor</text>
+  <text x="480" y="850" class="sublabel">(Resistor + diagonal arrow)</text>
+
   <!-- Footer -->
-  <text x="450" y="690" class="subtitle">Exam questions G7A09–G7A13 reference symbols 1–7 above</text>
+  <text x="450" y="890" class="subtitle">Exam questions G7A09–G7A13 reference symbols 1–7 above</text>
 </svg>
