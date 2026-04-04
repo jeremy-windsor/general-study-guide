@@ -270,3 +270,11 @@ To contact a digital messaging system gateway, **transmit a connect message on t
 | Winlink RMS | Also called a "gateway" |
 | Azimuthal map | True bearings and distances from your location |
 | Long path | 180° from short-path heading |
+
+---
+
+## Where These Concepts Apply Later
+
+- **USB/LSB conventions** → directly tied to [G8 (Signals)](G8-signals-emissions.md) modulation theory — understanding *why* we use USB above 10 MHz
+- **Digital modes (FT8, PSK31, RTTY)** → deepened in [G8](G8-signals-emissions.md) covering bandwidth, encoding, and error correction
+- **Antenna pointing and DX** → connects to [G3 (Propagation)](G3-radio-wave-propagation.md) for understanding *how* signals reach distant stations and [G9 (Antennas)](G9-antennas-feedlines.md) for choosing directional antennas

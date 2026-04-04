@@ -238,3 +238,12 @@ Here's the mental model that ties everything together:
 9. **Check the indices** → SFI for solar activity, K for right now, A for the day
 
 Master these relationships and the exam questions answer themselves. More importantly, you'll understand what you're hearing (or not hearing) every time you tune across the HF bands.
+
+---
+
+## Where These Concepts Apply Later
+
+- **MUF and band selection** → directly affects [G2 (Operating)](G2-operating-procedures.md) band choices and DX strategy
+- **Propagation path loss** → feeds into [G8 (Signals)](G8-signals-emissions.md) link budget calculations
+- **NVIS and antenna height** → key input for [G9 (Antennas)](G9-antennas-feedlines.md) antenna selection and placement
+- **Solar indices and conditions** → context for [G4 (Practices)](G4-amateur-practices.md) receiver sensitivity and noise management

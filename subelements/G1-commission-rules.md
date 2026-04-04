@@ -315,3 +315,11 @@ All three conditions trigger interference-avoidance requirements. The common thr
 | Minimum VE age | 18 years |
 | VEs per exam session | 3 minimum |
 | HF auto-beacon segment | 28.20–28.30 MHz |
+
+---
+
+## Where These Concepts Apply Later
+
+- **Band allocations and frequency limits** → essential context for [G2 (Operating Procedures)](G2-operating-procedures.md) — you need to know where you can transmit before learning how
+- **Power limits per band** → connects to [G5 (Electrical Principles)](G5-electrical-principles.md) power calculations and [G4 (Amateur Practices)](G4-amateur-practices.md) station setup
+- **60m channelized operation** → a unique case that ties rules to [G8 (Signals)](G8-signals-emissions.md) bandwidth and emission types

@@ -363,3 +363,13 @@ Capacitors are the odd one out — they use the reciprocal formula in series (op
 5. **Transformer turns ratio for impedance:** Square root of the impedance ratio, not the impedance ratio itself.
 6. **Resonance:** Series = low impedance. Know that reactances cancel (not resistance).
 7. **1 dB ≈ 20.6% loss:** New for General. Each dB of feed line loss costs about one-fifth of your power.
+
+---
+
+## Where These Concepts Apply Later
+
+- **Reactance and impedance** → the foundation of [G7 (Circuits)](G7-practical-circuits.md) filter design and [G9 (Antennas)](G9-antennas-feedlines.md) impedance matching
+- **Resonance** → how [G9](G9-antennas-feedlines.md) antennas are tuned and why antenna tuners work
+- **PEP and power calculations** → directly tested in [G4 (Practices)](G4-amateur-practices.md) and critical for [G1 (Rules)](G1-commission-rules.md) power limits
+- **dB math** → used throughout [G4](G4-amateur-practices.md) (S-meters), [G8 (Signals)](G8-signals-emissions.md) (link budget), and [G9](G9-antennas-feedlines.md) (antenna gain)
+- **Transformer turns ratio** → applied in [G7](G7-practical-circuits.md) power supplies and [G9](G9-antennas-feedlines.md) baluns

@@ -204,3 +204,11 @@ With only 2 questions from 25, G0 is the smallest subelement on the exam. But do
 - Well-ventilated area (carbon monoxide kills)
 
 Most G0 questions test practical safety judgment rather than obscure regulations. If an answer choice would keep people safe, it's probably correct. If an answer choice sounds bureaucratic or nonsensical, it's probably a distractor.
+
+---
+
+## Where These Concepts Apply Later
+
+- **Grounding and bonding** → revisited in [G4 (Amateur Practices)](G4-amateur-practices.md) for station setup and mobile installations
+- **RF exposure and antenna safety** → directly relevant to [G9 (Antennas)](G9-antennas-feedlines.md) when choosing antenna height and location
+- **Electrical safety (fusing, wire gauge)** → connects to [G7 (Practical Circuits)](G7-practical-circuits.md) power supply design

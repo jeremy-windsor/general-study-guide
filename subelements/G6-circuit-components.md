@@ -257,3 +257,12 @@ The exam tests your knowledge of four connector types — know what each looks l
 4. **MOSFET = insulated gate:** The oxide layer is the defining feature. If the question mentions "insulating layer," it's describing a MOSFET.
 5. **Real components have parasites:** Wire-wound resistors have inductance, inductors have capacitance, electrolytics have leakage. The exam tests your awareness of these real-world limitations.
 6. **Vacuum tube grid functions:** Control grid controls, screen grid shields. Don't swap them.
+
+---
+
+## Where These Concepts Apply Later
+
+- **Diodes and transistors** → the building blocks of [G7 (Circuits)](G7-practical-circuits.md) — rectifiers, amplifiers, oscillators, and switches
+- **MOSFET and BJT characteristics** → directly referenced in [G7](G7-practical-circuits.md) amplifier classes and switching circuits
+- **Connectors (BNC, N, SMA)** → practical knowledge for [G9 (Antennas)](G9-antennas-feedlines.md) feed line connections
+- **Ferrite cores** → used in [G7](G7-practical-circuits.md) transformers and [G9](G9-antennas-feedlines.md) choke baluns
