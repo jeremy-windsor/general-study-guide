@@ -15,7 +15,7 @@ Pass the FCC General class license exam. All questions, all answers, in a study 
 | **Questions** | 35 multiple choice |
 | **Passing** | 26 correct (74%) |
 | **Time** | No official time limit |
-| **Fee** | $35 (ARRL VEC) |
+| **Fee** | ~$15 VEC session fee + $35 FCC application fee |
 | **Prerequisite** | Technician class license |
 | **Where** | Find a session at [arrl.org/find-an-amateur-radio-license-exam-session](http://www.arrl.org/find-an-amateur-radio-license-exam-session) |
 
