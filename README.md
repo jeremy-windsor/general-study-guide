@@ -25,7 +25,7 @@ The exam pulls from a **fixed public question pool** — every possible question
 
 The fastest way to study — a browser-based app that works on your phone, tablet, or desktop. No install required.
 
-**[→ Open the Study App](https://jeremy-windsor.github.io/general-study-guide/apps/study-app/)**
+### 👉 **[Open the Study App](https://jeremy-windsor.github.io/general-study-guide/apps/study-app/)** 👈
 
 | Feature | |
 |---------|---|
@@ -80,6 +80,16 @@ The fastest way to study — a browser-based app that works on your phone, table
 | [2023–2027](pools/2023-2027/) | July 1, 2023 | June 30, 2027 | 429 |
 
 **Source:** [NCVEC](https://www.ncvec.org/index.php/2023-2027-general-question-pool-release) — released into public domain.
+
+## 🎧 Audio Study Guides
+
+Every narrative guide and question file has a companion **MP3 audio recording** in `subelements/`. Use them for:
+
+- **Commute listening** — hear concepts explained conversationally
+- **Reinforcement** — listen after reading the written guides
+- **Accessibility** — learn by listening if that's your style
+
+20 MP3 files total: 10 narrative guides + 10 question files with full answer explanations read aloud.
 
 ## License
 

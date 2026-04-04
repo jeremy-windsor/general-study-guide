@@ -30,6 +30,12 @@ One page of key facts for the morning of your exam.
 
 **Transformer:** Vp/Vs = Np/Ns = Is/Ip
 
+**Power:**
+- P = IE
+- P = I²R
+- P = E²/R
+- PEP = V_peak² / (2R) — **use V_peak, NOT V_peak-to-peak**
+
 **AC relationships:**
 - Vp-p = 2 × Vpeak
 - Vrms = Vpeak × 0.707
@@ -46,10 +52,13 @@ One page of key facts for the morning of your exam.
 ## Propagation
 
 - **D layer:** Absorbs HF during day, gone at night
-- **F2 layer:** Main long-distance layer
+- **E layer:** Sporadic-E for VHF, single hop ~1,200 miles
+- **F2 layer:** Main long-distance layer, single hop ~2,500 miles
 - **Critical frequency:** Max freq reflecting vertically
 - **MUF:** 3-4 × critical frequency
 - **Skip zone:** Between ground wave and sky wave
+- **K-index:** 0-1 = quiet, 5+ = storm (geomagnetic disturbance)
+- **NVIS:** 40m, low horizontal antenna → regional (0-400 mi) coverage
 
 ## Operating
 
@@ -64,8 +73,7 @@ One page of key facts for the morning of your exam.
 |-------|-----------|-----|
 | A | ~25% | Audio, low distortion |
 | B | ~60% | Push-pull RF |
-| C | ~80% | CW, high efficiency |
-| D | ~90% | Switching |
+| C | ~80% | CW/FM, high efficiency |
 
 ## Antennas
 
@@ -80,6 +88,15 @@ One page of key facts for the morning of your exam.
 - **RF exposure:** Follows inverse square law
 - **First aid:** Call 911, ensure power off first
 - **Fusing:** Protect the wire at the source
+
+## RF Connectors
+
+| Connector | Max Frequency | Notes |
+|-----------|--------------|-------|
+| BNC | 4 GHz | Common on test equipment |
+| Type N | 10 GHz | Weatherproof, UHF/microwave |
+| SMA | 18+ GHz | Small, precision |
+| PL-259/SO-239 | ~150 MHz | HF standard (UHF connector) |
 
 ## Quick Conversions
 
