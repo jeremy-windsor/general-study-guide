@@ -3,6 +3,8 @@
 
 ## Group G7A — Power supplies; schematic symbols
 
+> 📎 **Figure G7-1** is referenced by questions G7A09–G7A13 below. View the figure: [Schematic Symbols (Figure G7-1)](../figures/G7-1-schematic-symbols.svg)
+
 ### G7A01
 **What is the function of a power supply bleeder resistor?**
 - A) It acts as a fuse for excess voltage

@@ -59,7 +59,11 @@ The tradeoff: switchmode supplies generate high-frequency noise that can interfe
 
 ## Schematic Symbols: Reading the Map
 
-The exam tests your ability to identify components from their schematic symbols using Figure G7-1. You should be able to recognize:
+The exam tests your ability to identify components from their schematic symbols using Figure G7-1. Study the figure carefully — five exam questions reference it directly.
+
+![Figure G7-1 — Schematic Symbols](../figures/G7-1-schematic-symbols.svg)
+
+You should be able to recognize:
 
 - **FET (Field-Effect Transistor):** Shows a channel with a gate that doesn't directly touch it — reflecting the electric-field control from G6. The arrow direction indicates N-channel or P-channel.
 - **Zener diode:** Looks like a regular diode but with bent/kinked ends on the bar (cathode). The visual cue for "this operates in reverse breakdown."

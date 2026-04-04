@@ -1,0 +1,270 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" font-family="Arial, Helvetica, sans-serif">
+  <style>
+    .symbol-line { stroke: #222; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .symbol-fill { fill: #222; stroke: none; }
+    .label { font-size: 14px; fill: #333; text-anchor: middle; font-weight: bold; }
+    .sublabel { font-size: 11px; fill: #666; text-anchor: middle; }
+    .num { font-size: 18px; fill: #1a6bb5; text-anchor: middle; font-weight: bold; }
+    .title { font-size: 22px; fill: #111; text-anchor: middle; font-weight: bold; }
+    .subtitle { font-size: 13px; fill: #555; text-anchor: middle; }
+    .box { fill: #f8f9fa; stroke: #ccc; stroke-width: 1; rx: 8; }
+    .lead { stroke: #222; stroke-width: 1.5; fill: none; }
+  </style>
+
+  <!-- Title -->
+  <text x="450" y="35" class="title">Figure G7-1 — Schematic Symbols</text>
+  <text x="450" y="55" class="subtitle">General Class Exam Reference (2023–2027 Pool)</text>
+
+  <!-- Symbol 1: FET (N-Channel MOSFET) -->
+  <rect x="20" y="75" width="160" height="170" class="box"/>
+  <text x="100" y="96" class="num">1</text>
+  <!-- Gate line -->
+  <line x1="50" y1="155" x2="75" y2="155" class="symbol-line"/>
+  <!-- Gate plate -->
+  <line x1="80" y1="130" x2="80" y2="180" class="symbol-line"/>
+  <!-- Channel segments -->
+  <line x1="88" y1="128" x2="88" y2="145" class="symbol-line"/>
+  <line x1="88" y1="152" x2="88" y2="158" class="symbol-line"/>
+  <line x1="88" y1="165" x2="88" y2="182" class="symbol-line"/>
+  <!-- Drain lead -->
+  <line x1="88" y1="128" x2="120" y2="128" class="symbol-line"/>
+  <line x1="120" y1="128" x2="120" y2="110" class="symbol-line"/>
+  <!-- Source lead -->
+  <line x1="88" y1="182" x2="120" y2="182" class="symbol-line"/>
+  <line x1="120" y1="182" x2="120" y2="200" class="symbol-line"/>
+  <!-- Body arrow (N-channel: arrow points in) -->
+  <line x1="88" y1="155" x2="120" y2="155" class="symbol-line"/>
+  <polygon points="98,155 88,150 88,160" class="symbol-fill"/>
+  <!-- Labels -->
+  <text x="55" y="170" class="sublabel">G</text>
+  <text x="132" y="114" class="sublabel">D</text>
+  <text x="132" y="210" class="sublabel">S</text>
+  <text x="100" y="236" class="label">FET</text>
+  <text x="100" y="250" class="sublabel">(Field-Effect Transistor)</text>
+
+  <!-- Symbol 2: NPN Transistor -->
+  <rect x="200" y="75" width="160" height="170" class="box"/>
+  <text x="280" y="96" class="num">2</text>
+  <!-- Base lead -->
+  <line x1="235" y1="155" x2="262" y2="155" class="symbol-line"/>
+  <!-- Base vertical -->
+  <line x1="262" y1="130" x2="262" y2="180" class="symbol-line" stroke-width="3"/>
+  <!-- Collector -->
+  <line x1="262" y1="137" x2="300" y2="115" class="symbol-line"/>
+  <line x1="300" y1="115" x2="300" y2="105" class="symbol-line"/>
+  <!-- Emitter with arrow pointing OUT (NPN) -->
+  <line x1="262" y1="173" x2="300" y2="195" class="symbol-line"/>
+  <line x1="300" y1="195" x2="300" y2="205" class="symbol-line"/>
+  <!-- Arrow on emitter -->
+  <polygon points="300,195 286,186 290,196" class="symbol-fill"/>
+  <!-- Labels -->
+  <text x="232" y="163" class="sublabel">B</text>
+  <text x="313" y="110" class="sublabel">C</text>
+  <text x="313" y="216" class="sublabel">E</text>
+  <text x="280" y="236" class="label">NPN Transistor</text>
+  <text x="280" y="250" class="sublabel">(Arrow points away = NPN)</text>
+
+  <!-- Symbol 3: PNP Transistor -->
+  <rect x="380" y="75" width="160" height="170" class="box"/>
+  <text x="460" y="96" class="num">3</text>
+  <!-- Base lead -->
+  <line x1="415" y1="155" x2="442" y2="155" class="symbol-line"/>
+  <!-- Base vertical -->
+  <line x1="442" y1="130" x2="442" y2="180" class="symbol-line" stroke-width="3"/>
+  <!-- Collector -->
+  <line x1="442" y1="173" x2="480" y2="195" class="symbol-line"/>
+  <line x1="480" y1="195" x2="480" y2="205" class="symbol-line"/>
+  <!-- Emitter with arrow pointing IN (PNP) -->
+  <line x1="442" y1="137" x2="480" y2="115" class="symbol-line"/>
+  <line x1="480" y1="115" x2="480" y2="105" class="symbol-line"/>
+  <!-- Arrow on emitter pointing toward base -->
+  <polygon points="452,132 462,143 454,143" class="symbol-fill"/>
+  <!-- Labels -->
+  <text x="412" y="163" class="sublabel">B</text>
+  <text x="493" y="216" class="sublabel">C</text>
+  <text x="493" y="110" class="sublabel">E</text>
+  <text x="460" y="236" class="label">PNP Transistor</text>
+  <text x="460" y="250" class="sublabel">(Arrow points in = PNP)</text>
+
+  <!-- Symbol 4: Diode -->
+  <rect x="560" y="75" width="150" height="170" class="box"/>
+  <text x="635" y="96" class="num">4</text>
+  <!-- Anode lead -->
+  <line x1="595" y1="155" x2="615" y2="155" class="symbol-line"/>
+  <!-- Triangle -->
+  <polygon points="615,140 615,170 640,155" class="symbol-fill" fill="#222"/>
+  <!-- Cathode bar -->
+  <line x1="640" y1="138" x2="640" y2="172" class="symbol-line" stroke-width="2.5"/>
+  <!-- Cathode lead -->
+  <line x1="640" y1="155" x2="670" y2="155" class="symbol-line"/>
+  <!-- Labels -->
+  <text x="595" y="182" class="sublabel">A</text>
+  <text x="670" y="182" class="sublabel">K</text>
+  <text x="635" y="236" class="label">Diode</text>
+  <text x="635" y="250" class="sublabel">(Standard Rectifier)</text>
+
+  <!-- Symbol 5: Zener Diode -->
+  <rect x="730" y="75" width="150" height="170" class="box"/>
+  <text x="805" y="96" class="num">5</text>
+  <!-- Anode lead -->
+  <line x1="765" y1="155" x2="785" y2="155" class="symbol-line"/>
+  <!-- Triangle -->
+  <polygon points="785,140 785,170 810,155" class="symbol-fill" fill="#222"/>
+  <!-- Zener cathode bar with bent ends -->
+  <line x1="804" y1="138" x2="810" y2="138" class="symbol-line" stroke-width="2.5"/>
+  <line x1="810" y1="138" x2="810" y2="172" class="symbol-line" stroke-width="2.5"/>
+  <line x1="810" y1="172" x2="816" y2="172" class="symbol-line" stroke-width="2.5"/>
+  <!-- Cathode lead -->
+  <line x1="810" y1="155" x2="840" y2="155" class="symbol-line"/>
+  <!-- Labels -->
+  <text x="805" y="236" class="label">Zener Diode</text>
+  <text x="805" y="250" class="sublabel">(Bent cathode bar)</text>
+
+  <!-- Row 2 -->
+
+  <!-- Symbol 6: Solid-Core Transformer -->
+  <rect x="20" y="275" width="200" height="170" class="box"/>
+  <text x="120" y="296" class="num">6</text>
+  <!-- Primary coil (left) - arcs -->
+  <path d="M 65,310 C 50,315 50,325 65,330" class="symbol-line"/>
+  <path d="M 65,330 C 50,335 50,345 65,350" class="symbol-line"/>
+  <path d="M 65,350 C 50,355 50,365 65,370" class="symbol-line"/>
+  <path d="M 65,370 C 50,375 50,385 65,390" class="symbol-line"/>
+  <!-- Primary leads -->
+  <line x1="65" y1="310" x2="65" y2="305" class="symbol-line"/>
+  <line x1="65" y1="390" x2="65" y2="395" class="symbol-line"/>
+  <!-- Core lines (solid = iron core) -->
+  <line x1="78" y1="305" x2="78" y2="400" class="symbol-line" stroke-width="2"/>
+  <line x1="84" y1="305" x2="84" y2="400" class="symbol-line" stroke-width="2"/>
+  <!-- Secondary coil (right) - arcs -->
+  <path d="M 97,310 C 112,315 112,325 97,330" class="symbol-line"/>
+  <path d="M 97,330 C 112,335 112,345 97,350" class="symbol-line"/>
+  <path d="M 97,350 C 112,355 112,365 97,370" class="symbol-line"/>
+  <path d="M 97,370 C 112,375 112,385 97,390" class="symbol-line"/>
+  <!-- Secondary leads -->
+  <line x1="97" y1="310" x2="97" y2="305" class="symbol-line"/>
+  <line x1="97" y1="390" x2="97" y2="395" class="symbol-line"/>
+  <!-- Note -->
+  <text x="145" y="345" class="sublabel" text-anchor="start">Solid lines</text>
+  <text x="145" y="360" class="sublabel" text-anchor="start">= iron core</text>
+  <text x="120" y="436" class="label">Solid-Core Transformer</text>
+  <text x="120" y="450" class="sublabel">(Two coils + core lines)</text>
+
+  <!-- Symbol 7: Tapped Inductor -->
+  <rect x="240" y="275" width="160" height="170" class="box"/>
+  <text x="320" y="296" class="num">7</text>
+  <!-- Coil arcs -->
+  <path d="M 290,340 C 295,325 310,325 315,340" class="symbol-line"/>
+  <path d="M 315,340 C 320,325 335,325 340,340" class="symbol-line"/>
+  <path d="M 340,340 C 345,325 360,325 365,340" class="symbol-line"/>
+  <!-- Leads -->
+  <line x1="280" y1="340" x2="290" y2="340" class="symbol-line"/>
+  <line x1="365" y1="340" x2="375" y2="340" class="symbol-line"/>
+  <!-- Tap point -->
+  <line x1="315" y1="340" x2="315" y2="370" class="symbol-line"/>
+  <circle cx="315" cy="340" r="3" class="symbol-fill"/>
+  <!-- Tap label -->
+  <text x="328" y="375" class="sublabel">Tap</text>
+  <text x="320" y="436" class="label">Tapped Inductor</text>
+  <text x="320" y="450" class="sublabel">(Coil with mid-point tap)</text>
+
+  <!-- Symbol 8: Resistor -->
+  <rect x="420" y="275" width="160" height="170" class="box"/>
+  <text x="500" y="296" class="num">8</text>
+  <!-- Zigzag resistor -->
+  <line x1="450" y1="350" x2="462" y2="350" class="symbol-line"/>
+  <polyline points="462,350 467,335 477,365 487,335 497,365 507,335 517,365 522,350" class="symbol-line"/>
+  <line x1="522" y1="350" x2="540" y2="350" class="symbol-line"/>
+  <text x="500" y="436" class="label">Resistor</text>
+  <text x="500" y="450" class="sublabel">(Zigzag pattern)</text>
+
+  <!-- Symbol 9: Capacitor -->
+  <rect x="600" y="275" width="160" height="170" class="box"/>
+  <text x="680" y="296" class="num">9</text>
+  <!-- Capacitor plates -->
+  <line x1="645" y1="345" x2="668" y2="345" class="symbol-line"/>
+  <line x1="668" y1="325" x2="668" y2="365" class="symbol-line" stroke-width="2.5"/>
+  <line x1="680" y1="325" x2="680" y2="365" class="symbol-line" stroke-width="2.5"/>
+  <line x1="680" y1="345" x2="705" y2="345" class="symbol-line"/>
+  <text x="680" y="436" class="label">Capacitor</text>
+  <text x="680" y="450" class="sublabel">(Two parallel plates)</text>
+
+  <!-- Row 3 -->
+
+  <!-- Symbol 10: Inductor -->
+  <rect x="20" y="475" width="160" height="170" class="box"/>
+  <text x="100" y="496" class="num">10</text>
+  <!-- Coil arcs -->
+  <path d="M 45,545 C 50,525 65,525 70,545" class="symbol-line"/>
+  <path d="M 70,545 C 75,525 90,525 95,545" class="symbol-line"/>
+  <path d="M 95,545 C 100,525 115,525 120,545" class="symbol-line"/>
+  <path d="M 120,545 C 125,525 140,525 145,545" class="symbol-line"/>
+  <!-- Leads -->
+  <line x1="35" y1="545" x2="45" y2="545" class="symbol-line"/>
+  <line x1="145" y1="545" x2="155" y2="545" class="symbol-line"/>
+  <text x="100" y="636" class="label">Inductor</text>
+  <text x="100" y="650" class="sublabel">(Coil / series of humps)</text>
+
+  <!-- Symbol 11: LED -->
+  <rect x="200" y="475" width="160" height="170" class="box"/>
+  <text x="280" y="496" class="num">11</text>
+  <!-- Diode triangle -->
+  <line x1="240" y1="545" x2="258" y2="545" class="symbol-line"/>
+  <polygon points="258,530 258,560 283,545" class="symbol-fill" fill="#222"/>
+  <line x1="283" y1="528" x2="283" y2="562" class="symbol-line" stroke-width="2.5"/>
+  <line x1="283" y1="545" x2="310" y2="545" class="symbol-line"/>
+  <!-- Light arrows -->
+  <line x1="280" y1="520" x2="295" y2="505" class="symbol-line" stroke-width="1.5"/>
+  <polygon points="295,505 288,510 293,513" class="symbol-fill"/>
+  <line x1="290" y1="525" x2="305" y2="510" class="symbol-line" stroke-width="1.5"/>
+  <polygon points="305,510 298,515 303,518" class="symbol-fill"/>
+  <text x="280" y="636" class="label">LED</text>
+  <text x="280" y="650" class="sublabel">(Diode + light arrows)</text>
+
+  <!-- Symbol 12: Op-Amp -->
+  <rect x="380" y="475" width="160" height="170" class="box"/>
+  <text x="460" y="496" class="num">12</text>
+  <!-- Triangle body -->
+  <polygon points="415,520 415,575 475,547" class="symbol-line" fill="none" stroke="#222" stroke-width="2"/>
+  <!-- Input labels -->
+  <line x1="400" y1="535" x2="415" y2="535" class="symbol-line"/>
+  <line x1="400" y1="560" x2="415" y2="560" class="symbol-line"/>
+  <text x="423" y="540" class="sublabel" font-size="14" text-anchor="start">−</text>
+  <text x="423" y="565" class="sublabel" font-size="14" text-anchor="start">+</text>
+  <!-- Output -->
+  <line x1="475" y1="547" x2="500" y2="547" class="symbol-line"/>
+  <text x="460" y="636" class="label">Op-Amp</text>
+  <text x="460" y="650" class="sublabel">(Triangle with +/− inputs)</text>
+
+  <!-- Symbol 13: Ground -->
+  <rect x="560" y="475" width="140" height="170" class="box"/>
+  <text x="630" y="496" class="num">13</text>
+  <!-- Ground symbol -->
+  <line x1="630" y1="525" x2="630" y2="545" class="symbol-line"/>
+  <line x1="610" y1="545" x2="650" y2="545" class="symbol-line" stroke-width="2"/>
+  <line x1="617" y1="553" x2="643" y2="553" class="symbol-line" stroke-width="2"/>
+  <line x1="624" y1="561" x2="636" y2="561" class="symbol-line" stroke-width="2"/>
+  <text x="630" y="636" class="label">Ground</text>
+  <text x="630" y="650" class="sublabel">(Chassis / Earth)</text>
+
+  <!-- Symbol 14: Battery -->
+  <rect x="720" y="475" width="160" height="170" class="box"/>
+  <text x="800" y="496" class="num">14</text>
+  <!-- Battery cells -->
+  <line x1="760" y1="545" x2="775" y2="545" class="symbol-line"/>
+  <line x1="775" y1="525" x2="775" y2="565" class="symbol-line" stroke-width="2"/>
+  <line x1="783" y1="535" x2="783" y2="555" class="symbol-line" stroke-width="1"/>
+  <line x1="791" y1="525" x2="791" y2="565" class="symbol-line" stroke-width="2"/>
+  <line x1="799" y1="535" x2="799" y2="555" class="symbol-line" stroke-width="1"/>
+  <line x1="807" y1="525" x2="807" y2="565" class="symbol-line" stroke-width="2"/>
+  <line x1="815" y1="535" x2="815" y2="555" class="symbol-line" stroke-width="1"/>
+  <line x1="815" y1="545" x2="835" y2="545" class="symbol-line"/>
+  <!-- +/- labels -->
+  <text x="760" y="575" class="sublabel">+</text>
+  <text x="835" y="575" class="sublabel">−</text>
+  <text x="800" y="636" class="label">Battery</text>
+  <text x="800" y="650" class="sublabel">(Long=+, Short=−)</text>
+
+  <!-- Footer -->
+  <text x="450" y="690" class="subtitle">Exam questions G7A09–G7A13 reference symbols 1–7 above</text>
+</svg>
