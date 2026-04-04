@@ -1,5 +1,5 @@
 // General Class Ham Radio Study PWA - Service Worker
-const CACHE_NAME = 'hamradio-general-v1';
+const CACHE_NAME = 'hamradio-general-v2';
 const ASSETS = [
   './',
   './index.html',
