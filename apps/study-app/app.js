@@ -500,6 +500,15 @@ function loadCard(idx) {
   document.getElementById('fc-qid').textContent = q.id;
   document.getElementById('fc-question').textContent = q.question;
 
+  // Remove old figure if any
+  const oldFcFig = document.getElementById('fc-figure-container');
+  if (oldFcFig) oldFcFig.remove();
+  // Show figure if question references one
+  const fcFigHtml = renderInlineFigure(q.question, 'fc-figure-container');
+  if (fcFigHtml) {
+    document.getElementById('fc-question').insertAdjacentHTML('afterend', fcFigHtml);
+  }
+
   // Show section label for weak areas mode
   if (fcSection === 'weak_areas') {
     const sub = q.id.substring(0, 2);
@@ -885,6 +894,20 @@ function renderTestQuestion() {
   document.getElementById('test-qnum').textContent = n;
   document.getElementById('test-qid').textContent = q.id;
   document.getElementById('test-question').textContent = q.question;
+  closeFigureZoom();
+
+  const figureEl = document.getElementById('test-figure');
+  const figureImg = document.getElementById('test-figure-img');
+  const figSrc = getFigureForQuestion(q.question);
+  if (figSrc) {
+    figureImg.src = figSrc;
+    figureImg.dataset.figSrc = figSrc;
+    figureEl.style.display = 'block';
+  } else {
+    figureEl.style.display = 'none';
+    figureImg.src = '';
+  }
+
   const testPct = Math.round(n / EXAM_TOTAL * 100);
   document.getElementById('test-bar').style.width = testPct + '%';
   const testBarContainer = document.getElementById('test-bar-container');
@@ -1421,6 +1444,15 @@ function renderStudyQuestion() {
   document.getElementById('study-qid').textContent = q.id;
   document.getElementById('study-question').textContent = q.question;
 
+  // Remove old figure if any
+  const oldStudyFig = document.getElementById('study-figure-container');
+  if (oldStudyFig) oldStudyFig.remove();
+  // Show figure if question references one
+  const studyFigHtml = renderInlineFigure(q.question, 'study-figure-container');
+  if (studyFigHtml) {
+    document.getElementById('study-question').insertAdjacentHTML('afterend', studyFigHtml);
+  }
+
   const letters = ['A', 'B', 'C', 'D'];
   const previousAnswer = studyAnswers[studyIndex];
   const isReviewing = previousAnswer !== undefined;
@@ -1528,6 +1560,36 @@ function studyRestart() {
   renderStudyQuestion();
 }
 
+// ===== FIGURE SUPPORT =====
+
+function getFigureForQuestion(question) {
+  const text = question.toLowerCase();
+  if (text.includes('figure g7-1')) return '../../figures/G7-1-schematic-symbols.svg';
+  return null;
+}
+
+function renderInlineFigure(question, containerId) {
+  const src = getFigureForQuestion(question);
+  if (!src) return '';
+  return `<div class="fc-figure" id="${containerId}">
+    <img src="${src}" alt="Figure G7-1 — Schematic Symbols" class="fc-figure-img" data-action="zoom-figure" data-fig-src="${src}">
+    <div style="font-size:12px;color:var(--text2);margin-top:6px;font-weight:500;">Figure G7-1 — Schematic Symbols</div>
+  </div>`;
+}
+
+function zoomFigure(src) {
+  if (!src) return;
+  const overlay = document.getElementById('fig-zoom-overlay');
+  document.getElementById('fig-zoom-img').src = src;
+  overlay.classList.add('open');
+}
+
+function closeFigureZoom() {
+  const overlay = document.getElementById('fig-zoom-overlay');
+  overlay.classList.remove('open');
+  document.getElementById('fig-zoom-img').src = '';
+}
+
 // ===== ACTION HANDLER =====
 
 function handleAction(actionEl) {
@@ -1567,6 +1629,8 @@ function handleAction(actionEl) {
     case 'reload-page': window.location.reload(); return;
     case 'start-weak-areas': startWeakAreas(); return;
     case 'open-formula-modal': openModal('formula-modal'); return;
+    case 'zoom-figure': zoomFigure(actionEl.dataset.figSrc || actionEl.src); return;
+    case 'close-fig-zoom': closeFigureZoom(); return;
     default: return;
   }
 }
@@ -1584,6 +1648,11 @@ function handleDocumentChange(event) {
 
 function handleDocumentKeydown(event) {
   if (event.key === 'Escape') {
+    const figOverlay = document.getElementById('fig-zoom-overlay');
+    if (figOverlay?.classList.contains('open')) {
+      closeFigureZoom();
+      return;
+    }
     const formulaModal = document.getElementById('formula-modal');
     if (formulaModal?.classList.contains('open')) {
       closeModal('formula-modal');

@@ -1,5 +1,5 @@
 // General Class Ham Radio Study PWA - Service Worker
-const CACHE_NAME = 'hamradio-general-v2';
+const CACHE_NAME = 'hamradio-general-v4';
 const ASSETS = [
   './',
   './index.html',
@@ -7,7 +7,8 @@ const ASSETS = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
-  '../../pools/2023-2027/questions.json'
+  '../../pools/2023-2027/questions.json',
+  '../../figures/G7-1-schematic-symbols.svg'
 ];
 const APP_BASE_URL = new URL('./', self.location.href);
 const OFFLINE_URL = new URL('./index.html', APP_BASE_URL).href;
