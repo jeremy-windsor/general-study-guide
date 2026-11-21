@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" data-app="general">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111821" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GeneralStudy">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>General Class Ham Radio Study</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a href="#app" class="skip-link">Skip to content</a>
+
+<!-- Top Bar -->
+<header id="topbar" role="banner">
+  <div id="topbar-title">
+    <span class="brand-mark" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="9" r="1.8"/><path d="M8.6 5.6a4.8 4.8 0 0 0 0 6.8"/><path d="M15.4 5.6a4.8 4.8 0 0 1 0 6.8"/><path d="M5.8 2.8a8.8 8.8 0 0 0 0 12.4"/><path d="M18.2 2.8a8.8 8.8 0 0 1 0 12.4"/><path d="m12 11 -3.5 10M12 11l3.5 10M9.5 18h5"/></svg></span>
+    <span class="brand-text">Ham Study<span class="brand-class">General</span></span>
+  </div>
+  <div class="topbar-actions">
+    <a id="github-link" class="icon-btn" href="https://github.com/jeremy-windsor/general-study-guide" target="_blank" rel="noopener noreferrer" title="View this study guide on GitHub" aria-label="View this study guide on GitHub (opens in a new tab)"><svg class="icon icon-solid" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></a>
+    <button id="formula-fab" class="icon-btn" data-action="open-formula-modal" title="Formula quick reference" aria-label="Open formula quick reference"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 5V4H6l6 8-6 8h12v-1"/></svg></button>
+    <button id="theme-btn" data-action="toggle-theme" aria-label="Toggle dark/light mode"><svg class="icon i-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="icon i-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+  </div>
+</header>
+
+<!-- Main App -->
+<main id="app" role="main">
+
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page active">
+    <div class="card readiness-card">
+      <div class="card-label">Exam Readiness</div>
+      <div class="readiness-score" id="readiness-score">0%</div>
+      <div class="readiness-desc" id="readiness-desc">Start studying to track your progress</div>
+      <div class="progress-bar readiness-bar mt-4" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Exam readiness progress" id="readiness-bar-container">
+        <div class="progress-fill" id="readiness-bar" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-seen">0</div>
+        <div class="stat-label">Questions Seen</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-mastered">0</div>
+        <div class="stat-label">Mastered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-tests">0</div>
+        <div class="stat-label">Tests Taken</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-streak">0</div>
+        <div class="stat-label">🔥 Day Streak</div>
+      </div>
+    </div>
+
+    <div class="quick-btns">
+      <button class="quick-btn" data-action="start-quick-flashcards">
+        <div class="quick-btn-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+        <div class="quick-btn-text">
+          <div class="quick-btn-title">Quick Study</div>
+          <div class="quick-btn-desc">Flashcards · focus on weak spots</div>
+        </div>
+        <div class="quick-btn-arrow" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></div>
+      </button>
+      <button class="quick-btn" data-action="start-practice-test">
+        <div class="quick-btn-icon tone-amber" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3h6v3H9z"/><path d="M9 4.5H7a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6.5a2 2 0 0 0-2-2h-2"/><path d="m9 14 2 2 4-4"/></svg></div>
+        <div class="quick-btn-text">
+          <div class="quick-btn-title">Practice Exam</div>
+          <div class="quick-btn-desc">35 questions · 26 to pass (74%)</div>
+        </div>
+        <div class="quick-btn-arrow" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></div>
+      </button>
+      <button class="quick-btn" data-action="show-page" data-page="sections">
+        <div class="quick-btn-icon tone-indigo" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4H9a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5h-6A1.5 1.5 0 0 1 2 16z"/><path d="M22 5.5A1.5 1.5 0 0 0 20.5 4H15a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5h6a1.5 1.5 0 0 0 1.5-1.5z"/></svg></div>
+        <div class="quick-btn-text">
+          <div class="quick-btn-title">Study by Section</div>
+          <div class="quick-btn-desc">G1–G0 · target weak areas</div>
+        </div>
+        <div class="quick-btn-arrow" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></div>
+      </button>
+      <button class="quick-btn" data-action="start-weak-areas">
+        <div class="quick-btn-icon tone-rose" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></div>
+        <div class="quick-btn-text">
+          <div class="quick-btn-title">Weak Areas</div>
+          <div class="quick-btn-desc">Practice questions you've missed</div>
+        </div>
+        <div class="quick-btn-arrow" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 6 6 6-6 6"/></svg></div>
+      </button>
+    </div>
+  </div>
+
+  <!-- SECTIONS PAGE -->
+  <div id="page-sections" class="page">
+    <div>
+      <div class="page-title">Study by Section</div>
+      <div class="page-sub" id="sections-subtitle">423 questions across 10 subelements</div>
+    </div>
+    <div class="section-list" id="section-list"></div>
+  </div>
+
+  <!-- GROUP PICKER PAGE -->
+  <div id="page-group-picker" class="page">
+    <div>
+      <button class="btn btn-secondary btn-sm btn-back" style="margin-bottom:12px;" data-action="group-back" aria-label="Back to sections">← Back</button>
+      <div class="page-title" id="group-picker-title">Select a Group</div>
+      <div class="page-sub" id="group-picker-subtitle"></div>
+    </div>
+    <div class="card-sm study-audio-wrap" id="study-audio-wrap" hidden>
+      <div class="study-audio-label" id="study-audio-label">Section narrative audio</div>
+      <audio id="study-audio-player" class="study-audio-player" controls preload="metadata"></audio>
+    </div>
+    <div class="section-list" id="group-list"></div>
+  </div>
+
+  <!-- SECTION STUDY PAGE -->
+  <div id="page-section-study" class="page">
+    <div class="study-header">
+      <button class="btn btn-secondary btn-sm" data-action="study-back" aria-label="Back to groups">← Back</button>
+      <div class="study-header-main">
+        <div class="page-title" id="study-section-title">Section</div>
+        <div class="page-sub" id="study-section-count">0 questions</div>
+      </div>
+    </div>
+
+    <div id="study-active">
+      <div class="study-progress">
+        <div class="study-progress-text">
+          <span id="study-progress-label">Question 1 of 12</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Study progress" id="study-bar-container">
+          <div class="progress-fill" id="study-progress-bar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="fc-card" id="study-card">
+        <div class="fc-qid" id="study-qid">G1A01</div>
+        <div class="fc-question" id="study-question">Loading…</div>
+        <div class="fc-options" id="study-options"></div>
+      </div>
+
+      <div class="study-nav" id="study-nav-bar">
+        <button class="btn btn-secondary" id="study-prev-btn" data-action="study-prev" disabled>← Prev</button>
+        <button class="btn btn-primary" id="study-next-btn" data-action="study-next">Next →</button>
+      </div>
+    </div>
+
+    <div id="study-complete" style="display:none">
+      <div class="card done-card">
+        <div class="done-emoji" aria-hidden="true">🎉</div>
+        <div class="page-title">Section Complete!</div>
+        <div class="page-sub mt-2" id="study-complete-stats"></div>
+      </div>
+      <div class="study-nav">
+        <button class="btn btn-secondary" style="flex:1" data-action="study-back">Back to Groups</button>
+        <button class="btn btn-primary" style="flex:1" data-action="study-restart">Study Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLASHCARD PAGE -->
+  <div id="page-flashcard" class="page">
+    <div id="fc-mode-select">
+      <div class="page-title">Flashcards</div>
+      <div class="page-sub">Select study mode</div>
+      <div class="fc-mode-select mt-4" id="section-chooser" role="listbox" aria-label="Study mode selection"></div>
+      <div class="mt-4">
+        <button class="btn btn-primary btn-full" data-action="start-flashcards">Start Studying</button>
+      </div>
+    </div>
+
+    <div id="fc-session" style="display:none">
+      <div class="fc-header">
+        <button class="btn btn-secondary fc-header-back" id="fc-back-btn" data-action="prev-card" disabled>← Back</button>
+        <div class="fc-header-info">
+          <div class="fc-counter"><span id="fc-current">1</span> / <span id="fc-total">0</span></div>
+          <div class="fc-section-label" id="fc-section-label">All Questions</div>
+        </div>
+        <div class="fc-controls">
+          <button class="fc-tts-btn" id="fc-tts-btn" data-action="speak-question" title="Read question aloud" aria-label="Read question aloud"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
+          <button class="btn btn-secondary btn-sm" data-action="end-flashcards" aria-label="Exit flashcard session">✕ Exit</button>
+        </div>
+      </div>
+
+      <div class="progress-bar fc-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Flashcard progress" id="fc-bar-container">
+        <div class="progress-fill" id="fc-bar" style="width:0%"></div>
+      </div>
+
+      <div class="fc-card" id="fc-card">
+        <div class="fc-qid" id="fc-qid">G1A01</div>
+        <div class="fc-question" id="fc-question">Loading…</div>
+        <div class="fc-options" id="fc-options"></div>
+      </div>
+
+      <div class="fc-tap-hint">Tap an answer to see the correct choice</div>
+      <div class="fc-nav-row" id="fc-wrong-next" style="display:none">
+        <button class="btn btn-primary btn-full" data-action="flashcard-next">Next →</button>
+      </div>
+    </div>
+
+    <div id="fc-done" style="display:none">
+      <div class="card done-card">
+        <div class="done-emoji" aria-hidden="true">🎉</div>
+        <div class="page-title">Deck Complete!</div>
+        <div class="page-sub mt-2" id="fc-done-stats"></div>
+      </div>
+      <button class="btn btn-primary btn-full" data-action="restart-flashcards">Study Again</button>
+      <button class="btn btn-secondary btn-full" data-action="show-flashcard-menu">Choose Different Section</button>
+    </div>
+  </div>
+
+  <!-- PRACTICE TEST PAGE -->
+  <div id="page-test" class="page">
+    <div id="test-start">
+      <div class="page-title">Practice Exam</div>
+      <div class="page-sub">35 questions · you need 26 correct (74%) to pass</div>
+      <div class="card mt-4">
+        <div class="label">Real Exam Format</div>
+        <p class="card-text">
+          Like the real exam, one question is drawn at random from each of the 35
+          topic groups in the official NCVEC General class pool, so every topic is
+          covered. A 26-minute timer keeps you on pace.
+        </p>
+        <button class="btn btn-primary btn-full mt-4" data-action="start-test">Start Practice Exam</button>
+      </div>
+      <div class="card mt-4">
+        <div class="label">Drill Mode</div>
+        <p class="card-text">
+          35 questions drawn at random from the whole pool. Some topics may be
+          skipped, so use it for extra practice. Drill scores don't count toward
+          your readiness score.
+        </p>
+        <button class="btn btn-secondary btn-full mt-4" data-action="start-drill">Start Drill</button>
+      </div>
+    </div>
+
+    <div id="test-active" style="display:none">
+      <div class="test-status">
+        <div class="test-qnum">Question <span id="test-qnum">1</span> of 35</div>
+        <div class="test-timer" id="test-timer">⏱ 26:00</div>
+      </div>
+      <div class="test-progress-row">
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Test progress" id="test-bar-container">
+          <div class="progress-fill blue" id="test-bar" style="width:0%"></div>
+        </div>
+        <span id="test-bar-pct" class="test-bar-pct">0%</span>
+      </div>
+      <div class="test-question-card">
+        <div class="test-qid" id="test-qid">G1A01</div>
+        <div class="test-question" id="test-question">Question text</div>
+        <div id="test-figure" style="display:none" class="test-figure">
+          <img id="test-figure-img" src="" alt="Schematic diagram" class="test-figure-img" data-action="zoom-figure">
+        </div>
+      </div>
+      <div class="answer-options" id="answer-options"></div>
+      <div class="test-nav">
+        <button class="btn btn-secondary" id="test-prev-btn" data-action="test-prev" disabled>← Prev</button>
+        <button class="btn btn-primary" id="test-next-btn" data-action="test-next">Next →</button>
+      </div>
+      <div class="test-aux-actions">
+        <button class="btn btn-show-answer" id="test-show-answer-btn" data-action="show-test-answer">Show Answer</button>
+        <button class="btn btn-end-exam" data-action="end-exam-early">End Exam Early</button>
+      </div>
+    </div>
+
+    <div id="test-results" style="display:none">
+      <div class="card score-header">
+        <div class="score-emoji" id="score-emoji">🎉</div>
+        <div class="score-num" id="score-num">0/35</div>
+        <div class="score-label" id="score-label">PASS</div>
+        <div class="score-sub" id="score-sub"></div>
+      </div>
+      <div class="flex-row mt-4">
+        <button class="btn btn-primary" style="flex:1" data-action="retake-test">Retake</button>
+        <button class="btn btn-secondary" style="flex:1" data-action="show-page" data-page="test">Back</button>
+      </div>
+      <div id="review-section">
+        <div class="flex-between mt-4">
+          <div class="label">Review Wrong Answers</div>
+          <div id="wrong-count" class="text-red bold small"></div>
+        </div>
+        <div class="review-list mt-2" id="review-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESS PAGE -->
+  <div id="page-progress" class="page">
+    <div class="flex-between">
+      <div>
+        <div class="page-title">My Progress</div>
+        <div class="page-sub">Track your exam readiness</div>
+      </div>
+      <button class="btn btn-secondary btn-sm" data-action="confirm-reset" aria-label="Reset all progress">Reset</button>
+    </div>
+
+    <div class="card">
+      <div class="flex-between">
+        <div class="label">Overall Readiness</div>
+        <div class="bold text-accent" id="prog-readiness">0%</div>
+      </div>
+      <div class="progress-bar mt-2">
+        <div class="progress-fill" id="prog-readiness-bar" style="width:0%"></div>
+      </div>
+      <div class="mt-2 small text-muted">Based on flashcard accuracy and test scores</div>
+    </div>
+
+    <div>
+      <div class="label">Test History</div>
+      <div class="history-list mt-2" id="history-list">
+        <div class="empty-state"><div class="empty-icon">📝</div><p>No tests taken yet</p></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">Progress by Section</div>
+      <div class="section-progress-list mt-2" id="section-progress-list"></div>
+    </div>
+
+    <div>
+      <div class="label">Achievements</div>
+      <div class="badges-grid mt-2" id="badges-grid"></div>
+    </div>
+  </div>
+
+  <div class="fig-zoom-overlay" id="fig-zoom-overlay" data-action="close-fig-zoom" role="dialog" aria-label="Zoomed diagram">
+    <img id="fig-zoom-img" src="" alt="Zoomed schematic diagram">
+  </div>
+
+</main>
+
+<!-- Live region for screen reader announcements -->
+<div id="sr-announce" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+<!-- Bottom Nav -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <button class="nav-btn active" id="nav-home" data-action="show-page" data-page="home" aria-current="page">
+    <span class="nav-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></span>Home
+  </button>
+  <button class="nav-btn" id="nav-flashcard" data-action="show-page" data-page="flashcard">
+    <span class="nav-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="7" width="13" height="14" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v12"/></svg></span>Flashcards
+  </button>
+  <button class="nav-btn" id="nav-test" data-action="show-page" data-page="test">
+    <span class="nav-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3h6v3H9z"/><path d="M9 4.5H7a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6.5a2 2 0 0 0-2-2h-2"/><path d="m9 14 2 2 4-4"/></svg></span>Exam
+  </button>
+  <button class="nav-btn" id="nav-sections" data-action="show-page" data-page="sections">
+    <span class="nav-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4H9a3 3 0 0 1 3 3v13a2.5 2.5 0 0 0-2.5-2.5h-6A1.5 1.5 0 0 1 2 16z"/><path d="M22 5.5A1.5 1.5 0 0 0 20.5 4H15a3 3 0 0 0-3 3v13a2.5 2.5 0 0 1 2.5-2.5h6a1.5 1.5 0 0 0 1.5-1.5z"/></svg></span>Sections
+  </button>
+  <button class="nav-btn" id="nav-progress" data-action="show-page" data-page="progress">
+    <span class="nav-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21h18"/><path d="M6 17v-5"/><path d="M12 17V5"/><path d="M18 17V9"/></svg></span>Progress
+  </button>
+</nav>
+
+
+<!-- Formula Modal -->
+<div class="modal-overlay" id="formula-modal" role="dialog" aria-modal="true" aria-labelledby="formula-modal-title">
+  <div class="modal">
+    <h2 class="modal-title" id="formula-modal-title">Formula Quick Reference</h2>
+    <div class="modal-sub">Essential formulas for the General exam</div>
+    <div class="formula-content">
+      <div class="formula-section">
+        <h3>Ohm's Law</h3>
+        <div class="formula-code">E = I × R
+I = E / R
+R = E / I</div>
+        <div class="formula-legend">E = Voltage (Volts) | I = Current (Amps) | R = Resistance (Ohms)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Power Law</h3>
+        <div class="formula-code">P = E × I
+P = I² × R
+P = E² / R</div>
+        <div class="formula-legend">P = Power (Watts)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Wavelength</h3>
+        <div class="formula-code">λ (meters) = 300 / f (MHz)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Antenna Length</h3>
+        <div class="formula-code">Half-wave dipole (feet) = 468 / f (MHz)
+Quarter-wave vertical (feet) = 234 / f (MHz)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Decibels</h3>
+        <div class="formula-code">+3 dB  = double power
+-3 dB  = half power
++10 dB = 10× power
+-10 dB = 1/10 power
+dB = 10 × log₁₀(P₂/P₁)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Reactance</h3>
+        <div class="formula-code">X_L = 2πfL  (inductive)
+X_C = 1/(2πfC)  (capacitive)</div>
+        <div class="formula-legend">f = frequency | L = inductance (H) | C = capacitance (F)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Impedance</h3>
+        <div class="formula-code">Z = √(R² + X²)
+SWR = Z_load / Z_line  (or inverse)</div>
+      </div>
+      <div class="formula-section">
+        <h3>Resonant Frequency</h3>
+        <div class="formula-code">f = 1 / (2π√(LC))</div>
+      </div>
+      <div class="formula-section">
+        <h3>Transformer Ratio</h3>
+        <div class="formula-code">V_s/V_p = N_s/N_p
+Z ratio = (N_s/N_p)²</div>
+        <div class="formula-legend">V = voltage | N = turns | Z = impedance</div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary btn-full" data-action="close-modal" data-modal-id="formula-modal">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reset Confirm Modal -->
+<div class="modal-overlay" id="reset-modal" role="dialog" aria-modal="true" aria-labelledby="reset-modal-title">
+  <div class="modal">
+    <h2 class="modal-title" id="reset-modal-title">Reset All Progress?</h2>
+    <div class="modal-sub">This will clear all your flashcard history, test scores, and streak data. This cannot be undone.</div>
+    <div class="modal-actions">
+      <button class="btn btn-red btn-full" data-action="do-reset">Yes, Reset Everything</button>
+      <button class="btn btn-secondary btn-full" id="reset-cancel-btn" data-action="close-modal" data-modal-id="reset-modal">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>

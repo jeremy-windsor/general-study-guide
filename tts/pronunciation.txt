@@ -1,0 +1,207 @@
+# General Class Study Guide — narration rules and vocabulary
+#
+# Reference for preparing text before it is sent to text-to-speech.
+# The MP3s use a self-hosted Open Speech server, voice "will"
+# (am_puck(1)+am_liam(1)+am_onyx(0.5) at 1.1x speed), MP3 output.
+#
+# ---------------------------------------------------------------------
+# NARRATION RULES
+# ---------------------------------------------------------------------
+# Sources
+# - Subelement narratives and question banks: subelements/*.md
+# - Cram sheet: read tts/CRAM-SHEET-audio.md (the narration script), not
+#   CRAM-SHEET.md. Keep the two in agreement.
+# - Technician refresher: TECHNICIAN-BRIDGE.md
+#
+# Question banks
+# - Read each question as: "Question G1A01." the question, each choice
+#   ("A. ..."), then "The correct answer is B. <answer>." then the
+#   explanation. Say each group heading before its first question.
+#
+# Layout
+# - Tables: read each row as a sentence. Two columns: "cell 1: cell 2."
+#   More columns: "Header 1: cell. Header 2: cell. ..."
+# - Headings and list items end with a full stop so the voice pauses.
+# - Drop horizontal rules, images, links (keep link text), emoji, and
+#   markdown emphasis.
+#
+# Formulas and math
+# - "=" -> "equals"; "+" -> "plus"; "−" -> "minus"; "×" -> "times";
+#   "a/b" -> "a over b"; "<" / ">" -> "less than" / "greater than"
+# - Subscripts: X_L -> "X L"; R₁ -> "R 1"; V_pp -> "V peak to peak"
+# - Implicit products: 2πfL -> "2 pi f L"; I²R -> "I squared R"
+# - √ -> "the square root of"; ² -> "squared"; ^ -> "to the power of"
+# - ≈ -> "approximately"; ± -> "plus or minus"; ° -> "degrees";
+#   λ -> "wavelength"; → -> a comma pause; ~65% -> "about 65%"
+# - Common fractions in words: 1/2 one half, 1/4 one quarter,
+#   3/4 three quarters, 2/3 two thirds, 5/8 five eighths, 1/10 one tenth
+# - Ranges: 3.800–4.000 -> "3.800 to 4.000"; ratios: 4:1 -> "4 to 1"
+# - Units after numbers: 15A amps, 2000V volts, 1500W watts, 60 km
+#   kilometers, 100 ft feet; Ω ohms, kΩ kilohms, μF microfarads,
+#   pF picofarads, nF nanofarads, mH millihenrys
+# - Slashes that aren't division: I/Q "I and Q", T/R "transmit receive",
+#   USB/LSB "USB or LSB", 75/80m "75 and 80 meter", /AG "stroke A G"
+#
+# ---------------------------------------------------------------------
+# VOCABULARY   (written form|spoken form, case-sensitive, whole words)
+# ---------------------------------------------------------------------
+
+# === Say the full words ===
+SSB|single sideband
+PEP|peak envelope power
+PTT|push to talk
+RTTY|ritty
+JFET|J fet
+MOSFET|moss-fet
+FET|fet
+ARES|air ease
+RACES|ray sees
+FEMA|fee mah
+NASA|nasa
+AMSAT|am sat
+VOX|vox
+DSTAR|D star
+WSPR|whisper
+PACTOR|pack tor
+VE|volunteer examiner
+VEs|volunteer examiners
+WPM|words per minute
+
+# === Spell out letter by letter ===
+RF|R F
+FM|F M
+AM|A M
+CW|C W
+HF|H F
+VHF|V H F
+UHF|U H F
+SHF|S H F
+EHF|E H F
+FCC|F C C
+SWR|S W R
+AGC|A G C
+ALC|A L C
+RIT|R I T
+LED|L E D
+AC|A.C.
+DC|D.C.
+IC|I C
+NPN|N P N
+PNP|P N P
+DMR|D M R
+DCS|D C S
+CQ|C Q
+DX|D X
+GPS|G P S
+ISS|I S S
+ITU|I T U
+IARU|eye a r u
+FT8|F T 8
+FT4|F T 4
+FST4|F S T 4
+PSK|P S K
+PSK31|P S K 31
+BPSK|B P S K
+QPSK|Q P S K
+FSK|F S K
+AFSK|A F S K
+MFSK|M F S K
+OFDM|O F D M
+SSTV|S S T V
+APRS|A P R S
+ARRL|A R R L
+IRLP|I R L P
+CTCSS|C T C S S
+DTMF|D T M F
+WSJT|W S J T
+SPDT|S P D T
+BNC|B N C
+SMA|S M A
+VFO|V F O
+BFO|B F O
+LO|L O
+IF|I F
+PLL|P L L
+DSP|D S P
+SDR|S D R
+ADC|A D C
+DAC|D A C
+IMD|I M D
+TNC|T N C
+RMS|R M S
+ERP|E R P
+EIRP|E I R P
+LSB|L S B
+USB|U S B
+NVIS|N V I S
+MUF|M U F
+LUF|L U F
+SFI|S F I
+MPE|M P E
+GFCI|G F C I
+AWG|A W G
+NEC|N E C
+ULS|U L S
+CSCE|C S C E
+VEC|V E C
+NCVEC|N C V E C
+NCDXF|N C D X F
+
+# === Units ===
+kHz|kilohertz
+MHz|megahertz
+GHz|gigahertz
+Hz|hertz
+mW|milliwatts
+mV|millivolts
+mA|milliamps
+dBi|D B I
+dBd|D B D
+dBm|D B M
+dB|decibels
+
+# === Q signals ===
+QSY|Q S Y
+QRM|Q R M
+QRN|Q R N
+QRP|Q R P
+QRO|Q R O
+QRL|Q R L
+QTH|Q T H
+QSB|Q S B
+QRU|Q R U
+QSL|Q S L
+QSO|Q S O
+QRZ|Q R Z
+
+# === Cable and connector types ===
+RG-58|R G fifty eight
+RG-8|R G eight
+RG-213|R G two thirteen
+PL-259|P L two fifty nine
+SO-239|S O two thirty nine
+
+# === Bands ===
+160m|one sixty meter
+80m|eighty meter
+40m|forty meter
+20m|twenty meter
+15m|fifteen meter
+10m|ten meter
+6m|six meter
+2m|two meter
+1.25m|one and a quarter meter
+70cm|seventy centimeter
+23cm|twenty three centimeter
+
+# === Regulatory references ===
+Part 97|part ninety seven
+47 CFR|forty seven C F R
+
+# === Misc ===
+CAT IV|cat 4
+CAT III|cat 3
+CAT II|cat 2
+IEEE|I. triple E.
+coax|co-ax
+Coax|Co-ax

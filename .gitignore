@@ -1,0 +1,8 @@
+*.pdf
+pool-raw.txt
+__pycache__/
+*.pyc
+.agents/
+.pytest_cache/
+.DS_Store
+cache.db

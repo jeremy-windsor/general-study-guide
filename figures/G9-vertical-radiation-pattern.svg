@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" font-family="Arial, Helvetica, sans-serif">
+  <style>
+    .pattern { fill: rgba(39, 174, 96, 0.25); stroke: #27ae60; stroke-width: 2; }
+    .axis { stroke: #999; stroke-width: 1; stroke-dasharray: 4,3; }
+    .antenna { stroke: #c0392b; stroke-width: 4; stroke-linecap: round; }
+    .ground { stroke: #8B4513; stroke-width: 3; }
+    .ground-fill { fill: #f5e6d3; stroke: none; }
+    .radial { stroke: #8B4513; stroke-width: 1; stroke-dasharray: 3,3; }
+    .label { font-size: 13px; fill: #333; text-anchor: middle; }
+    .title { font-size: 18px; fill: #111; text-anchor: middle; font-weight: bold; }
+    .subtitle { font-size: 12px; fill: #666; text-anchor: middle; }
+    .arrow-label { font-size: 11px; fill: #27ae60; text-anchor: middle; font-weight: bold; }
+    .note { font-size: 11px; fill: #555; text-anchor: middle; }
+    .null-label { font-size: 11px; fill: #c0392b; text-anchor: middle; }
+  </style>
+
+  <!-- Title -->
+  <text x="250" y="30" class="title">Vertical / Ground-Plane — Radiation Pattern</text>
+  <text x="250" y="48" class="subtitle">Azimuthal plane (top view — omnidirectional)</text>
+
+  <!-- Center crosshairs -->
+  <line x1="250" y1="90" x2="250" y2="350" class="axis"/>
+  <line x1="110" y1="220" x2="390" y2="220" class="axis"/>
+  <line x1="148" y1="128" x2="352" y2="312" class="axis"/>
+  <line x1="352" y1="128" x2="148" y2="312" class="axis"/>
+
+  <!-- Omnidirectional pattern (circle) -->
+  <circle cx="250" cy="220" r="115" class="pattern"/>
+
+  <!-- Antenna dot at center (looking from top, vertical is a dot) -->
+  <circle cx="250" cy="220" r="6" fill="#c0392b"/>
+  <circle cx="250" cy="220" r="3" fill="#fff"/>
+
+  <!-- Radial lines (ground plane) -->
+  <line x1="250" y1="220" x2="250" y2="190" class="radial"/>
+  <line x1="250" y1="220" x2="250" y2="250" class="radial"/>
+  <line x1="250" y1="220" x2="220" y2="220" class="radial"/>
+  <line x1="250" y1="220" x2="280" y2="220" class="radial"/>
+
+  <!-- Direction arrows showing equal radiation -->
+  <text x="250" y="82" class="arrow-label">Equal</text>
+  <polygon points="250,88 245,98 255,98" fill="#27ae60"/>
+
+  <text x="250" y="362" class="arrow-label">Equal</text>
+  <polygon points="250,352 245,342 255,342" fill="#27ae60"/>
+
+  <text x="105" y="224" class="arrow-label">Equal</text>
+  <polygon points="118,220 128,215 128,225" fill="#27ae60"/>
+
+  <text x="395" y="224" class="arrow-label">Equal</text>
+  <polygon points="382,220 372,215 372,225" fill="#27ae60"/>
+
+  <!-- Center label -->
+  <text x="270" y="210" class="label" font-size="10">Vertical</text>
+  <text x="270" y="222" class="label" font-size="10">antenna</text>
+  <text x="270" y="234" class="label" font-size="10">(end view)</text>
+
+  <!-- Side view inset -->
+  <rect x="30" y="380" width="200" height="105" rx="6" fill="#f8f9fa" stroke="#ccc" stroke-width="1"/>
+  <text x="130" y="398" class="label" font-size="11" font-weight="bold">Side View (Elevation)</text>
+
+  <!-- Ground line in inset -->
+  <rect x="40" y="462" width="180" height="18" fill="#f5e6d3" stroke="none"/>
+  <line x1="40" y1="462" x2="220" y2="462" class="ground"/>
+
+  <!-- Elevation pattern: two lobes above ground, null overhead, peak ~25 deg over real ground -->
+  <path d="M 130.0,462.0 L 187.6,459.0 L 200.1,454.6 L 207.8,449.7 L 212.7,444.4 L 215.7,439.0 L 217.0,433.7 L 217.0,428.6 L 215.8,423.8 L 213.5,419.4 L 210.4,415.6 L 206.5,412.3 L 202.0,409.7 L 197.0,407.8 L 191.6,406.5 L 186.0,406.0 L 180.3,406.2 L 174.5,407.1 L 168.8,408.6 L 163.3,410.8 L 158.0,413.5 L 153.0,416.8 L 148.4,420.6 L 144.3,424.8 L 140.6,429.4 L 137.4,434.3 L 134.8,439.6 L 132.7,445.0 L 131.2,450.6 L 130.3,456.3 L 130.0,462.0 Z" fill="rgba(39,174,96,0.2)" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 130.0,462.0 L 72.4,459.0 L 59.9,454.6 L 52.2,449.7 L 47.3,444.4 L 44.3,439.0 L 43.0,433.7 L 43.0,428.6 L 44.2,423.8 L 46.5,419.4 L 49.6,415.6 L 53.5,412.3 L 58.0,409.7 L 63.0,407.8 L 68.4,406.5 L 74.0,406.0 L 79.7,406.2 L 85.5,407.1 L 91.2,408.6 L 96.7,410.8 L 102.0,413.5 L 107.0,416.8 L 111.6,420.6 L 115.7,424.8 L 119.4,429.4 L 122.6,434.3 L 125.2,439.6 L 127.3,445.0 L 128.8,450.6 L 129.7,456.3 L 130.0,462.0 Z" fill="rgba(39,174,96,0.2)" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Vertical antenna in inset -->
+  <line x1="130" y1="462" x2="130" y2="422" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+  <text x="130" y="417" class="note" font-size="8">null</text>
+
+  <!-- Peak-angle line in inset -->
+  <line x1="130" y1="462" x2="216" y2="424" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="130" y="476" class="note" font-size="8">Peak ~20–30° • weak at horizon</text>
+
+  <!-- Annotations -->
+  <text x="380" y="420" class="note">Top view: perfect circle</text>
+  <text x="380" y="435" class="note">(omnidirectional)</text>
+  <text x="380" y="455" class="note">Side view: null overhead</text>
+  <text x="380" y="470" class="note">(low-angle radiation)</text>
+
+  <text x="250" y="498" class="note">Equal signal strength in all horizontal directions • Ideal for general HF coverage</text>
+</svg>

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="140 100 580 430" font-family="Arial, Helvetica, sans-serif">
+  <title>Figure G7-1 (redrawn from the official NCVEC figure)</title>
+  <desc>Schematic diagram of an electronic circuit with a +DC supply terminal and an OUT terminal. Eleven components are labeled with the numbers 1 through 11.</desc>
+  <defs>
+    <g id="gnd" fill="none" stroke="#000" stroke-width="1.2" stroke-linecap="round"><path d="M-6.75,6.7 L-4.5,0 H4.5 M0,0 L-2.25,6.7 M4.5,0 L2.25,6.7"/></g>
+  </defs>
+  <!-- White background keeps the drawing readable on dark themes -->
+  <rect x="140" y="100" width="580" height="430" fill="#fff"/>
+  <g fill="none" stroke="#000" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- +DC supply terminal, dropping resistor and top rail -->
+    <path d="M576.1,153.5 V216 M576.1,162 H513.1 M486.1,162 H468.1 L284.2,162.8"/>
+    <path d="M486.1,162 L488.3,157.5 L492.8,166.5 L497.3,157.5 L501.8,166.5 L506.3,157.5 L510.8,166.5 L513.1,162"/>
+    <circle cx="576.1" cy="150.6" r="2.85" fill="#fff"/>
+    <!-- 11: potentiometer (wiper arrow sets the varactor bias), with fixed resistor below -->
+    <path d="M284.2,162.8 V180.8 M284.2,207.8 V234.8 M284.2,261.8 V284.4"/>
+    <path d="M284.2,180.8 L288.7,183.1 L279.7,187.6 L288.7,192.1 L279.7,196.6 L288.7,201.1 L279.7,205.6 L284.2,207.8"/>
+    <path d="M284.2,234.8 L288.7,237.1 L279.7,241.6 L288.7,246.1 L279.7,250.6 L288.7,255.1 L279.7,259.6 L284.2,261.8"/>
+    <use xlink:href="#gnd" x="284.2" y="284.4"/>
+    <path d="M180,225 V196.5 H275.1"/>
+    <polygon points="274.5,193.9 279.8,196.5 274.5,199.1" fill="#000"/>
+    <!-- 8: capacitor (rail bypass) -->
+    <path d="M342.1,162 V181.1 M342.1,184.5 V225"/>
+    <path d="M335.4,181.1 H348.9 M335.4,187.8 C335.4,186.0 338.4,184.5 342.1,184.5 C345.8,184.5 348.9,186.0 348.9,187.8"/>
+    <use xlink:href="#gnd" x="342.1" y="225"/>
+    <!-- JFET drain resistor -->
+    <path d="M378.1,162 V201 M378.1,228 V306"/>
+    <path d="M378.1,201.0 L382.6,203.2 L373.6,207.8 L382.6,212.2 L373.6,216.8 L382.6,221.2 L373.6,225.8 L378.1,228.0"/>
+    <!-- 5: Zener diode (cathode to rail, anode to ground; bent ends on the bar) -->
+    <path d="M432.1,161.9 V234 M425.3,189 H439.4 M425.3,189 L418.6,195.8 M439.4,189 L446.1,182.1"/>
+    <polygon points="425.3,195.7 432.1,189 438.8,195.7" fill="#000"/>
+    <use xlink:href="#gnd" x="432.1" y="234"/>
+    <!-- 4: varactor diode (diode with a capacitor plate), tuned by the potentiometer -->
+    <path d="M180,225 V240.7 M170.6,238.5 C176.2,241.5 183,241.5 188.6,238.5 M170.2,243 H189 M180,243 V343.1"/>
+    <polygon points="171,252 180,243 189,252" fill="#000"/>
+    <!-- unnumbered tank capacitor below the varactor -->
+    <path d="M180.1,346.5 V387"/>
+    <path d="M173.3,343.1 H186.8 M173.3,349.8 C173.3,348.0 176.4,346.5 180.1,346.5 C183.8,346.5 186.8,348.0 186.8,349.8"/>
+    <use xlink:href="#gnd" x="180.1" y="387"/>
+    <!-- tank line to the JFET gate -->
+    <path d="M180.1,310.5 H239.7 M243.1,310.5 H333.1"/>
+    <!-- 10: capacitor (gate coupling) -->
+    <path d="M239.7,303.7 V317.2 M246.4,317.2 C244.6,317.2 243.1,314.2 243.1,310.5 C243.1,306.7 244.6,303.7 246.4,303.7"/>
+    <!-- 7: tapped inductor (tap returns to the JFET source: Hartley oscillator) -->
+    <path d="M216.1,310.5 V387 M216.1,423 V450"/>
+    <path d="M216.1,387 C213.6,387 211.6,389 211.6,391.5 C211.6,394 213.6,396 216.1,396 C213.6,396 211.6,398 211.6,400.5 C211.6,403 213.6,405 216.1,405 C213.6,405 211.6,407 211.6,409.5 C211.6,412 213.6,414 216.1,414 C213.6,414 211.6,416 211.6,418.5 C211.6,421 213.6,423 216.1,423"/>
+    <use xlink:href="#gnd" x="216.1" y="450"/>
+    <!-- gate resistor -->
+    <path d="M270.1,310.5 V328.5 M270.1,355.5 V391.5"/>
+    <path d="M270.1,328.5 L274.6,330.8 L265.6,335.2 L274.6,339.8 L265.6,344.2 L274.6,348.8 L265.6,353.2 L270.1,355.5"/>
+    <use xlink:href="#gnd" x="270.1" y="391.5"/>
+    <!-- 3: diode (gate to ground) -->
+    <path d="M306.1,310.5 V400.5 M296.3,346.5 H315.1"/>
+    <polygon points="297.1,337.5 315.1,337.5 306.1,346.5" fill="#000"/>
+    <use xlink:href="#gnd" x="306.1" y="400.5"/>
+    <!-- 1: N-channel JFET (gate touches the channel; arrow points in = N-channel) -->
+    <circle cx="355.6" cy="310.5" r="18" fill="#fff"/>
+    <path d="M333.1,310.5 H355.6 M355.6,306 H378.2 M355.6,315 H378.1"/>
+    <path d="M355.6,299.2 V321.7" stroke-width="3.1" stroke-linecap="butt"/>
+    <polygon points="348.3,304.8 353.3,310.5 348.3,316.1" fill="#000"/>
+    <!-- source lead to the inductor tap -->
+    <path d="M378.1,315 V450 H234.1 V414 H216.1"/>
+    <!-- unnumbered coupling capacitor, drain to NPN base -->
+    <path d="M378.2,306 H419.7 M423.1,306 H549.1 M419.7,299.2 V312.7 M426.5,312.7 C424.6,312.7 423.1,309.7 423.1,306 C423.1,302.2 424.6,299.2 426.5,299.2"/>
+    <!-- NPN base bias divider -->
+    <path d="M576.1,189 H486.1 V261 M486.1,288 V306 M468.1,306 V324 M468.1,351 V432"/>
+    <path d="M486.1,261.0 L490.6,263.2 L481.6,267.8 L490.6,272.2 L481.6,276.8 L490.6,281.2 L481.6,285.8 L486.1,288.0"/>
+    <path d="M468.1,324.0 L472.6,326.2 L463.6,330.8 L472.6,335.2 L463.6,339.8 L472.6,344.2 L463.6,348.8 L468.1,351.0"/>
+    <use xlink:href="#gnd" x="468.1" y="432"/>
+    <!-- 2: NPN transistor (emitter arrow points out) -->
+    <circle cx="567.1" cy="306" r="13.5" fill="#fff"/>
+    <path d="M549.1,306 H562.6 M562.6,297 V315 M562.6,301.5 L576.1,296 V261 M562.6,310.5 L576.1,316.1 V360"/>
+    <polygon points="568.7,311.1 571.2,314 567.5,314.3" fill="#000"/>
+    <!-- 9: resistor (emitter) and unnumbered emitter bypass capacitor -->
+    <path d="M576.1,360.0 L580.6,362.2 L571.6,366.8 L580.6,371.2 L571.6,375.8 L580.6,380.2 L571.6,384.8 L576.1,387.0"/>
+    <path d="M576.1,387 V432 M576.1,342 H540.1 V370.1 M540.1,373.5 V432"/>
+    <path d="M533.4,370.1 H546.9 M533.4,376.8 C533.4,375.0 536.4,373.5 540.1,373.5 C543.8,373.5 546.9,375.0 546.9,376.8"/>
+    <use xlink:href="#gnd" x="576.1" y="432"/>
+    <use xlink:href="#gnd" x="540.1" y="432"/>
+    <!-- 6: iron-core transformer (two solid lines between the windings) -->
+    <path d="M576.1,216 V225 M584,225 V261 M586.2,225 V261"/>
+    <path d="M576.1,225 C578.6,225 580.6,227 580.6,229.5 C580.6,232 578.6,234 576.1,234 C578.6,234 580.6,236 580.6,238.5 C580.6,241 578.6,243 576.1,243 C578.6,243 580.6,245 580.6,247.5 C580.6,250 578.6,252 576.1,252 C578.6,252 580.6,254 580.6,256.5 C580.6,259 578.6,261 576.1,261"/>
+    <path d="M594.1,234 C591.6,234 589.6,236 589.6,238.5 C589.6,241 591.6,243 594.1,243 C591.6,243 589.6,245 589.6,247.5 C589.6,250 591.6,252 594.1,252"/>
+    <path d="M594.1,234 H638.6 M594.1,252 H612.1 V279"/>
+    <use xlink:href="#gnd" x="612.1" y="279"/>
+    <circle cx="641.4" cy="234" r="2.85" fill="#fff"/>
+    <!-- unnumbered collector-supply bypass capacitor -->
+    <path d="M576.1,216 H531.1 V235.1 M531.1,238.5 V279"/>
+    <path d="M524.4,235.1 H537.9 M524.4,241.8 C524.4,240.0 527.4,238.5 531.1,238.5 C534.8,238.5 537.9,240.0 537.9,241.8"/>
+    <use xlink:href="#gnd" x="531.1" y="279"/>
+  </g>
+  <!-- Part numbers, placed as on the official figure -->
+  <g font-size="12" fill="#000">
+    <text x="260.8" y="190.3">11</text>
+    <text x="155.5" y="251.9">4</text>
+    <text x="199.9" y="422.9">7</text>
+    <text x="314.9" y="362.7">3</text>
+    <text x="343.9" y="287.9">1</text>
+    <text x="352.9" y="179.9">8</text>
+    <text x="416.5" y="182.7">5</text>
+    <text x="590.1" y="310.2">2</text>
+    <text x="595.9" y="382.4">9</text>
+    <text x="591.4" y="220.4">6</text>
+    <text x="235.9" y="298.0">10</text>
+    <text x="578.1" y="134.9">+DC</text>
+    <text x="658.6" y="238.4">OUT</text>
+    <text x="430" y="487" text-anchor="middle">Figure G7-1</text>
+  </g>
+  <!-- Credit (not part of the exam figure). No parts key: the study app
+       shows this figure during G7A09-G7A13, so a key would give answers away. -->
+  <g font-size="10" fill="#555" text-anchor="middle">
+    <text x="430" y="508">Redrawn from the official NCVEC Figure G7-1 (2023–2027 General pool)</text>
+    <text x="430" y="519" fill="#1a5fa8">https://www.ncvec.org/downloads/G7-1.pdf</text>
+  </g>
+</svg>
